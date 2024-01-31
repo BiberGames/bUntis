@@ -1,0 +1,69 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    z-index: 0;
+    font-family: 'Ubuntu Mono';
+    user-select: none;
+}
+
+button {
+    background-color: #3498db;
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #3d7395;
+}
+
+
+input[type=text] {
+	appearance: none;
+	border: none;
+	outline: none;
+	border-bottom: .2em solid #3498db;
+	background: rgba(#3498db, .2);
+	border-radius: .2em .2em 0 0;
+	padding: .4em;
+	color: #3498db;
+    margin-bottom: 0.2em;
+}
+
+input[type=password] {
+	appearance: none;
+	border: none;
+	outline: none;
+	border-bottom: .2em solid #3498db;
+	background: rgba(#3498db, .2);
+	border-radius: .2em .2em 0 0;
+	padding: .4em;
+	color: #3498db;
+    margin-bottom: 0.2em;
+}
+
+.errorScreen
+{
+    width: 1024px;
+    height: 512px;
+    background-color: red;
+}
+
+body {
+    background-color: #252525;
+    color: wheat;
+}
+
+.thinCell {
+    width: 32px;
+}
+
+table, th, td {
+    border-radius: 5px;
+    text-align: center;
+}

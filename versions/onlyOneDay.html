@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./style.css">
+        <title>buntis</title>
+    </head>
+    <body>
+        <p id="SessionString">$SessionString</p>
+        <!--<div class="navbar"> <button onclick="console.log('e')">Home</button> </div>
+        <div class="classes"></div>-->
+        <table id="timeTable1"><tr><td>Montag</td></tr></table> 
+        <!--<table id="timeTable2"><tr><td>Dienstag</td></tr></table> 
+        <table id="timeTable3"><tr><td>Mittwoch</td></tr></table> 
+        <table id="timeTable4"><tr><td>Donnerstag</td></tr></table> 
+        <table id="timeTable5"><tr><td>Freitag</td></tr></table>-->
+
+        <script>
+            const electron = require('electron');
+            const {ipcRenderer} = electron;
+            
+            // begining times of ech lesson
+            //const times = ["745", "835", "940", "1030", "113", "1225", "1340", "1430"];
+            const myClasses = ["MA_12_Ti", "PH_12_Dr", "CH_12_Vi", "POWI_12_Ps_1", "DE_12_Kö", "SEM_12_Sa", "KU_12_Bz"];
+
+            ipcRenderer.on('send:sessionInfo', function(e, item){
+                const sessionID = document.getElementById('SessionString');
+                sessionID.innerHTML = JSON.stringify(item.sessionId);
+            });
+
+            function isMyClass(className)
+            {
+                //console.log(className);
+                for(let i = 0; i < myClasses.length; i++)
+                {
+                    if(className == myClasses[i])
+                    {
+                        return true;
+                    }
+                }
+                return true;
+            }
+
+            function setCellStatusColor(subject, code)
+            {
+                // checks if class is cancelled
+                if(code == "cancelled")
+                {
+                    subject.style.color = "black";
+                    subject.style.textDecoration = "line-through";
+                    subject.style.backgroundColor = "yellow";  
+                }
+                else if(code == "irregular")
+                {
+                    subject.style.color = "black";
+                    //subject.innerHTML = timeTableData.substText;
+                    //subject.style.textDecoration = "line-through";
+                    subject.style.backgroundColor = "orange";  
+                }
+                else
+                {
+                    subject.style.color = "black";
+                    //subject.style.textDecoration = "line-through";
+                    subject.style.backgroundColor = "lightgreen";  
+                }
+            }
+
+            function dataToTable(timeTableData, blk, place)
+            {
+                //var blk = null;//timeTableElement.insertRow();
+                var subject = null;//blk.insertCell();
+
+                //console.log(timeTableData.sg)
+                try{
+                    if(isMyClass(timeTableData.sg))
+                    {
+                        //blk = timeTableElement.insertRow();
+                        subject = blk.insertCell();
+
+                        subject.innerHTML = timeTableData.su[0].name + '<br>[' + timeTableData.ro[0].name + ']';
+                        setCellStatusColor(subject, timeTableData.code);
+                    }
+                }
+                catch(e){
+                    subject.innerHTML = "[ERR]"
+                }
+            }
+
+            function populateTableSpecificDay()
+            {
+
+            }
+
+            ipcRenderer.on('send:timeTableInfo', function(e, item){
+                var timeTableData = item;
+                //console.log(timeTableData);
+                const timeTableElement1 = document.getElementById('timeTable1');
+                var currentRow = 0;
+                var blk1 = timeTableElement1.insertRow();
+                var blk2 = timeTableElement1.insertRow();
+                var blk3 = timeTableElement1.insertRow();
+                var blk4 = timeTableElement1.insertRow();
+                var blk5 = timeTableElement1.insertRow();
+                var blk6 = timeTableElement1.insertRow();
+                var blk7 = timeTableElement1.insertRow();
+                var blk8 = timeTableElement1.insertRow();
+
+                for (let i = 0; i < timeTableData.length; i+=1) {
+                    console.log(timeTableData[i].date);
+                    //console.log(timeTableData[i].su[0].longname);
+                    //console.log(timeTableData[i].startTime)
+
+                    if(timeTableData[i].startTime == "745")
+                    {
+                        dataToTable(timeTableData[i], blk1, 0);
+                    }
+                    else if(timeTableData[i].startTime == "835")
+                    {
+                        dataToTable(timeTableData[i], blk2, 1);
+                    }
+
+                    else if(timeTableData[i].startTime == "940")
+                    {
+                        dataToTable(timeTableData[i], blk3, 2);
+                    }
+                    else if(timeTableData[i].startTime == "1030")
+                    {
+                        dataToTable(timeTableData[i], blk4, 3);
+                    }
+
+                    else if(timeTableData[i].startTime == "1135")
+                    {
+                        dataToTable(timeTableData[i], blk5, 4);
+                    }
+                    else if(timeTableData[i].startTime == "1225")
+                    {
+                        dataToTable(timeTableData[i], blk6, 5);
+                    }
+
+                    else if(timeTableData[i].startTime == "1340")
+                    {
+                        dataToTable(timeTableData[i], blk7, 6);
+                    }
+                    else if(timeTableData[i].startTime == "1430")
+                    {
+                        dataToTable(timeTableData[i], blk8, 7);
+                    }
+                } 
+                /*var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+
+                // Add some text to the new cells:
+                cell1.innerHTML = "NEW CELL1";
+                cell2.innerHTML = "NEW CELL2"; */
+                //sessionID.innerHTML = JSON.stringify(item.sessionId);
+            });
+        </script>
+    </body>
+</html>
