@@ -53,7 +53,7 @@ mainWindow.loadURL(url.format({
   }));
 
 	// Open the DevTools.
-	//mainWindow.webContents.openDevTools()
+	mainWindow.webContents.openDevTools()
 }
 
 app.on('ready', () => {
