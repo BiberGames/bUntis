@@ -40,8 +40,6 @@
   font-feature-settings: 'liga';
 }
 
-
-
 button {
     background-color: #3498db;
     border: none;
@@ -57,7 +55,6 @@ button {
 button:hover {
     background-color: #3d7395;
 }
-
 
 input[type=text] {
 	appearance: none;
@@ -86,15 +83,6 @@ input[type=password] {
 body {
     background-color: #252525;
     color: wheat;
-}
-
-.thinCell {
-    width: 32px;
-}
-
-table, th, td {
-    border-radius: 5px;
-    text-align: center;
 }
 
 .bigPanel {

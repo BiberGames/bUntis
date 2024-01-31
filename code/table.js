@@ -5,7 +5,10 @@ var dates = [];
 var classes = [];
 
 function setCellStatusColor(x, y, code) {
-	utils.getCellInTable(mainTimeTable, x, y).style.borderTop = '10px solid rgba(100, 100, 100, .2)';
+	/*
+    utils.getCellInTable(mainTimeTable, x, y).style.borderTop = '10px solid rgba(100, 100, 100, .2)';
+    */
+    utils.getCellInTable(mainTimeTable, x, y).classList.add('timeTableElement');
 	utils.getCellInTable(mainTimeTable, x, y).style.color = 'black';
 
     switch(code) {
@@ -14,7 +17,6 @@ function setCellStatusColor(x, y, code) {
             utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
             utils.getCellInTable(mainTimeTable, x, y).style.textDecoration = 'line-through';
             utils.getCellInTable(mainTimeTable, x, y).style.backgroundColor = '#FFFD88';
-		    utils.getCellInTable(mainTimeTable, x, y).style.color = 'black';
             break;
 
         case 'irregular':
