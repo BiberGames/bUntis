@@ -12,18 +12,22 @@ const whookURL = 'https://discord.com/api/webhooks/1171182974541238332/DvGVpbeyL
 const myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_Kö', 'SEM_12_Fo', 'KU_12_Bz', 'SN_12_Pn', 'SP_12_8'];
 
 const mainTimeTable = document.getElementById('TimeTable');
-const loadingScreen = document.getElementById('loadingScreen');
-const settingsScreen = document.getElementById('settingsScreen');
 const settingsScreenAddMyClassInput = document.getElementById("MyClassesInput");
-const homeWorkScreen = document.getElementById('homeWork');
 const homeWorkTable = document.getElementById('homeWorkTable')
 const loadingScreenInfoText = document.getElementById('loadingInfo');
 
+const pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen')];
+var openPage = 0;
+/*
 var settingsOpen = false;
 var homeWorkOpen = false;
 
+
 settingsScreen.style.display = 'none';
 homeWorkScreen.style.display = 'none';
+*/
+
+showPage(0);
 
 ipcRenderer.on('renderer:pharseSettings', function(e, item) {
     console.log('Receiving Settings Data');
@@ -52,7 +56,9 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timeTableData) {
 
     timeTable.createTable(myClasses, timeTableData);
 
-	loadingScreen.style.display = 'none';
+    showPage(1);
+    document.getElementById('bottomNavBar').style.display = 'block';
+	//loadingScreen.style.display = 'none';
 });
 
 ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
@@ -76,6 +82,18 @@ async function saveSettings() {
     const result = await ipcRenderer.invoke('server:save', document.getElementById('school').value, document.getElementById('name').value, document.getElementById('password').value, document.getElementById('code').value, document.getElementById('server').value, myClasses);
 }
 
+function showPage(id) {
+	openPage = id;
+
+	for(let i = 0; i < pages.length; i++) {
+		pages[i].style.display = 'none';
+	}
+	pages[id].style.display = 'block';
+
+	//alert(id);
+}
+
+/*
 function toggleSettingsWindow() {
 	console.log('toggleSettingsWindow()');
 	settingsOpen = !settingsOpen;
@@ -97,3 +115,4 @@ function toggleHomeWorkWindow() {
 		homeWorkScreen.style.display = 'none';
 	}
 }
+*/
