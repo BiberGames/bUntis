@@ -23,6 +23,15 @@ showPage(0); // show loading screen when app starts
 
 ipcRenderer.on('renderer:pharseSettings', function(e, item) {
     console.log('Receiving Settings Data');
+    //console.log(item);
+    var data = JSON.parse(item);
+    console.log(data);
+
+    /*document.getElementById('school').value = 'data[0]';
+	document.getElementById('name').value = data[1];
+	document.getElementById('server').value = data[2];
+	document.getElementById('code').value = data[3];
+	//document.getElementById("MyClassesInput").value = data[3];*/
 });
 
 ipcRenderer.on('renderer:sessionInfo', function(e, item) {

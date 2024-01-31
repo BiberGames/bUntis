@@ -120,38 +120,38 @@ ipcMain.handle('server:save', async (event, saveData) => {
         vsCodeDebugConsole.error('Error saving password:', err);
     });
 
-	//keytar.setPassword('bUntis', 'exampleUser', 'examplePassword');
-
-	//fs.writeFileSync(savePath, JSON.stringify(save), 'utf-8');
-
 	vsCodeDebugConsole.log(savePath);
 
 	app.relaunch();
 	app.exit();
 });
 
-async function readSavedSettings()
-{
-    vsCodeDebugConsole.log(savePath);
-
-	let res = fs.existsSync(savePath);
-	if (res)
-	{
-		let dt = fs.readFileSync(savePath);
-		tempData = JSON.parse(dt);
-	}
-}
-
 async function getWebData() {
 	vsCodeDebugConsole.log("untisApi;");
-	await readSavedSettings();
-	//vsCodeDebugConsole.log(tempData);
+
+	var password = keytar.getPassword('bUntis', 'bUntisSystems')
+	.then((password) => {
+		if (password) {
+			//password = JSON.parse(password);
+
+			mainWindow.send('renderer:pharseSettings', password);
+			//password = [];
+
+			vsCodeDebugConsole.log('Password retrieved successfully:', password);
+			vsCodeDebugConsole.log(password[0] + ' ' + password[1] + ' ' + password[3] + ' ' + password[2]);
+		} else {
+			vsCodeDebugConsole.log('Password not found');
+		}
+	}).catch((err) => {
+		vsCodeDebugConsole.error('Error retrieving password:', err);
+	});
+
+	//const untis = new WebUntisSecretAuth(password[0], password[1], password[3], password[2], 'custom-identity', authenticator);
 	const untis = new WebUntisSecretAuth('gymnordenham', 'benjamin.frischkorn', 'FFI7G4D5255MCTLX', 'arche.webuntis.com', 'custom-identity', authenticator);
-	//const untis = new WebUntisSecretAuth(tempData[0], tempData[1], tempData[3], tempData[4], 'custom-identity', authenticator);
-	//vsCodeDebugConsole.log("Logging in.");
+	// schoolField, userNameField, serverURLField, authCodeField, settingsScreenAddMyClassInput
+	//const untis = new WebUntisSecretAuth(password[0], password[1], password[3], password[2], 'custom-identity', authenticator);
+	vsCodeDebugConsole.log("Logging in.");
     
-    mainWindow.send('renderer:pharseSettings', tempData);
-	tempData = [];
 
 	mainWindow.send('renderer:status', 'Logging in.');
 	await untis.login();

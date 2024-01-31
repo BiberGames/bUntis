@@ -5,7 +5,7 @@ const save = async function(_school, _username, _server, _code, _classes) {
 	var saveData = [];
 	var classes = [];
 
-	classes = _classes.split(" ,");
+	classes = _classes.split(", ");
 	var hash = md5.calc(JSON.stringify(saveData));
 
 	saveData.push(_school);
