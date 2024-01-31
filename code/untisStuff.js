@@ -67,11 +67,11 @@ function getSubjectFromHomeWork(id, subjects) {
 }
 
 async function saveSettings() {
-	const schoolField = document.getElementById('school').value;
-	const userNameField = document.getElementById('name').value;
-	const serverURLField = document.getElementById('server').value;
-	const authCodeField = document.getElementById('code').value;
-	const settingsScreenAddMyClassInput = document.getElementById("MyClassesInput").value;
+	const schoolField = utils.sanitizeInput(document.getElementById('school').value);
+	const userNameField = utils.sanitizeInput(document.getElementById('name').value);
+	const serverURLField = utils.sanitizeInput(document.getElementById('server').value);
+	const authCodeField = utils.sanitizeInput(document.getElementById('code').value);
+	const settingsScreenAddMyClassInput = utils.sanitizeInput(document.getElementById("MyClassesInput").value);
 
 	await settings.save(schoolField, userNameField, serverURLField, authCodeField, settingsScreenAddMyClassInput);
 }

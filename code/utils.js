@@ -42,7 +42,7 @@ const getCellInTable = function(table, x, y) {
 }
 
 const sanitizeInput = function(input) {
-    return input.replace(/[^a-zA-Z0-9]/g, '');
+    return input;//.replace(/^[a-zA-Z0-9_.]+$/g, '');
 }
 
 module.exports = {
