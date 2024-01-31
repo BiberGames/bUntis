@@ -76,7 +76,7 @@ app.on('activate', () => {
 
 app.on("new-window", (event, url) => {
 	createWindow();
-	getWebData();
+	//getWebData();
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -85,7 +85,6 @@ app.on("new-window", (event, url) => {
 app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') app.quit()
 })
-
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
@@ -129,7 +128,7 @@ ipcMain.handle('server:save', async (event, saveData) => {
 async function getWebData() {
 	vsCodeDebugConsole.log("untisApi;");
 
-	var password = keytar.getPassword('bUntis', 'bUntisSystems')
+	keytar.getPassword('bUntis', 'bUntisSystems')
 	.then((password) => {
 		if (password) {
 			//password = JSON.parse(password);

@@ -11,6 +11,7 @@ const settings = require('../code/settings.js');
 const whookURL = 'https://discord.com/api/webhooks/1171182974541238332/DvGVpbeyLUytGmsHnXSpBKCFX3aQzb4xwb5Mc9D1EzQcFxTTQo9G7LsY_HkYS7k4J-9w';
 
 const myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_Kö', 'SEM_12_Fo', 'KU_12_Bz', 'SN_12_Pn', 'SP_12_8'];
+var settingsData = '';
 
 const mainTimeTable = document.getElementById('TimeTable');
 const homeWorkTable = document.getElementById('homeWorkTable')
@@ -24,14 +25,9 @@ showPage(0); // show loading screen when app starts
 ipcRenderer.on('renderer:pharseSettings', function(e, item) {
     console.log('Receiving Settings Data');
     //console.log(item);
-    var data = JSON.parse(item);
-    console.log(data);
-
-    /*document.getElementById('school').value = 'data[0]';
-	document.getElementById('name').value = data[1];
-	document.getElementById('server').value = data[2];
-	document.getElementById('code').value = data[3];
-	//document.getElementById("MyClassesInput").value = data[3];*/
+    settingsData = item;
+   	//data = JSON.parse(item);
+    //console.log(data);
 });
 
 ipcRenderer.on('renderer:sessionInfo', function(e, item) {
@@ -87,6 +83,16 @@ async function saveSettings() {
 
 function showPage(id) {
 	openPage = id;
+
+	if(id == 3) {
+    	var pharsedSettingsData = JSON.parse(settingsData);
+
+		document.getElementById('school').value = pharsedSettingsData[0];
+		document.getElementById('name').value = pharsedSettingsData[1];
+		document.getElementById('server').value = pharsedSettingsData[2];
+		document.getElementById('code').value = pharsedSettingsData[3];
+		document.getElementById("MyClassesInput").value = pharsedSettingsData[4];
+	}
 
 	for(let i = 0; i < pages.length; i++) {
 		pages[i].style.display = 'none';
