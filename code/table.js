@@ -5,35 +5,30 @@ var dates = [];
 var classes = [];
 
 function setCellStatusColor(x, y, code) {
-	/*
-    utils.getCellInTable(mainTimeTable, x, y).style.borderTop = '10px solid rgba(100, 100, 100, .2)';
-    */
     utils.getCellInTable(mainTimeTable, x, y).classList.add('timeTableElement');
-	utils.getCellInTable(mainTimeTable, x, y).style.color = 'black';
 
     switch(code) {
         case 'cancelled':
             // adds zero width char to make merging simpler
+            utils.getCellInTable(mainTimeTable, x, y).classList.add('cancelled');
             utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
-            utils.getCellInTable(mainTimeTable, x, y).style.textDecoration = 'line-through';
-            utils.getCellInTable(mainTimeTable, x, y).style.backgroundColor = '#FFFD88';
             break;
 
         case 'irregular':
-            utils.getCellInTable(mainTimeTable, x, y).style.backgroundColor = '#FFD478';
+            utils.getCellInTable(mainTimeTable, x, y).classList.add('irregular');
             break;
 
         case 'sup':
+            utils.getCellInTable(mainTimeTable, x, y).classList.add('sup');
             utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
-            utils.getCellInTable(mainTimeTable, x, y).style.backgroundColor = '#F96B85';
             break;
 
         case 'err':
-            utils.getCellInTable(mainTimeTable, x, y).style.backgroundColor = '#FF0000';
+            utils.getCellInTable(mainTimeTable, x, y).classList.add('err');
             break;
 
         default:
-            utils.getCellInTable(mainTimeTable, x, y).style.backgroundColor = '#B2E672';
+            utils.getCellInTable(mainTimeTable, x, y).classList.add('default');
             break;
     }
 }

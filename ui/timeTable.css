@@ -1,8 +1,31 @@
 .thinCell {
     width: 32px;
+    padding: 2px;
 }
 
 .timeTableElement {
+	color: black;
 	border-left: 10px solid rgba(100, 100, 100, .2);
 	padding: 2px;
+}
+
+.cancelled {
+	text-decoration: line-through;
+	background-color: #FFFD88;
+}
+
+.irregular {
+	background-color: #FFD478;
+}
+
+.sup {
+	background-color: #F96B85;
+}
+
+.err {
+	background-color: #FF0000;
+}
+
+.default {
+	background-color: #B2E672;
 }
