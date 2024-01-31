@@ -41,6 +41,10 @@ const getCellInTable = function(table, x, y) {
     return table.rows[y].cells[x];
 }
 
+const sanitizeInput = function(input) {
+    return input.replace(/[^a-zA-Z0-9]/g, '');
+}
+
 module.exports = {
-    removeDuplicatesAndSort, convertUntisDate, mergeCells, setContentInTable, isMyClass, getCellInTable
+    removeDuplicatesAndSort, convertUntisDate, mergeCells, setContentInTable, isMyClass, getCellInTable, sanitizeInput
 }

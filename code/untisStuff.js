@@ -6,28 +6,20 @@ const md5 = require('../code/md5.js');
 const whook = require('../code/hook.js');
 const timeTable = require('../code/table.js');
 const homeWork = require('../code/homework.js');
+const settings = require('../code/settings.js');
 
 const whookURL = 'https://discord.com/api/webhooks/1171182974541238332/DvGVpbeyLUytGmsHnXSpBKCFX3aQzb4xwb5Mc9D1EzQcFxTTQo9G7LsY_HkYS7k4J-9w';
 
 const myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_Kö', 'SEM_12_Fo', 'KU_12_Bz', 'SN_12_Pn', 'SP_12_8'];
 
 const mainTimeTable = document.getElementById('TimeTable');
-const settingsScreenAddMyClassInput = document.getElementById("MyClassesInput");
 const homeWorkTable = document.getElementById('homeWorkTable')
 const loadingScreenInfoText = document.getElementById('loadingInfo');
 
 const pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen')];
 var openPage = 0;
-/*
-var settingsOpen = false;
-var homeWorkOpen = false;
 
-
-settingsScreen.style.display = 'none';
-homeWorkScreen.style.display = 'none';
-*/
-
-showPage(0);
+showPage(0); // show loading screen when app starts
 
 ipcRenderer.on('renderer:pharseSettings', function(e, item) {
     console.log('Receiving Settings Data');
@@ -75,10 +67,13 @@ function getSubjectFromHomeWork(id, subjects) {
 }
 
 async function saveSettings() {
-    console.log("Saving tags");
+	const schoolField = document.getElementById('school').value;
+	const userNameField = document.getElementById('name').value;
+	const serverURLField = document.getElementById('server').value;
+	const authCodeField = document.getElementById('code').value;
+	const settingsScreenAddMyClassInput = document.getElementById("MyClassesInput").value;
 
-    myClasses = settingsScreenAddMyClassInput.value.split(",");
-    const result = await ipcRenderer.invoke('server:save', document.getElementById('school').value, document.getElementById('name').value, document.getElementById('password').value, document.getElementById('code').value, document.getElementById('server').value, myClasses);
+	await settings.save(schoolField, userNameField, serverURLField, authCodeField, settingsScreenAddMyClassInput);
 }
 
 function showPage(id) {
@@ -88,30 +83,4 @@ function showPage(id) {
 		pages[i].style.display = 'none';
 	}
 	pages[id].style.display = 'block';
-
-	//alert(id);
 }
-
-/*
-function toggleSettingsWindow() {
-	console.log('toggleSettingsWindow()');
-	settingsOpen = !settingsOpen;
-	if(settingsOpen) {
-		settingsScreen.style.display = 'block';
-	}
-	else {
-		settingsScreen.style.display = 'none';
-	}
-}
-
-function toggleHomeWorkWindow() {
-	console.log('toggleHomeWorkWindow()');
-	homeWorkOpen = !homeWorkOpen;
-	if(homeWorkOpen) {
-		homeWorkScreen.style.display = 'block';
-	}
-	else {
-		homeWorkScreen.style.display = 'none';
-	}
-}
-*/

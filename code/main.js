@@ -9,6 +9,7 @@ const { subDays, endOfMonth } = require('date-fns');
 const url = require('url');
 const fs = require("fs");
 const keytar = require('keytar');
+const md5 = require('../code/md5.js');
 
 var mainWindow = ''
 var tempData = [];
@@ -108,17 +109,21 @@ function getFirstDayOfWeek(d)
 const userDataPath = (electron.app || electron.remote.app).getPath('userData');
 const savePath = path.join(userDataPath, 'save.json')
 
-ipcMain.handle('server:save', async (event, school, username, password, code, server, classes) => {
+ipcMain.handle('server:save', async (event, school, username, code, server, classes) => {
 	vsCodeDebugConsole.log("Saving Settings");
 	const save = [];
 	save.push(school);
 	save.push(username);
-	save.push(password);
 	save.push(code);
 	save.push(server);
 	save.push(classes);
 
-	fs.writeFileSync(savePath, JSON.stringify(save), 'utf-8');
+	var hash = md5.calc(JSON.stringify(save));
+	vsCodeDebugConsole.log(hash);
+
+	//keytar.setPassword('bUntis', 'exampleUser', 'examplePassword');
+
+	//fs.writeFileSync(savePath, JSON.stringify(save), 'utf-8');
 
 	vsCodeDebugConsole.log(savePath);
 
