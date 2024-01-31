@@ -27,6 +27,7 @@
     "buffer": "^6.0.3",
     "electon": "^0.0.1-security",
     "electron-squirrel-startup": "^1.0.0",
+    "keytar": "^7.9.0",
     "secure-electron-store": "^4.0.2",
     "webuntis": "^2.0.3"
   },

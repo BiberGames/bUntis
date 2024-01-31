@@ -58,7 +58,6 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timeTableData) {
 
     showPage(1);
     document.getElementById('bottomNavBar').style.display = 'block';
-	//loadingScreen.style.display = 'none';
 });
 
 ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
