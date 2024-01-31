@@ -7,7 +7,6 @@
     overflow: hidden;
 
     border-top: 10px solid rgba(100, 100, 100, .2);
-
     left: 50vw;
     top: 50vh;
     -webkit-transform: translate(-50%, -50%);
@@ -15,7 +14,9 @@
 }
 
 .homeWorkTable td {
+    padding: 2px;
     border-radius: 0px;
     border-bottom: 1px solid;
     border-right: 1px solid;
+    width: 25%;
 }

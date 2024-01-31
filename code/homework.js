@@ -6,6 +6,7 @@ const show = function(homeWorkTable, homeWorkData) {
         var cellFrom = row.insertCell();
         var cellTo = row.insertCell();
         var cellHomeworkText = row.insertCell();
+        var cellDone = row.insertCell();
 
         // if homework is marked compleated
         if(homeWorkData.homeworks[i].completed == true) {
@@ -19,6 +20,7 @@ const show = function(homeWorkTable, homeWorkData) {
         cellFrom.innerHTML = utils.convertUntisDate(homeWorkData.homeworks[i].date);
         cellTo.innerHTML = utils.convertUntisDate(homeWorkData.homeworks[i].dueDate);
         cellHomeworkText.innerHTML = homeWorkData.homeworks[i].text;
+        cellDone.innerHTML = '<input type="checkbox">';
     }
 }
 

@@ -47,13 +47,6 @@ input[type=password] {
     margin-bottom: 0.2em;
 }
 
-.errorScreen
-{
-    width: 1024px;
-    height: 512px;
-    background-color: red;
-}
-
 body {
     background-color: #252525;
     color: wheat;
