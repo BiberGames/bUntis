@@ -134,6 +134,8 @@ async function getWebData() {
 			//password = JSON.parse(password);
 
 			mainWindow.send('renderer:pharseSettings', password);
+
+			//mainWindow.send('renderer:pharseSettings', password);
 			//password = [];
 
 			vsCodeDebugConsole.log('Password retrieved successfully:', password);
