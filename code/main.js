@@ -185,7 +185,6 @@ async function getWebData() {
 	mainWindow.send('renderer:status', 'Recieving homework.');
 	homework = await untis.getHomeWorksFor(weekStart, weekEnd);
 
-
 	vsCodeDebugConsole.log('Sending data!');
 	mainWindow.send('renderer:sessionInfo', sessionInfo);
 	mainWindow.send('renderer:timeTableInfo', timetable);

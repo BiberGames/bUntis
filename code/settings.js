@@ -1,7 +1,7 @@
 const md5 = require('../code/md5.js');
 
 //const {sanitizeInput} = 
-const save = async function(_school, _username, _server, _code, _classes) {
+const saveSettings = async function(_school, _username, _server, _code, _classes) {
 	var saveData = [];
 	var classes = [];
 
@@ -20,7 +20,7 @@ const save = async function(_school, _username, _server, _code, _classes) {
 	console.log(result);
 }
 
-const load = function(_settingsData) {
+const loadSettings = function(_settingsData) {
 	var pharsedSettingsData = JSON.parse(_settingsData);
 
 	document.getElementById('school').value = pharsedSettingsData[0];
@@ -31,5 +31,5 @@ const load = function(_settingsData) {
 }
 
 module.exports = {
-    save, load
+    saveSettings, loadSettings
 }
