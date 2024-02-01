@@ -5,6 +5,10 @@ var dates = [];
 var classes = [];
 
 function setCellStatusColor(x, y, code) {
+
+    if(utils.getCellInTable(mainTimeTable, x, y).classList.value !== '')
+        return;
+
     utils.getCellInTable(mainTimeTable, x, y).classList.add('timeTableElement');
 
     switch(code) {
@@ -65,11 +69,15 @@ function addEventToTable(x, y, timeTableData) {
 
     console.log(rawEventLength);
 
-    for (let i = 0; i < rawEventLength +1; i+=1) {
-        //dates.push(timeTableData[i].date);
-        setCellStatusColor(x + 2, y + 1 + i, timeTableData.code);
-        utils.setContentInTable(mainTimeTable, x + 2, y + 1 + i, text);
+    setCellStatusColor(x +2, y +1, timeTableData.code);
+    utils.setContentInTable(mainTimeTable, x +2, y +1, text);
+    utils.getCellInTable(mainTimeTable, x +2, y +1).rowSpan = rawEventLength+1;
+
+    for (let i = 1; i < rawEventLength +1; i+=1) {
+        utils.getCellInTable(mainTimeTable, x +2, y +1 +i).style.display = 'none';
     }
+
+    //utils.getCellInTable(mainTimeTable, x +2, y +1).style.display = 'block';
     
     //console.log(timeTableData.id);
     //setCellStatusColor(x + 2, y + 1, timeTableData.code);
