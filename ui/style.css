@@ -4,6 +4,7 @@
     z-index: 0;
     font-family: 'Ubuntu Mono';
     user-select: none;
+    overflow: hidden;
 }
 
 @font-face {

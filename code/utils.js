@@ -17,6 +17,9 @@ const mergeCells = function(table, x, y) {
 }
 
 const setContentInTable = function(table, x, y, input) {
+    if(table.rows[y].cells[x].innerHTML !== '')
+        return;
+    
     table.rows[y].cells[x].innerHTML = input;
 }
 
@@ -45,6 +48,19 @@ const sanitizeInput = function(input) {
     return input;//.replace(/^[a-zA-Z0-9_.]+$/g, '');
 }
 
+const timeToElements = function(time) {
+    switch(time) {
+        case 745: return 1; break;
+        case 920: return 2; break;
+        case 1025: return 3; break;
+        case 1115: return 4; break;
+        case 1220: return 5; break;
+        case 1310: return 6; break;
+        case 1425: return 7; break;
+        case 1515: return 8; break;
+    }
+}
+
 module.exports = {
-    removeDuplicatesAndSort, convertUntisDate, mergeCells, setContentInTable, isMyClass, getCellInTable, sanitizeInput
+    removeDuplicatesAndSort, convertUntisDate, mergeCells, setContentInTable, isMyClass, getCellInTable, sanitizeInput, timeToElements
 }

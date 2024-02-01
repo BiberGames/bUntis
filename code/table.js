@@ -8,14 +8,14 @@ function setCellStatusColor(x, y, code) {
     utils.getCellInTable(mainTimeTable, x, y).classList.add('timeTableElement');
 
     switch(code) {
+        case 'irregular':
+            utils.getCellInTable(mainTimeTable, x, y).classList.add('irregular');
+            break;
+
         case 'cancelled':
             // adds zero width char to make merging simpler
             utils.getCellInTable(mainTimeTable, x, y).classList.add('cancelled');
             utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
-            break;
-
-        case 'irregular':
-            utils.getCellInTable(mainTimeTable, x, y).classList.add('irregular');
             break;
 
         case 'sup':
@@ -52,18 +52,27 @@ function addSubjectWithoutRoom(x, y, timeTableData) {
     //console.log(timeTableData);
     var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2);
     utils.setContentInTable(mainTimeTable, x + 2, y + 1, text);
-                
+
     //console.log(timeTableData.id);
     setCellStatusColor(x + 2, y + 1, timeTableData.code);
 }
 
 function addEventToTable(x, y, timeTableData) {
     console.log(timeTableData);
+
     var text = timeTableData.lstext;
-    utils.setContentInTable(mainTimeTable, x + 2, y + 1, text);
+    var rawEventLength = utils.timeToElements(timeTableData.endTime) - utils.timeToElements(timeTableData.startTime);
+
+    console.log(rawEventLength);
+
+    for (let i = 0; i < rawEventLength +1; i+=1) {
+        //dates.push(timeTableData[i].date);
+        setCellStatusColor(x + 2, y + 1 + i, timeTableData.code);
+        utils.setContentInTable(mainTimeTable, x + 2, y + 1 + i, text);
+    }
     
     //console.log(timeTableData.id);
-    setCellStatusColor(x + 2, y + 1, timeTableData.code);
+    //setCellStatusColor(x + 2, y + 1, timeTableData.code);
 }
 
 function dataToTable(timeTableData, x, y) {

@@ -4,7 +4,12 @@
 }
 
 .timeTableElement {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
 	color: black;
+	max-width: 5em;
+	max-height: 2.5em;
 	border-left: 10px solid rgba(100, 100, 100, .2);
 	padding: 2px;
 }

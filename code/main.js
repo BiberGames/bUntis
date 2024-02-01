@@ -88,21 +88,15 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-function getFirstDayOfWeek(d) 
+function getFirstDayOfWeek(date) 
 {
-	const date = new Date(d);
-	const dayOfWeek = date.getDay();
+	var firstDay = new Date(date);
+	var dayOfWeek = firstDay.getDay();
 
-	const daysToSubtract = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+	var difference = dayOfWeek - 0;
+	firstDay.setDate(firstDay.getDate() - difference);
 
-	date.setDate(date.getDate() - daysToSubtract);
-
-	if (dayOfWeek === 0 || dayOfWeek === 6)
-	{
-	  date.setDate(date.getDate() + 1);
-	}
-  
-	return date;
+	return firstDay;
 }
 
 const userDataPath = (electron.app || electron.remote.app).getPath('userData');
@@ -131,12 +125,7 @@ async function getWebData() {
 	keytar.getPassword('bUntis', 'bUntisSystems')
 	.then((password) => {
 		if (password) {
-			//password = JSON.parse(password);
-
 			mainWindow.send('renderer:pharseSettings', password);
-
-			//mainWindow.send('renderer:pharseSettings', password);
-			//password = [];
 
 			vsCodeDebugConsole.log('Password retrieved successfully:', password);
 			vsCodeDebugConsole.log(password[0] + ' ' + password[1] + ' ' + password[3] + ' ' + password[2]);
@@ -161,8 +150,8 @@ async function getWebData() {
 	classID = sessionInfo.klasseId;
 
 	mainWindow.send('renderer:status', 'Setting date.');
-	var testDate = new Date();
-	testDate.setDate(testDate.getDate() + 1);
+	//var testDate = new Date();
+	//testDate.setDate(testDate.getDate() + 4);
 
 	//mainWindow.send('renderer:status', 'Recieving classes.');
 	//classes = await untis.getClasses();
