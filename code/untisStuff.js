@@ -16,7 +16,7 @@ const mainTimeTable = document.getElementById('TimeTable');
 const homeWorkTable = document.getElementById('homeWorkTable')
 const loadingScreenInfoText = document.getElementById('loadingInfo');
 
-const pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen')];
+const pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen'), document.getElementById('events')];
 var openPage = 0;
 
 showPage(0); // show loading screen when app starts
