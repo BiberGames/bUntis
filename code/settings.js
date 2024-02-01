@@ -18,9 +18,18 @@ const save = async function(_school, _username, _server, _code, _classes) {
 	const result = await ipcRenderer.invoke('server:save', saveData);
 
 	console.log(result);
+}
 
+const load = function(_settingsData) {
+	var pharsedSettingsData = JSON.parse(_settingsData);
+
+	document.getElementById('school').value = pharsedSettingsData[0];
+	document.getElementById('name').value = pharsedSettingsData[1];
+	document.getElementById('server').value = pharsedSettingsData[2];
+	document.getElementById('code').value = pharsedSettingsData[3];
+	document.getElementById("MyClassesInput").value = pharsedSettingsData[4];
 }
 
 module.exports = {
-    save
+    save, load
 }
