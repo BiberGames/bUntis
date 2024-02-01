@@ -1,17 +1,17 @@
 .homeWorkTable td {
     padding: 2px;
-    border: none;
     border-radius: 0px;
 
-    border-bottom: 1px solid;
-    border-right: 1px solid;
+    border: 1px solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 
     width: 10%;
 }
 
 .homeWorkTable tr {
-    height: 16px;
-    /*border-bottom: 1px solid #dddddd;*/
+    height: 1.5em;
 }
 
 .homeWorkTable tr:nth-of-type(even) {

@@ -18,7 +18,6 @@ const show = function(homeWorkTable, homeWorkData) {
         cellSubject.innerHTML = getSubjectFromHomeWork(homeWorkData.homeworks[i].lessonId, homeWorkData.lessons);
         cellTimeSpan.innerHTML = utils.convertUntisDate(homeWorkData.homeworks[i].date) + ' to ' +utils.convertUntisDate(homeWorkData.homeworks[i].dueDate);
         cellHomeworkText.innerHTML = homeWorkData.homeworks[i].text;
-        //cellDone.innerHTML = '<input type="checkbox" onclick="return false"/>';
     }
 }
 
