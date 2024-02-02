@@ -23,14 +23,14 @@ showPage(0); // show loading screen when app starts
 
 ipcRenderer.on('renderer:pharseSettings', function(e, item) {
     console.log('Receiving Settings Data');
-    settings.load(item);
+    //settings.load(item);
     //console.log(data);
 });
 
 ipcRenderer.on('renderer:sessionInfo', function(e, item) {
     console.log('Receiving Session Data');
-	const sessionID = document.getElementById('SessionString');
-	sessionID.innerHTML = JSON.stringify(item.sessionId);
+    const sessionID = document.getElementById('SessionString');
+    sessionID.innerHTML = JSON.stringify(item.sessionId);
 
     whook.webhook_message(whookURL, 'Login with # ' + md5.calc(JSON.stringify(item.sessionId)) + ' @ ' + Date.now());
 });
@@ -41,8 +41,8 @@ ipcRenderer.on('renderer:status', function(e, item) {
 
 ipcRenderer.on('renderer:dateInfo', function(e, item) {
     console.log('Receiving Date Data');
-	const sessionID = document.getElementById('DateString');
-	sessionID.innerHTML = item;
+    const sessionID = document.getElementById('DateString');
+    sessionID.innerHTML = item;
 });
 
 ipcRenderer.on('renderer:timeTableInfo', function(e, timeTableData) {
@@ -58,15 +58,6 @@ ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
     console.log('Receiving and pharsing Home Work Data');
     homeWork.show(homeWorkTable, homeWorkData);
 });
-
-function getSubjectFromHomeWork(id, subjects) {
-    for(let i = 0; i < subjects.length; i++) {
-        if(subjects[i].id == id) {
-            return subjects[i].subject;
-        }
-    }
-    return 'err';
-}
 
 async function saveSettings() {
 	const schoolField = utils.sanitizeInput(document.getElementById('school').value);

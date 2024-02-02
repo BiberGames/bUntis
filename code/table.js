@@ -62,12 +62,12 @@ function addSubjectWithoutRoom(x, y, timeTableData) {
 }
 
 function addEventToTable(x, y, timeTableData) {
-    console.log(timeTableData);
+    //console.log(timeTableData);
 
     var text = timeTableData.lstext;
     var rawEventLength = utils.timeToElements(timeTableData.endTime) - utils.timeToElements(timeTableData.startTime);
 
-    console.log(rawEventLength);
+    //console.log(rawEventLength);
 
     setCellStatusColor(x +2, y +1, timeTableData.code);
     utils.setContentInTable(mainTimeTable, x +2, y +1, text);

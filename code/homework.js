@@ -21,6 +21,15 @@ const show = function(homeWorkTable, homeWorkData) {
     }
 }
 
+const getSubjectFromHomeWork = function(id, subjects) {
+    for(let i = 0; i < subjects.length; i++) {
+        if(subjects[i].id == id) {
+            return subjects[i].subject;
+        }
+    }
+    return 'err';
+}
+
 module.exports = {
-    show
+    show, getSubjectFromHomeWork
 }
