@@ -76,11 +76,6 @@ function addEventToTable(x, y, timeTableData) {
     for (let i = 1; i < rawEventLength +1; i+=1) {
         utils.getCellInTable(mainTimeTable, x +2, y +1 +i).style.display = 'none';
     }
-
-    //utils.getCellInTable(mainTimeTable, x +2, y +1).style.display = 'block';
-    
-    //console.log(timeTableData.id);
-    //setCellStatusColor(x + 2, y + 1, timeTableData.code);
 }
 
 function dataToTable(timeTableData, x, y) {
@@ -109,7 +104,6 @@ function dataToTable(timeTableData, x, y) {
             console.info(timeTableData);
             console.info(e);
             setCellStatusColor(x + 2, y + 1, 'err');
-			//mergeCells(mainTimeTable, x+2, y+1);
         }
     }
 }

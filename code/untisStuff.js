@@ -23,10 +23,7 @@ showPage(0); // show loading screen when app starts
 
 ipcRenderer.on('renderer:pharseSettings', function(e, item) {
     console.log('Receiving Settings Data');
-    //console.log(item);
-    //settingsData = item;
     settings.load(item);
-   	//data = JSON.parse(item);
     //console.log(data);
 });
 
