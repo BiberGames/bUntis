@@ -7,6 +7,9 @@
 	display: none;
 }
 
+.bottomNavBarButton img {
+    height: 1em;
+}
 
 .infoText {
     display: none;
