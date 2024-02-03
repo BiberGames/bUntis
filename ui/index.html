@@ -1,164 +1,163 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu Mono">
-        <link rel="stylesheet" type="text/css" href="./style.css">
-        <link rel="stylesheet" type="text/css" href="./timeTable.css">
-        <link rel="stylesheet" type="text/css" href="./loadingScreen.css">
-        <link rel="stylesheet" type="text/css" href="./settingsScreen.css">
-        <link rel="stylesheet" type="text/css" href="./homeWorkScreen.css">
-        <link rel="stylesheet" type="text/css" href="./navBar.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>bUntis</title>
-        <script defer src="../code/untisStuff.js"></script>
-    </head>
-    <body>
-
-        <div class="bigPanel" id="loadingScreen">
-            <div class="center-center">
-                <div class="loader"></div>
-            </div>
-            <p id="loadingInfo">Starting.</p>
-            <button class="bottomNavBarButton" onclick="showPage(3)">Settings</button>
-        </div>
-
-        <div class="bigPanel" id="settingsScreen">
-            <br>
-            <h1> <img src="../images/font/settings_white_24dp.svg"> Settings</h1>
-            <input id="school" type="text" placeholder="School ID"><br>
-            <input id="name" type="text" placeholder="User name"><br>
-            <input id="server" type="text" placeholder="Server adress"><br>
-            <input id="code" type="password" placeholder="Secret code"><br>
-
-            <h2> <img src="../images/font/class_white_24dp.svg"> My classes </h2>
-            <input type="text" id="MyClassesInput" placeholder="Enter Class"> <button onclick="saveSettings()">Save</button>
-        </div>
-
-        <div class="bigPanel" id="homeWork">
-            <br>
-            <h1> <img src="../images/font/home_work_white_24dp.svg"> Home Work</h1>
-            <table id="homeWorkTable" class="homeWorkTable">
-                <tr>
-                    <td> <img src="../images/font/menu_book_white_24dp.svg"> Subject</td>
-                    <td> <img src="../images/font/date_range_white_24dp.svg"> Timespan</td>
-                    <td> <img src="../images/font/home_work_white_24dp.svg"> Homework</td>
-                    <td> <img src="../images/font/done_white_24dp.svg"> Done</td>
-                </tr>                
-            </table>
-        </div>
-
-        <div class="bigPanel" id="events">
-            <br>
-            <h1> <span class="material-icons">event</span> Events</h1>
-            <table id="eventTable" class="eventTable">
-                <tr>
-                    <td> <span class="material-icons">menu_book</span> Subject</td>
-                    <td> <span class="material-icons">date_range</span> Timespan</td>
-                    <td> <span class="material-icons">home_work</span> Homework</td>
-                    <td> <span class="material-icons">done</span> Done</td>
-                </tr>                
-            </table>
-        </div>
-
-        <div class="infoText">
-            <p id="SessionString">$SessionString</p>
-            <p id="DateString">$DateString</p>
-        </div>
-
-        <div class="bottomNavBar" id="bottomNavBar">
-            <center>
-                <button class="bottomNavBarButton" onclick="showPage(1)"><img src="../images/font/calendar_month_white_24dp.svg"> Timetable</button>
-                <button class="bottomNavBarButton" onclick="showPage(2)"><img src="../images/font/home_work_white_24dp.svg"> Homework</button>
-                <!--<button class="bottomNavBarButton" onclick="showPage(4)"><span class="material-icons">event</span> Events</button>-->
-                <button class="bottomNavBarButton" onclick="showPage(3)"><img src="../images/font/settings_white_24dp.svg"> Settings</button>
-            </center>
-        </div>
-
-        <div class="timeTables">
-            <table id="TimeTable" class="TimeTable">
-                <tr>
-                    <td class="thinCell">Lesson</td>
-                    <td class="thinCell">Times</td>
-                    <td>Monday</td>
-                    <td>Tuesday</td>
-                    <td>Wednesday</td>
-                    <td>Thursday</td>
-                    <td>Friday</td>
-                </tr>
-                <tr>
-                    <td class="thinCell">1</td>
-                    <td class="thinCell">07:45<br><br>08:30</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="thinCell">2</td>
-                    <td class="thinCell">08:35<br><br>09:20</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="thinCell">3</td>
-                    <td class="thinCell">09:40<br><br>10:25</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="thinCell">4</td>
-                    <td class="thinCell">11:30<br><br>11:15</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="thinCell">5</td>
-                    <td class="thinCell">11:35<br><br>12:20</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="thinCell">6</td>
-                    <td class="thinCell">12:25<br><br>13:10</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="thinCell">7</td>
-                    <td class="thinCell">13:40<br><br>14:25</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td class="thinCell">8</td>
-                    <td class="thinCell">14:30<br><br>15:15</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table> 
-        </div>
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu Mono">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="./timeTable.css">
+    <link rel="stylesheet" type="text/css" href="./loadingScreen.css">
+    <link rel="stylesheet" type="text/css" href="./settingsScreen.css">
+    <link rel="stylesheet" type="text/css" href="./homeWorkScreen.css">
+    <link rel="stylesheet" type="text/css" href="./navBar.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>bUntis</title>
+    <script defer src="../code/untisStuff.js"></script>
+  </head>
+  <body>
+    <div class="bigPanel" id="loadingScreen">
+      <div class="center-center">
+        <div class="loader"></div>
+      </div>
+      <p id="loadingInfo">Starting.</p>
+      <button class="bottomNavBarButton" onclick="showPage(3)">Settings</button>
+    </div>
+    
+    <div class="bigPanel" id="settingsScreen">
+      <br>
+      <h1> <img src="../images/font/settings_white_24dp.svg"> Settings</h1>
+      <input id="school" type="text" placeholder="School ID"><br>
+      <input id="name" type="text" placeholder="User name"><br>
+      <input id="server" type="text" placeholder="Server adress"><br>
+      <input id="code" type="password" placeholder="Secret code"><br>
+      
+      <h2> <img src="../images/font/class_white_24dp.svg"> My classes </h2>
+      <input type="text" id="MyClassesInput" placeholder="Enter Class"> <button onclick="saveSettings()">Save</button>
+    </div>
+    
+    <div class="bigPanel" id="homeWork">
+      <br>
+      <h1> <img src="../images/font/home_work_white_24dp.svg"> Home Work</h1>
+      <table id="homeWorkTable" class="homeWorkTable">
+        <tr>
+          <td> <img src="../images/font/menu_book_white_24dp.svg"> Subject</td>
+          <td> <img src="../images/font/date_range_white_24dp.svg"> Timespan</td>
+          <td> <img src="../images/font/home_work_white_24dp.svg"> Homework</td>
+          <td> <img src="../images/font/done_white_24dp.svg"> Done</td>
+        </tr>                
+      </table>
+    </div>
+    
+    <div class="bigPanel" id="events">
+      <br>
+      <h1> <span class="material-icons">event</span> Events</h1>
+      <table id="eventTable" class="eventTable">
+        <tr>
+          <td> <span class="material-icons">menu_book</span> Subject</td>
+          <td> <span class="material-icons">date_range</span> Timespan</td>
+          <td> <span class="material-icons">home_work</span> Homework</td>
+          <td> <span class="material-icons">done</span> Done</td>
+        </tr>                
+      </table>
+    </div>
+    
+    <div class="infoText">
+      <p id="SessionString">$SessionString</p>
+      <p id="DateString">$DateString</p>
+    </div>
+    
+    <div class="bottomNavBar" id="bottomNavBar">
+      <center>
+        <button class="bottomNavBarButton" onclick="showPage(1)"><img src="../images/font/calendar_month_white_24dp.svg"> Timetable</button>
+        <button class="bottomNavBarButton" onclick="showPage(2)"><img src="../images/font/home_work_white_24dp.svg"> Homework</button>
+        <!--<button class="bottomNavBarButton" onclick="showPage(4)"><span class="material-icons">event</span> Events</button>-->
+        <button class="bottomNavBarButton" onclick="showPage(3)"><img src="../images/font/settings_white_24dp.svg"> Settings</button>
+      </center>
+    </div>
+    
+    <div class="timeTables">
+      <table id="TimeTable" class="TimeTable">
+        <tr>
+          <td class="thinCell">Lesson</td>
+          <td class="thinCell">Times</td>
+          <td>Monday</td>
+          <td>Tuesday</td>
+          <td>Wednesday</td>
+          <td>Thursday</td>
+          <td>Friday</td>
+        </tr>
+        <tr>
+          <td class="thinCell">1</td>
+          <td class="thinCell">07:45<br><br><br>08:30</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="thinCell">2</td>
+          <td class="thinCell">08:35<br><br><br>09:20</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="thinCell">3</td>
+          <td class="thinCell">09:40<br><br><br>10:25</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="thinCell">4</td>
+          <td class="thinCell">11:30<br><br><br>11:15</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="thinCell">5</td>
+          <td class="thinCell">11:35<br><br><br>12:20</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="thinCell">6</td>
+          <td class="thinCell">12:25<br><br><br>13:10</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="thinCell">7</td>
+          <td class="thinCell">13:40<br><br><br>14:25</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="thinCell">8</td>
+          <td class="thinCell">14:30<br><br><br>15:15</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table> 
+    </div>
+  </body>
 </html>

@@ -1,4 +1,4 @@
-const electron = require('electron');
+ddconst electron = require('electron');
 const {ipcRenderer} = electron;
 
 const utils = require('../code/utils.js');
