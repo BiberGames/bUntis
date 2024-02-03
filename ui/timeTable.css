@@ -3,14 +3,22 @@
     padding: 2px;
 }
 
+.TimeTable tr td {
+
+}
+
 .timeTableElement {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	
-	color: black;
-	max-width: 6em;
-	border-left: 10px solid rgba(100, 100, 100, .2);
-	padding: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    color: black;
+    border-left: 10px solid rgba(100, 100, 100, .2);
+    
+    padding: 2px;
+    max-width: 80px;
+    max-height: 80px;
+    height: 80px;
+    width: 80px;
 }
 
 .cancelled {

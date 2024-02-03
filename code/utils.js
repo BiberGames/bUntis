@@ -11,8 +11,8 @@ const convertUntisDate = function(date) {
 
 const mergeCells = function(table, x, y) {
 	if(getCellInTable(table, x, y).innerHTML == getCellInTable(table, x, y-1).innerHTML) {
-		getCellInTable(table, x, y).style.display = 'none';
-		getCellInTable(table, x, y-1).rowSpan = '2';
+	    getCellInTable(table, x, y).style.display = 'none';
+	    getCellInTable(table, x, y-1).rowSpan = '2';
 	}
 }
 

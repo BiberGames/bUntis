@@ -5,35 +5,34 @@ var dates = [];
 var classes = [];
 
 function setCellStatusColor(x, y, code) {
-
-    if(utils.getCellInTable(mainTimeTable, x, y).classList.value !== '')
+    if(utils.getCellInTable(mainTimeTable, x, y).classList.value !== 'timeTableElement')
         return;
 
-    utils.getCellInTable(mainTimeTable, x, y).classList.add('timeTableElement');
-
+    //utils.getCellInTable(mainTimeTable, x, y).classList.add('timeTableElement');
+    
     switch(code) {
-        case 'irregular':
-            utils.getCellInTable(mainTimeTable, x, y).classList.add('irregular');
-            break;
-
-        case 'cancelled':
-            // adds zero width char to make merging simpler
-            utils.getCellInTable(mainTimeTable, x, y).classList.add('cancelled');
-            utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
-            break;
-
-        case 'sup':
-            utils.getCellInTable(mainTimeTable, x, y).classList.add('sup');
-            utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
-            break;
-
-        case 'err':
-            utils.getCellInTable(mainTimeTable, x, y).classList.add('err');
-            break;
-
-        default:
-            utils.getCellInTable(mainTimeTable, x, y).classList.add('default');
-            break;
+    case 'irregular':
+        utils.getCellInTable(mainTimeTable, x, y).classList.add('irregular');
+        break;
+	
+    case 'cancelled':
+        // adds zero width char to make merging simpler
+        utils.getCellInTable(mainTimeTable, x, y).classList.add('cancelled');
+        utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
+        break;
+	
+    case 'sup':
+        utils.getCellInTable(mainTimeTable, x, y).classList.add('sup');
+        utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
+        break;
+	
+    case 'err':
+        utils.getCellInTable(mainTimeTable, x, y).classList.add('err');
+        break;
+	
+    default:
+        utils.getCellInTable(mainTimeTable, x, y).classList.add('default');
+        break;
     }
 }
 
@@ -79,6 +78,7 @@ function addEventToTable(x, y, timeTableData) {
 }
 
 function dataToTable(timeTableData, x, y) {
+    utils.getCellInTable(mainTimeTable, x+2, y+1).classList.add('timeTableElement');
     if(utils.isMyClass(classes, timeTableData.sg) || timeTableData.lstext) {
         try {
             if(timeTableData.su.length > 0 && timeTableData.ro.length > 0) { // normal subject with room number and name
@@ -110,52 +110,52 @@ function dataToTable(timeTableData, x, y) {
 
 function populateTableSpecificDay(timeTableData, day) {
     switch(timeTableData.startTime) {
-        case 745:
-            dataToTable(timeTableData, day, 0);
-            break;
+    case 745:
+	dataToTable(timeTableData, day, 0);
+        break;
             
-        case 835:
-            dataToTable(timeTableData, day, 1);
-            break;
+    case 835:
+        dataToTable(timeTableData, day, 1);
+        break;
 
-        case 940:
-            dataToTable(timeTableData, day, 2);
-            break;
+    case 940:
+        dataToTable(timeTableData, day, 2);
+        break;
 
-        case 1030:
-            dataToTable(timeTableData, day, 3);
-            break;
+    case 1030:
+        dataToTable(timeTableData, day, 3);
+        break;
 
-        case 1135:
-            dataToTable(timeTableData, day, 4);
-            break;
+    case 1135:
+        dataToTable(timeTableData, day, 4);
+        break;
 
-        case 1225:
-            dataToTable(timeTableData, day, 5);
-            break;
+    case 1225:
+        dataToTable(timeTableData, day, 5);
+        break;
 
-        case 1340:
-            dataToTable(timeTableData, day, 6);
-            break;
+    case 1340:
+        dataToTable(timeTableData, day, 6);
+        break;
 
-        case 1430:
-            dataToTable(timeTableData, day, 7);
-            break;
+    case 1430:
+        dataToTable(timeTableData, day, 7);
+        break;
     }
 }
 
 const createTable = function(_classes, _timeTableData) {
-	console.log("Creating Table...");
+    console.log("Creating Table...");
 
-	timeTableData = _timeTableData;
-	classes = _classes;
+    timeTableData = _timeTableData;
+    classes = _classes;
 	
     for (let i = 0; i < timeTableData.length; i+=1) {
         dates.push(timeTableData[i].date);
     }
     dates = utils.removeDuplicatesAndSort(dates);
 
-	for (let i = 0; i < timeTableData.length; i+=1) {
+    for (let i = 0; i < timeTableData.length; i+=1) {
         if(timeTableData[i].date == dates[0]) {
             populateTableSpecificDay(timeTableData[i], 0);
         }
