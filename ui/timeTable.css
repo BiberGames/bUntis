@@ -1,10 +1,6 @@
 .thinCell {
-    width: 32px;
-    padding: 2px;
-}
-
-.TimeTable tr td {
-
+    max-width: 32px;
+    /*padding: 2px;*/
 }
 
 .timeTableElement {
@@ -15,19 +11,20 @@
     border-left: 10px solid rgba(100, 100, 100, .2);
     
     padding: 2px;
-    max-width: 80px;
-    max-height: 80px;
-    height: 80px;
-    width: 80px;
+    max-width: 64px;
+    max-height: 64px;
+    height: 64px;
+    width: 64px;
 }
 
 .cancelled {
-	text-decoration: line-through;
-	background-color: #FFFD88;
+    text-decoration: line-through;
+    background-color: #FFFD88;
 }
 
 .irregular {
-	background-color: #FFD478;
+    background-color: #FFD478;
+    cursor: pointer;
 }
 
 .sup {

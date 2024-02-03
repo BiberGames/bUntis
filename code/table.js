@@ -1,4 +1,5 @@
-const utils = require('../code/utils.js');
+const utils = require('./utils.js');
+const event = require('./event.js');
 
 var timeTableData = '';
 var dates = [];
@@ -8,8 +9,6 @@ function setCellStatusColor(x, y, code) {
     if(utils.getCellInTable(mainTimeTable, x, y).classList.value !== 'timeTableElement')
         return;
 
-    //utils.getCellInTable(mainTimeTable, x, y).classList.add('timeTableElement');
-    
     switch(code) {
     case 'irregular':
         utils.getCellInTable(mainTimeTable, x, y).classList.add('irregular');
@@ -61,7 +60,7 @@ function addSubjectWithoutRoom(x, y, timeTableData) {
 }
 
 function addEventToTable(x, y, timeTableData) {
-    //console.log(timeTableData);
+    console.log(timeTableData);
 
     var text = timeTableData.lstext;
     var rawEventLength = utils.timeToElements(timeTableData.endTime) - utils.timeToElements(timeTableData.startTime);
@@ -75,6 +74,9 @@ function addEventToTable(x, y, timeTableData) {
     for (let i = 1; i < rawEventLength +1; i+=1) {
         utils.getCellInTable(mainTimeTable, x +2, y +1 +i).style.display = 'none';
     }
+
+    utils.getCellInTable(mainTimeTable, x +2, y +1).onclick = function() {showPage(4); event.update(timeTableData);};
+
 }
 
 function dataToTable(timeTableData, x, y) {
