@@ -88,15 +88,22 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-function getFirstDayOfWeek(date) 
+function getFirstDayOfWeek() 
 {
-	var firstDay = new Date(date);
-	var dayOfWeek = firstDay.getDay();
+  const today = new Date();
+  const currentDay = today.getDay(); // 0 is Sunday, 1 is Monday, ..., 6 is Saturday
 
-	var difference = dayOfWeek - 0;
-	firstDay.setDate(firstDay.getDate() - difference);
+  // If today is Sunday or Saturday, advance to the next week
+  if (currentDay === 0 || currentDay === 6) {
+    const daysUntilMonday = currentDay === 0 ? 1 : 2;
+    today.setDate(today.getDate() + daysUntilMonday);
+  }
 
-	return firstDay;
+  // Calculate the Monday of the current week
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1));
+
+    return monday;
 }
 
 const userDataPath = (electron.app || electron.remote.app).getPath('userData');
@@ -159,7 +166,7 @@ async function getWebData() {
 	weekStart = new Date();
 	weekStart.setDate(weekStart.getDate());
 	weekEnd = new Date();
-	weekStart = getFirstDayOfWeek(weekStart);
+	weekStart = getFirstDayOfWeek();
 	weekEnd.setDate(weekStart.getDate() + 4);
 	
 	vsCodeDebugConsole.log(weekStart);
