@@ -180,6 +180,7 @@ async function getWebData() {
     //subjects = await untis.Timegrid(weekStart, );
     
     mainWindow.send('renderer:status', 'Recieving homework.');
+    weekEnd.setDate(weekEnd.getDate() + 7);
     homework = await untis.getHomeWorksFor(weekStart, weekEnd);
     
     vsCodeDebugConsole.log('Sending data!');
