@@ -1,3 +1,7 @@
+.timeCell {
+    width: 3em;
+}
+
 .thinCell {
     max-width: 32px;
     /*padding: 2px;*/
