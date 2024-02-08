@@ -45,10 +45,10 @@ ipcRenderer.on('renderer:dateInfo', function(e, item) {
     sessionID.innerHTML = item;
 });
 
-ipcRenderer.on('renderer:timeTableInfo', function(e, timeTableData) {
+ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeak, timetableThisWeak, timetableNextWeak) {
     console.log('Receiving and pharsing Time Table Data');
 
-    timeTable.createTable(myClasses, timeTableData);
+    timeTable.createTable(myClasses, timetableThisWeak);
 
     showPage(1);
     document.getElementById('bottomNavBar').style.display = 'block';

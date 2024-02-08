@@ -25,8 +25,10 @@ const { authenticator } = require('otplib')
 // DATA //
 var classes = ''
 var sessionInfo = ''
-var classID = 901
-var timetable = ''
+var classID = 901;
+var timetableLastWeak = '';
+var timetableThisWeak = '';
+var timetableNextWeak = '';
 var homework = ''
 //var subjects = ''
 // DATA //
@@ -174,7 +176,9 @@ async function getWebData() {
     vsCodeDebugConsole.log(weekEnd);
     
     mainWindow.send('renderer:status', 'Recieving timetable.');
-    timetable = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
+    timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
+    timetableThisWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
+    timetableNextWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
     
     //mainWindow.send('renderer:status', 'Recieving subjects.');
     //subjects = await untis.Timegrid(weekStart, );
@@ -185,7 +189,7 @@ async function getWebData() {
     
     vsCodeDebugConsole.log('Sending data!');
     mainWindow.send('renderer:sessionInfo', sessionInfo);
-    mainWindow.send('renderer:timeTableInfo', timetable);
+    mainWindow.send('renderer:timeTableInfo', timetableLastWeak, timetableThisWeak, timetableNextWeak);
     //mainWindow.send('renderer:subjectsData', subjects);
     mainWindow.send('renderer:homeWorkInfo', homework);
     mainWindow.send('renderer:dateInfo', weekStart);
