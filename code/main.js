@@ -34,8 +34,8 @@ var homework = ''
 // DATA //
 
 // CONSOLE //
-var nodeConsole = require('console');
-var vsCodeDebugConsole = new nodeConsole.Console(process.stdout, process.stderr);
+//var nodeConsole = require('console');
+//var vsCodeDebugConsole = new nodeConsole.Console(process.stdout, process.stderr);
 // CONSOLE //
 
 

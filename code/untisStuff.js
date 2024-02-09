@@ -42,7 +42,7 @@ ipcRenderer.on('renderer:status', function(e, item) {
 ipcRenderer.on('renderer:dateInfo', function(e, item) {
     console.log('Receiving Date Data');
     const sessionID = document.getElementById('SessionString');
-    ent.getElementById('DateString');
+    document.getElementById('DateString');
     sessionID.innerHTML = item;
 });
 
@@ -62,7 +62,7 @@ ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
     console.log('Receiving and pharsing Home Work Data');
     homeWork.show(homeWorkTable, homeWorkData);
 });
-
+<
 async function saveSettings() {
 	const schoolField = utils.sanitizeInput(document.getElementById('school').value);
 	const userNameField = utils.sanitizeInput(document.getElementById('name').value);

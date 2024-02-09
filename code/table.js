@@ -91,7 +91,7 @@ function addSubjectWithoutRoom(x, y, timeTableData) {
 }
 
 function addEventToTable(x, y, timeTableData) {
-    console.log(timeTableData);
+    //console.log(timeTableData);
 
     var text = timeTableData.lstext;
     var rawEventLength = utils.timeToElements(timeTableData.endTime) - utils.timeToElements(timeTableData.startTime);
@@ -113,6 +113,7 @@ function addEventToTable(x, y, timeTableData) {
 function dataToTable(timeTableData, x, y) {
     utils.getCellInTable(mainTimeTable, x+2, y+1).classList.add('timeTableElement');
     if(utils.isMyClass(classes, timeTableData.sg) || timeTableData.lstext) {
+	console.log(timeTableData);
         try {
             if(timeTableData.su.length > 0 && timeTableData.ro.length > 0) { // normal subject with room number and name
                 addSubjectToTable(x, y, timeTableData);
