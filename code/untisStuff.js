@@ -41,7 +41,7 @@ ipcRenderer.on('renderer:status', function(e, item) {
 
 ipcRenderer.on('renderer:dateInfo', function(e, item) {
     console.log('Receiving Date Data');
-    const sessionID = docum
+    const sessionID = document.getElementById('SessionString');
     ent.getElementById('DateString');
     sessionID.innerHTML = item;
 });
@@ -49,7 +49,9 @@ ipcRenderer.on('renderer:dateInfo', function(e, item) {
 ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetableThisWeek, timetableNextWeek) {
     console.log('Receiving and pharsing Time Table Data');
 
-    timeTable.createTable(myClasses, timetableThisWeek);
+    //timeTable.createTable(myClasses, timetableLastWeek, -1);
+    timeTable.createTable(myClasses, timetableThisWeek, 0);
+    timeTable.createTable(myClasses, timetableNextWeek, 1);
     //mainTimeTable = document.getElementById('TimeTable');
 
     showPage(1);

@@ -5,9 +5,8 @@ var timeTableData = '';
 var dates = [];
 var classes = [];
 
-// fix this shit
 const timetableStructure = [
-    ["Lesson", "Times", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    [" ", "Times", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     ["1", "07:45<br><br>08:30", "", "", "", "", ""],
     ["2", "08:35<br><br>09:20", "", "", "", "", ""],
     ["3", "09:40<br><br>10:25", "", "", "", "", ""],
@@ -18,10 +17,10 @@ const timetableStructure = [
     ["8", "14:30<br><br>15:15", "", "", "", "", ""],
 ];
 
-function generateTable(data) {
+function generateTable(data, id) {
     const tableContainer = document.querySelector('.timeTables');
     const table = document.createElement('table');
-    table.setAttribute('id', 'TimeTable');
+    table.setAttribute('id', 'TimeTable' + ' ' + id);
     table.classList.add('TimeTable');
     
     data.forEach(rowData => {
@@ -178,11 +177,11 @@ function populateTableSpecificDay(timeTableData, day) {
     }
 }
 
-const createTable = function(_classes, _timeTableData) {
+const createTable = function(_classes, _timeTableData, id) {
     console.log("Creating Table...");
-    generateTable(timetableStructure);
+    generateTable(timetableStructure, id);
 
-    mainTimeTable = document.getElementById('TimeTable');
+    mainTimeTable = document.getElementById('TimeTable ' + id);
 
     timeTableData = _timeTableData;
     classes = _classes;

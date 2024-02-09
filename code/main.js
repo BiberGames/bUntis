@@ -176,7 +176,7 @@ async function getWebData() {
     vsCodeDebugConsole.log(weekEnd);
     
     mainWindow.send('renderer:status', 'Recieving timetable.');
-    timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
+    //timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
     timetableThisWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
     
     //mainWindow.send('renderer:status', 'Recieving subjects.');
