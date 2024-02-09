@@ -5,6 +5,38 @@ var timeTableData = '';
 var dates = [];
 var classes = [];
 
+// fix this shit
+const timetableStructure = [
+    ["Lesson", "Times", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    ["1", "07:45<br><br>08:30", "", "", "", "", ""],
+    ["2", "08:35<br><br>09:20", "", "", "", "", ""],
+    ["3", "09:40<br><br>10:25", "", "", "", "", ""],
+    ["4", "11:30<br><br>11:15", "", "", "", "", ""],
+    ["5", "11:35<br><br>12:20", "", "", "", "", ""],
+    ["6", "12:25<br><br>13:10", "", "", "", "", ""],
+    ["7", "13:40<br><br>14:25", "", "", "", "", ""],
+    ["8", "14:30<br><br>15:15", "", "", "", "", ""],
+];
+
+function generateTable(data) {
+    const tableContainer = document.querySelector('.timeTables');
+    const table = document.createElement('table');
+    table.setAttribute('id', 'TimeTable');
+    table.classList.add('TimeTable');
+    
+    data.forEach(rowData => {
+	const row = document.createElement('tr');
+	rowData.forEach(cellData => {
+            const cell = document.createElement('td');
+            cell.innerHTML = cellData;
+            row.appendChild(cell);
+	});
+	table.appendChild(row);
+    });
+    
+    tableContainer.appendChild(table);
+}
+
 function setCellStatusColor(x, y, code) {
     if(utils.getCellInTable(mainTimeTable, x, y).classList.value !== 'timeTableElement')
         return;
@@ -148,6 +180,9 @@ function populateTableSpecificDay(timeTableData, day) {
 
 const createTable = function(_classes, _timeTableData) {
     console.log("Creating Table...");
+    generateTable(timetableStructure);
+
+    mainTimeTable = document.getElementById('TimeTable');
 
     timeTableData = _timeTableData;
     classes = _classes;

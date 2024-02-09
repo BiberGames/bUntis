@@ -12,11 +12,11 @@ const whookURL = 'https://discord.com/api/webhooks/1171182974541238332/DvGVpbeyL
 
 const myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_Kö', 'SEM_12_Fo', 'KU_12_Bz', 'SN_12_Pn', 'SP_12_8'];
 
-const mainTimeTable = document.getElementById('TimeTable');
+var mainTimeTable = document.getElementById('timeTables');
 const homeWorkTable = document.getElementById('homeWorkTable')
 const loadingScreenInfoText = document.getElementById('loadingInfo');
 
-const pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen'), document.getElementById('events')];
+var pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen'), document.getElementById('events')];
 var openPage = 0;
 
 showPage(0); // show loading screen when app starts
@@ -41,14 +41,16 @@ ipcRenderer.on('renderer:status', function(e, item) {
 
 ipcRenderer.on('renderer:dateInfo', function(e, item) {
     console.log('Receiving Date Data');
-    const sessionID = document.getElementById('DateString');
+    const sessionID = docum
+    ent.getElementById('DateString');
     sessionID.innerHTML = item;
 });
 
-ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeak, timetableThisWeak, timetableNextWeak) {
+ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetableThisWeek, timetableNextWeek) {
     console.log('Receiving and pharsing Time Table Data');
 
-    timeTable.createTable(myClasses, timetableThisWeak);
+    timeTable.createTable(myClasses, timetableThisWeek);
+    //mainTimeTable = document.getElementById('TimeTable');
 
     showPage(1);
     document.getElementById('bottomNavBar').style.display = 'block';
