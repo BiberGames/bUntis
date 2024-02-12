@@ -62,7 +62,7 @@ ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
     console.log('Receiving and pharsing Home Work Data');
     homeWork.show(homeWorkTable, homeWorkData);
 });
-<
+
 async function saveSettings() {
 	const schoolField = utils.sanitizeInput(document.getElementById('school').value);
 	const userNameField = utils.sanitizeInput(document.getElementById('name').value);
