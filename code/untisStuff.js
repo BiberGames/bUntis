@@ -15,8 +15,9 @@ const myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_KÃ
 var mainTimeTable = document.getElementById('timeTables');
 const homeWorkTable = document.getElementById('homeWorkTable')
 const loadingScreenInfoText = document.getElementById('loadingInfo');
+const debug = document.getElementById('debug');
 
-var pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen'), document.getElementById('events')];
+var pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen'), document.getElementById('events'), debug];
 var openPage = 0;
 
 showPage(0); // show loading screen when app starts
@@ -51,7 +52,7 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
 
     //timeTable.createTable(myClasses, timetableLastWeek, -1);
     timeTable.createTable(myClasses, timetableThisWeek, 0);
-    timeTable.createTable(myClasses, timetableNextWeek, 1);
+    //timeTable.createTable(myClasses, timetableNextWeek, 1);
     //mainTimeTable = document.getElementById('TimeTable');
 
     showPage(1);

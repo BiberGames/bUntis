@@ -18,7 +18,17 @@
       <div class="center-center">
         <div class="loader"></div>
       </div>
-      <p id="loadingInfo">Starting.</p>
+      <div class="center-center" >
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<p id="loadingInfo">Starting.</p>
+      </div>
       <button class="bottomNavBarButton" onclick="showPage(3)">Login</button>
     </div>
     
@@ -32,6 +42,15 @@
       
       <h2> <img src="../images/font/class_white_24dp.svg"> My classes </h2>
       <input type="text" id="MyClassesInput" placeholder="Enter Class"> <button onclick="saveSettings()">Save</button>
+      <button class="buttonNavBarButton" onclick="showPage(5)">DEBUG</button>
+    </div>
+    
+    <div class="bigPanel" id="debug">
+      <br>
+      <h1> <img src="../images/font/settings_white_24dp.svg"> Debug</h1>
+      <p>Connected to Internet; $BOOL</p>
+      <p>My classes; $ARRAY[]</p>
+      <p>Build Type; $STRING</p>
     </div>
     
     <div class="bigPanel" id="homeWork">

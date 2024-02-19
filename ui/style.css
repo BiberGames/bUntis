@@ -7,40 +7,6 @@
     overflow: hidden;
 }
 
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Material Icons'),
-    local('MaterialIcons-Regular'),
-    url(../fonts/MaterialIcons-Regular.ttf) format('truetype');
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 1em;  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-}
-
 button {
     background-color: #3498db;
     border: none;
@@ -58,26 +24,26 @@ button:hover {
 }
 
 input[type=text] {
-	appearance: none;
-	border: none;
-	outline: none;
-	border-bottom: .2em solid #3498db;
-	background: rgba(#3498db, .2);
-	border-radius: .2em .2em 0 0;
-	padding: .4em;
-	color: #3498db;
+    appearance: none;
+    border: none;
+    outline: none;
+    border-bottom: .2em solid #3498db;
+    background: rgba(#3498db, .2);
+    border-radius: .2em .2em 0 0;
+    padding: .4em;
+    color: #3498db;
     margin-bottom: 0.2em;
 }
 
 input[type=password] {
-	appearance: none;
-	border: none;
-	outline: none;
-	border-bottom: .2em solid #3498db;
-	background: rgba(#3498db, .2);
-	border-radius: .2em .2em 0 0;
-	padding: .4em;
-	color: #3498db;
+    appearance: none;
+    border: none;
+    outline: none;
+    border-bottom: .2em solid #3498db;
+    background: rgba(#3498db, .2);
+    border-radius: .2em .2em 0 0;
+    padding: .4em;
+    color: #3498db;
     margin-bottom: 0.2em;
 }
 
