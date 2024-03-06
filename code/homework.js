@@ -1,5 +1,14 @@
 const show = function(homeWorkTable, homeWorkData) {
     //console.log(homeWorkData);
+    if(homeWorkData.homeworks.length === 0) {
+	var row = homeWorkTable.insertRow();
+        var cellSubject = row.insertCell();
+        var cellTimeSpan = row.insertCell();
+        var cellHomeworkText = row.insertCell();
+	cellSubject.innerHTML = 'Have a nice day!';
+    }
+
+    
     for(let i = 0; i < homeWorkData.homeworks.length; i++) {
 	if(homeWorkData.homeworks[i].completed !== true) {
             var row = homeWorkTable.insertRow();
