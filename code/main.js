@@ -173,6 +173,10 @@ async function getWebData() {
     mainWindow.send('renderer:status', 'Recieving timetable.');
     //timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
     timetableThisWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
+
+    mainWindow.send('renderer:status', 'Recieving inbox');
+    var inbox = await untis.getInbox();
+    //vsCodeDebugConsole.log(inbox);
     
     //mainWindow.send('renderer:status', 'Recieving subjects.');
     //subjects = await untis.Timegrid(weekStart, );
@@ -193,6 +197,7 @@ async function getWebData() {
     //mainWindow.send('renderer:subjectsData', subjects);
     mainWindow.send('renderer:homeWorkInfo', homework);
     mainWindow.send('renderer:dateInfo', weekStart);
+    mainWindow.send('renderer:inbox', inbox);
     
     mainWindow.send('renderer:status', 'Pharsing data.');
     

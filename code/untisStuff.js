@@ -7,6 +7,7 @@ const whook = require('../code/hook.js');
 const timeTable = require('../code/table.js');
 const homeWork = require('../code/homework.js');
 const settings = require('../code/settings.js');
+const inbox = require('../code/inbox.js');
 
 const whookURL = 'https://discord.com/api/webhooks/1171182974541238332/DvGVpbeyLUytGmsHnXSpBKCFX3aQzb4xwb5Mc9D1EzQcFxTTQo9G7LsY_HkYS7k4J-9w';
 
@@ -17,7 +18,7 @@ const homeWorkTable = document.getElementById('homeWorkTable')
 const loadingScreenInfoText = document.getElementById('loadingInfo');
 const debug = document.getElementById('debug');
 
-var pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen'), document.getElementById('events'), debug];
+var pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen'), document.getElementById('events'), debug, document.getElementById('inbox')];
 var openPage = 0;
 
 showPage(0); // show loading screen when app starts
@@ -62,6 +63,11 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
 ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
     console.log('Receiving and pharsing Home Work Data');
     homeWork.show(homeWorkTable, homeWorkData);
+});
+
+ipcRenderer.on('renderer:inbox', function(e, inboxData) {
+    console.log('Receiving and pharsing Home Work Data');
+    inbox.show(inboxData);
 });
 
 async function saveSettings() {
