@@ -1,0 +1,19 @@
+.inboxTable td {
+    padding: 2px;
+    border-radius: 0px;
+
+    border: 1px solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+    /*width: 10%;*/
+}
+
+.inboxTable tr {
+    height: 1.5em;
+}
+
+.inboxTable tr:nth-of-type(even) {
+    background-color: #f0f0f020;
+}

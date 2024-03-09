@@ -75,6 +75,8 @@ function addSubjectToTable(x, y, timeTableData) {
         timeTableData.code = 'sup';
     }
 
+    //console.log(timeTableData.sg.slice(-2));
+
     utils.setContentInTable(mainTimeTable, x + 2, y + 1, text);
     
     //console.log(timeTableData.id);
@@ -86,6 +88,8 @@ function addSubjectWithoutRoom(x, y, timeTableData) {
     var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2);
     utils.setContentInTable(mainTimeTable, x + 2, y + 1, text);
 
+    console.log(timeTableData.sg.slice(-2));
+    
     //console.log(timeTableData.id);
     setCellStatusColor(x + 2, y + 1, timeTableData.code);
 }
@@ -113,7 +117,9 @@ function addEventToTable(x, y, timeTableData) {
 function dataToTable(timeTableData, x, y) {
     utils.getCellInTable(mainTimeTable, x+2, y+1).classList.add('timeTableElement');
     if(utils.isMyClass(classes, timeTableData.sg) || timeTableData.lstext) {
-//	console.log(timeTableData);
+	if(timeTableData.sg === "MA_12_Sü_1")
+	    console.log(timeTableData);
+	
         try {
             if(timeTableData.su.length > 0 && timeTableData.ro.length > 0) { // normal subject with room number and name
                 addSubjectToTable(x, y, timeTableData);
