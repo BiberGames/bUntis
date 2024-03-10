@@ -11,14 +11,10 @@ const show = async function(_inboxData) {
 
 	cellSender.innerHTML = _inboxData.incomingMessages[i].sender.displayName;
         cellSubject.innerHTML = _inboxData.incomingMessages[i].subject;
-	try {
+	if(_inboxData.incomingMassages[i].contentPreview !== null) {
 	    cellContent.innetHTML = _inboxData.incomingMassages[i].contentPreview;
 	}
-	catch(e)
-	{
-	    
-	}
-	//getSubjectFromHomeWork(homeWorkData.homeworks[i].lessonId, homeWorkData.lessons);
+	//Getsubjectfromhomeworkt(homeWorkData.homeworks[i].lessonId, homeWorkData.lessons);
         //cellTimeSpan.innerHTML = utils.convertUntisDate(homeWorkData.homeworks[i].date) + ' to ' +utils.convertUntisDate(homeWorkData.homeworks[i].dueDate);
         //cellHomeworkText.innerHTML = homeWorkData.homeworks[i].text;		
     }
