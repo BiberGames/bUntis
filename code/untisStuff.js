@@ -79,7 +79,7 @@ async function saveSettings() {
     const authCodeField = utils.sanitizeInput(document.getElementById('code').value);
     const settingsScreenAddMyClassInput = utils.sanitizeInput(document.getElementById("MyClassesInput").value);
     
-    await settings.save(schoolField, userNameField, serverURLField, authCodeField, settingsScreenAddMyClassInput);
+    await settings.saveSettings(schoolField, userNameField, serverURLField, authCodeField, settingsScreenAddMyClassInput);
 }
 
 function showPage(id) {

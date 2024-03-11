@@ -64,7 +64,8 @@ const createWindow = () => {
 
 app.on('ready', () => {
     createWindow();
-    getWebData();
+    //getWebData();
+    loadServer();
 })
 
 app.on('activate', () => {
@@ -73,7 +74,8 @@ app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0)
     {
 	createWindow();
-	getWebData();
+	loadServer();
+	//getWebData();
     }
 })
 
@@ -109,6 +111,7 @@ const savePath = path.join(userDataPath, 'save.json')
 
 ipcMain.handle('server:save', async (event, saveData) => {
     vsCodeDebugConsole.log("Saving Settings");
+    vsCodeDebugConsole.log(saveData);
     
     keytar.setPassword('bUntis', 'bUntisSystems', JSON.stringify(saveData))
 	.then(() => {
@@ -124,25 +127,30 @@ ipcMain.handle('server:save', async (event, saveData) => {
     app.exit();
 });
 
-async function getWebData() {
-    vsCodeDebugConsole.log("untisApi;");
-
+async function loadServer() {
     keytar.getPassword('bUntis', 'bUntisSystems')
 	.then((password) => {
-		if (password) {
-		    mainWindow.send('renderer:pharseSettings', password);
-		    
-		    vsCodeDebugConsole.log('Password retrieved successfully:', password);
-		    vsCodeDebugConsole.log(password[0] + ' ' + password[1] + ' ' + password[3] + ' ' + password[2]);
-		} else {
-			vsCodeDebugConsole.log('Password not found');
-		}
+	    if (password) {
+		mainWindow.send('renderer:pharseSettings', password);
+		
+		//vsCodeDebugConsole.log('Password retrieved successfully:', password);
+		password = JSON.parse(password);
+		vsCodeDebugConsole.log('Password retrieved successfully:', password);
+		getWebData(password);
+		//vsCodeDebugConsole.log(password[0] + ' ' + password[1] + ' ' + password[3] + ' ' + password[2]);
+	    } else {
+		vsCodeDebugConsole.log('Password not found');
+	    }
 	}).catch((err) => {
 	    vsCodeDebugConsole.error('Error retrieving password:', err);
 	});
+}
+
+async function getWebData(loginData) {
+    vsCodeDebugConsole.log("untisApi;");
     
-    //const untis = new WebUntisSecretAuth(password[0], password[1], password[3], password[2], 'custom-identity', authenticator);
-    const untis = new WebUntisSecretAuth('gymnordenham', 'benjamin.frischkorn', 'FFI7G4D5255MCTLX', 'arche.webuntis.com', 'custom-identity', authenticator);
+    const untis = new WebUntisSecretAuth(loginData[0], loginData[1], loginData[2], loginData[3], 'custom-identity', authenticator);
+    //const untis = new WebUntisSecretAuth('gymnordenham', 'benjamin.frischkorn', 'FFI7G4D5255MCTLX', 'arche.webuntis.com', 'custom-identity', authenticator);
     // schoolField, userNameField, serverURLField, authCodeField, settingsScreenAddMyClassInput
     //const untis = new WebUntisSecretAuth(password[0], password[1], password[3], password[2], 'custom-identity', authenticator);
     vsCodeDebugConsole.log("Logging in.");
