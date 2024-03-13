@@ -1,0 +1,10 @@
+#firstTimeScreen {
+    font-family: "Oleo Script", system-ui;
+
+    background: linear-gradient(#365486, #0F1035);
+}
+
+#firstTimeScreen div h1 {
+    font-family: "Oleo Script", system-ui;
+    font-size: 3em;
+}
