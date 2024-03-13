@@ -1,14 +1,12 @@
 #firstTimeScreen {
-    font-family: "Oleo Script", system-ui;
-
     background: linear-gradient(#365486, #0F1035);
 }
 
 #firstTimeScreen div h1 {
-    font-family: "Oleo Script", system-ui;
-    font-size: 3em;
+    font-family: "Style Script", cursive;
+    font-size: 5em;
+}
 
-    background: linear-gradient(#fff, #dde);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+#firstTimeScreen div button {
+    margin-left: 0px;
 }
