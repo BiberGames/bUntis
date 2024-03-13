@@ -2,9 +2,10 @@
     padding: 0px;
     margin: 0px;
     z-index: 0;
-    font-family: 'Ubuntu Mono';
+    font-family: 'Roboto';
     user-select: none;
     overflow: hidden;
+    font-size: 13px;
 }
 
 button {

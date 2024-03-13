@@ -7,4 +7,8 @@
 #firstTimeScreen div h1 {
     font-family: "Oleo Script", system-ui;
     font-size: 3em;
+
+    background: linear-gradient(#fff, #dde);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
