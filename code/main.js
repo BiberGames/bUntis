@@ -106,14 +106,14 @@ function getFirstDayOfWeek()
     return monday;
 }
 
-const userDataPath = (electron.app || electron.remote.app).getPath('userData');
-const savePath = path.join(userDataPath, 'save.json')
+//const userDataPath = (electron.app || electron.remote.app).getPath('userData');
+//const savePath = path.join(userDataPath, 'save.json')
 
 ipcMain.handle('server:save', async (event, saveData) => {
     vsCodeDebugConsole.log("Saving Settings");
-    vsCodeDebugConsole.log(saveData);
+    //vsCodeDebugConsole.log(saveData);
     
-    keytar.setPassword('bUntis', 'bUntisSystems', JSON.stringify(saveData))
+    keytar.setPassword('bUntis', 'login', JSON.stringify(saveData))
 	.then(() => {
             vsCodeDebugConsole.log('Password saved successfully');
 	})
@@ -128,14 +128,14 @@ ipcMain.handle('server:save', async (event, saveData) => {
 });
 
 async function loadServer() {
-    keytar.getPassword('bUntis', 'bUntisSystems')
+    keytar.getPassword('bUntis', 'login')
 	.then((password) => {
 	    if (password) {
 		mainWindow.send('renderer:pharseSettings', password);
 		
 		//vsCodeDebugConsole.log('Password retrieved successfully:', password);
 		password = JSON.parse(password);
-		vsCodeDebugConsole.log('Password retrieved successfully:', password);
+		//vsCodeDebugConsole.log('Password retrieved successfully:', password);
 		getWebData(password);
 		//vsCodeDebugConsole.log(password[0] + ' ' + password[1] + ' ' + password[3] + ' ' + password[2]);
 	    } else {

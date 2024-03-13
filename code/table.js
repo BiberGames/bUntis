@@ -79,7 +79,7 @@ function addSubjectToTable(x, y, timeTableData) {
 
     utils.setContentInTable(mainTimeTable, x + 2, y + 1, text);
     
-    //console.log(timeTableData.id);
+    //console.log(timeTableData.date);
     setCellStatusColor(x + 2, y + 1, timeTableData.code);
 }
 
