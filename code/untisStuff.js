@@ -20,17 +20,19 @@ const loadingScreenInfoText = document.getElementById('loadingInfo');
 const debug = document.getElementById('debug');
 const inboxTable = document.getElementById('inboxTable');
 
+var firstTime = 1;
+
 var pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen'), document.getElementById('events'), debug, document.getElementById('inbox'), document.getElementById('firstTimeScreen')];
 var openPage = 0;
+showPage(0);
 
-//var myClasses = settings.loadSettings();
-showPage(0); // show loading screen when app starts
-
+/*var myClasses =*/ settings.loadSettings();
 ipcRenderer.on('renderer:pharseSettings', function(e, item) {
 });
 
 ipcRenderer.on('renderer:sessionInfo', function(e, item) {
     console.log('Receiving Session Data');
+
     const sessionID = document.getElementById('SessionString');
     sessionID.innerHTML = JSON.stringify(item.sessionId);
 
@@ -56,8 +58,10 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
     //timeTable.createTable(myClasses, timetableNextWeek, 1);
     //mainTimeTable = document.getElementById('TimeTable');
 
-    showPage(1);
-    document.getElementById('bottomNavBar').style.display = 'block';
+    if(firstTime === 0) {
+	showPage(1);
+	document.getElementById('bottomNavBar').style.display = 'block';
+    }
 });
 
 ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
