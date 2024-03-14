@@ -105,10 +105,6 @@ function getFirstDayOfWeek()
     
     return monday;
 }
-
-//const userDataPath = (electron.app || electron.remote.app).getPath('userData');
-//const savePath = path.join(userDataPath, 'save.json')
-
 ipcMain.handle('server:save', async (event, saveData) => {
     vsCodeDebugConsole.log("Saving Settings");
     //vsCodeDebugConsole.log(saveData);
@@ -120,8 +116,6 @@ ipcMain.handle('server:save', async (event, saveData) => {
 	.catch((err) => {
             vsCodeDebugConsole.error('Error saving password:', err);
 	});
-    
-    vsCodeDebugConsole.log(savePath);
     
     app.relaunch();
     app.exit();

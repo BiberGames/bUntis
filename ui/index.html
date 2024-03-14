@@ -37,7 +37,6 @@
       </div>
       <button class="bottomNavBarButton" onclick="showPage(3)">Login</button>
     </div>
-
     <div class="bigPanel" id="firstTimeScreen">
       <div class="center-center">
 	<h1>Welcome&nbsp;</h1>
@@ -47,11 +46,15 @@
 	<input id="server" type="text" placeholder="Server adress"><br>
 	<input id="code" type="password" placeholder="Secret code"><br>
 	<br>
-	<button onclick="showPage(3)">Login</button>
-	<button> ? </button>
+	<center>
+	<div class="loginButtons">
+	  <button onclick="saveSettings()">Login</button>
+	  <button> ? </button>
+	</div>
+	</center>
       </div>
     </div>
-    
+  
     <div class="bigPanel" id="settingsScreen">
       <br>
       <h1> <img src="../images/font/settings_white_24dp.svg"> Settings</h1>
@@ -64,7 +67,7 @@
       <input type="text" id="MyClassesInput" placeholder="Enter Class"> <button onclick="saveSettings()">Save</button>
       <button class="buttonNavBarButton" onclick="showPage(5)">DEBUG</button>
     </div>
-    
+ 
     <div class="bigPanel" id="debug">
       <br>
       <h1> <img src="../images/font/settings_white_24dp.svg"> Debug</h1>
@@ -114,7 +117,6 @@
     
     <div class="bottomNavBar" id="bottomNavBar">
       <center>
-	<button class='bottomNavBarButton' onclick="showPage(7)"><img src="../images/font/arrow_back_white_24dp.svg"></button>
         <button class="bottomNavBarButton" onclick="showPage(1)"><img src="../images/font/calendar_month_white_24dp.svg"> Timetable</button>
         <button class="bottomNavBarButton" onclick="showPage(2)"><img src="../images/font/home_work_white_24dp.svg"> Homework</button>
         <!--<button class="bottomNavBarButton" onclick="showPage(4)"><span class="material-icons">event</span> Events</button>-->

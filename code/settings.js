@@ -2,7 +2,6 @@ const md5 = require('../code/md5.js');
 const utils = require('../code/utils.js');
 const keytar = require('keytar');
 
-//const {sanitizeInput} = 
 const saveSettings = async function(_school, _username, _server, _code, _classes) {
     var saveDataServer = [];
     var saveDataClient = [];
@@ -24,7 +23,7 @@ const saveSettings = async function(_school, _username, _server, _code, _classes
     saveDataServer.push(_code);
     saveDataServer.push(_server);
 
-    //const result = await ipcRenderer.invoke('server:save', saveDataServer);
+    const result = await ipcRenderer.invoke('server:save', saveDataServer);
 }
 
 function saveClient(saveData, hook) {

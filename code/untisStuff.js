@@ -22,7 +22,15 @@ const inboxTable = document.getElementById('inboxTable');
 
 var firstTime = 1;
 
-var pages = [document.getElementById('loadingScreen'), mainTimeTable, document.getElementById('homeWork'), document.getElementById('settingsScreen'), document.getElementById('events'), debug, document.getElementById('inbox'), document.getElementById('firstTimeScreen')];
+var pages = [document.getElementById('loadingScreen'),
+	     mainTimeTable,
+	     document.getElementById('homeWork'),
+	     document.getElementById('settingsScreen'),
+	     document.getElementById('events'),
+	     debug,
+	     document.getElementById('inbox'),
+	     document.getElementById('firstTimeScreen')];
+
 var openPage = 0;
 showPage(0);
 
