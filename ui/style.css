@@ -4,7 +4,7 @@
     z-index: 0;
     font-family: 'Roboto';
     user-select: none;
-    overflow: hidden;
+    /*overflow: hidden;*/
     font-size: 13px;
 }
 
