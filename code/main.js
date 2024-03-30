@@ -157,17 +157,15 @@ async function getWebData(loginData) {
     classID = sessionInfo.klasseId;
     
     mainWindow.send('renderer:status', 'Setting date.');
-    //var testDate = new Date();
-    //testDate.setDate(testDate.getDate() + 4);
-    
-    //mainWindow.send('renderer:status', 'Recieving classes.');
-    //classes = await untis.getClasses();
     
     weekStart = new Date();
-    weekStart.setDate(weekStart.getDate());
+    //weekStart.setDate(weekStart.getDate());
     weekEnd = new Date();
+    
     weekStart = getFirstDayOfWeek();
     weekEnd.setDate(weekStart.getDate() + 4);
+
+    weekEnd.setMonth(weekStart.getMonth());
     
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
