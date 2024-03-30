@@ -1,5 +1,7 @@
-The ask Benjamin License
+The Benjamin License
 
-Benjamin is the only maintainer of this repo
-Ask Benjamin if you want to use / modify / distribute this code
-No one exept Benjamin can modify / push to this repo
+Benjamin is the sole maintainer of this repository.
+Permission must be sought from Benjamin for any use, modification, or distribution of this code.
+No one other than Benjamin is authorized to modify or push to this repository.
+All rights reserved © Benjamin.
+For any inquiries or requests, please contact Benjamin.

@@ -67,7 +67,7 @@ function setCellStatusColor(x, y, code) {
 }
 
 function addSubjectToTable(x, y, timeTableData) {
-    //console.log(timeTableData);
+//    console.log(timeTableData);
     var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2) + '<br>' + '[' + timeTableData.ro[0].name + ']';
 
     if(timeTableData.substText) {
