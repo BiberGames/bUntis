@@ -11,25 +11,26 @@ const fs = require("fs");
 const keytar = require('keytar');
 const md5 = require('../code/md5.js');
 
-var mainWindow = ''
+var mainWindow = '';
 var tempData = [];
 
 //process.env.NODE_ENV = 'development';
 // ELECTRON //
 
 // UNTIS //
-const { WebUntisSecretAuth } = require('webuntis')
-const { authenticator } = require('otplib')
+const { WebUntisSecretAuth } = require('webuntis');
+const { authenticator } = require('otplib');
 // UNTIS //
 
 // DATA //
-var classes = ''
-var sessionInfo = ''
+var classes = '';
+var sessionInfo = '';
 var classID = 901;
 var timetableLastWeak = '';
 var timetableThisWeak = '';
 var timetableNextWeak = '';
-var homework = ''
+var homework = '';
+var holidays = '';
 //var subjects = ''
 // DATA //
 
@@ -177,6 +178,9 @@ async function getWebData(loginData) {
     mainWindow.send('renderer:status', 'Recieving inbox');
     var inbox = await untis.getInbox();
     //vsCodeDebugConsole.log(inbox);
+
+    holidays = await untis.getHolidays();
+    //vsCodeDebugConsole.log(holidays);
     
     //mainWindow.send('renderer:status', 'Recieving subjects.');
     //subjects = await untis.Timegrid(weekStart, );
@@ -198,6 +202,7 @@ async function getWebData(loginData) {
     mainWindow.send('renderer:homeWorkInfo', homework);
     mainWindow.send('renderer:dateInfo', weekStart);
     mainWindow.send('renderer:inbox', inbox);
+    mainWindow.send('renderer:holidayInfo', holidays);
     
     mainWindow.send('renderer:status', 'Pharsing data.');
     

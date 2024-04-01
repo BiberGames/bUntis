@@ -83,6 +83,21 @@ ipcRenderer.on('renderer:inbox', function(e, inboxData) {
     inbox.show(inboxData);
 });
 
+function isWithinDateRange(startDate, endDate) {
+    var currentDate = new Date(); // Aktuelles Datum
+    startDate = new Date(startDate.slice(0, 4), parseInt(startDate.slice(4, 6)) - 1, startDate.slice(6, 8)); // Startdatum umwandeln
+    endDate = new Date(endDate.slice(0, 4), parseInt(endDate.slice(4, 6)) - 1, endDate.slice(6, 8)); // Enddatum umwandeln
+    return currentDate >= startDate && currentDate <= endDate;
+}
+
+ipcRenderer.on('renderer:holidayInfo', function(e, holidayData) {
+    for(let i = 0; i < holidayData.length; i++) {
+	if(isWithinDateRange(holidayData[i].startDate.toString(), holidayData[i].endDate.toString())) {
+	    console.log(holidayData[i]); 
+	}
+    }   
+});
+
 async function saveSettings() {
     const schoolField = utils.sanitizeInput(document.getElementById('school').value);
     const userNameField = utils.sanitizeInput(document.getElementById('name').value);

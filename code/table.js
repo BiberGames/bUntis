@@ -197,6 +197,7 @@ const createTable = function(_classes, _timeTableData, id) {
         dates.push(timeTableData[i].date);
     }
     dates = utils.removeDuplicatesAndSort(dates);
+    console.log(dates);
 
     for (let i = 0; i < timeTableData.length; i+=1) {
         if(timeTableData[i].date == dates[0]) {
