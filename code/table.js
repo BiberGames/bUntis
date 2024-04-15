@@ -114,12 +114,13 @@ function addEventToTable(x, y, timeTableData) {
 
 }
 
+function addHolidayToTable(x, y, timeTableData) {
+    
+}
+
 function dataToTable(timeTableData, x, y) {
     utils.getCellInTable(mainTimeTable, x+2, y+1).classList.add('timeTableElement');
     if(utils.isMyClass(classes, timeTableData.sg) || timeTableData.lstext) {
-	if(timeTableData.sg === "MA_12_Sü_1")
-	    console.log(timeTableData);
-	
         try {
             if(timeTableData.su.length > 0 && timeTableData.ro.length > 0) { // normal subject with room number and name
                 addSubjectToTable(x, y, timeTableData);

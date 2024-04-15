@@ -83,19 +83,20 @@ ipcRenderer.on('renderer:inbox', function(e, inboxData) {
     inbox.show(inboxData);
 });
 
-function isWithinDateRange(startDate, endDate) {
-    var currentDate = new Date(); // Aktuelles Datum
-    startDate = new Date(startDate.slice(0, 4), parseInt(startDate.slice(4, 6)) - 1, startDate.slice(6, 8)); // Startdatum umwandeln
-    endDate = new Date(endDate.slice(0, 4), parseInt(endDate.slice(4, 6)) - 1, endDate.slice(6, 8)); // Enddatum umwandeln
-    return currentDate >= startDate && currentDate <= endDate;
-}
-
 ipcRenderer.on('renderer:holidayInfo', function(e, holidayData) {
-    for(let i = 0; i < holidayData.length; i++) {
-	if(isWithinDateRange(holidayData[i].startDate.toString(), holidayData[i].endDate.toString())) {
-	    console.log(holidayData[i]); 
+    var currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 1);
+    holidayData.forEach(function(holiday) {
+	// Start- und Enddatum der Ferien in Date-Objekte umwandeln
+	var startDate = new Date(holiday.startDate.toString().substr(0, 4), parseInt(holiday.startDate.toString().substr(4, 2)) - 1, holiday.startDate.toString().substr(6, 2));
+	var endDate = new Date(holiday.endDate.toString().substr(0, 4), parseInt(holiday.endDate.toString().substr(4, 2)) - 1, holiday.endDate.toString().substr(6, 2));
+	
+	// Überprüfen, ob das aktuelle Datum zwischen dem Start- und Enddatum liegt
+	if (currentDate >= startDate && currentDate <= endDate) {
+            console.log("Das aktuelle Datum liegt in den Ferien: " + holiday.longName);
+            // Hier kannst du beliebige weitere Aktionen ausführen, z.B. eine Meldung anzeigen
 	}
-    }   
+    });
 });
 
 async function saveSettings() {
