@@ -146,9 +146,6 @@ async function getWebData(loginData) {
     vsCodeDebugConsole.log("untisApi;");
     
     const untis = new WebUntisSecretAuth(loginData[0], loginData[1], loginData[2], loginData[3], 'custom-identity', authenticator);
-    //const untis = new WebUntisSecretAuth('gymnordenham', 'benjamin.frischkorn', 'FFI7G4D5255MCTLX', 'arche.webuntis.com', 'custom-identity', authenticator);
-    // schoolField, userNameField, serverURLField, authCodeField, settingsScreenAddMyClassInput
-    //const untis = new WebUntisSecretAuth(password[0], password[1], password[3], password[2], 'custom-identity', authenticator);
     vsCodeDebugConsole.log("Logging in.");
     
     

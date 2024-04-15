@@ -10,8 +10,9 @@ const inbox = require('../code/inbox.js');
 
 const whookURL = '';
 
-var myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_Kö', 'SEM_12_Fo', 'KU_12_Bz', 'SN_12_Pn', 'SP_12_8'];
+//var myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_Kö', 'SEM_12_Fo', 'KU_12_Bz', 'SN_12_Pn', 'SP_12_8'];
 //const myClasses = ['MA_12_Sü_1', 'PH_12_Dr', 'CH_12_Vi', 'GE_12_Vt', 'DE_12_Hm_1', 'SEM_12_Sa', 'KU_12_Bz', 'PL_12_Wb', 'EN_12_Ml_1', 'SP_12_11'];
+var myClasses = '';
 
 var mainTimeTable = document.getElementById('timeTables');
 const homeWorkTable = document.getElementById('homeWorkTable')

@@ -4,19 +4,9 @@ const keytar = require('keytar');
 
 const saveSettings = async function(_school, _username, _server, _code, _classes) {
     var saveDataServer = [];
-    var saveDataClient = [];
     var classes = [];
 
-    classes = _classes.split(" ");
-
-    for (let i = 0; i < classes.length; i++) {
-	saveDataClient.push(classes[i]);
-    }
-
-    saveDataClient = JSON.stringify(saveDataClient);
-    //console.log(saveDataClient);
-
-    saveClient(saveDataClient, "");
+    saveClient(_classes, "");
     
     saveDataServer.push(_school);
     saveDataServer.push(_username);
@@ -27,7 +17,7 @@ const saveSettings = async function(_school, _username, _server, _code, _classes
 }
 
 function saveClient(saveData, hook) {
-    keytar.setPassword('bUntis', 'classes', JSON.stringify(saveData))
+    keytar.setPassword('bUntis', 'classes', saveData)
 	.then(() => {
             console.log('Password saved successfully');
 	})
@@ -62,8 +52,9 @@ const loadSettings = function() {
     keytar.getPassword('bUntis', 'classes')
 	.then((password) => {
 	    if (password) {
-		password = JSON.parse(password);
-		//console.log(password);
+		password = password.split(" ");
+		myClasses = password;
+		console.log(password);
 		return password
 	    } else {
 		console.log('Password not found');
