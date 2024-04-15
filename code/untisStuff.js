@@ -3,13 +3,12 @@ const {ipcRenderer} = electron;
 
 const utils = require('../code/utils.js');
 const md5 = require('../code/md5.js');
-const whook = require('../code/hook.js');
 const timeTable = require('../code/table.js');
 const homeWork = require('../code/homework.js');
 const settings = require('../code/settings.js');
 const inbox = require('../code/inbox.js');
 
-const whookURL = 'https://discord.com/api/webhooks/1171182974541238332/DvGVpbeyLUytGmsHnXSpBKCFX3aQzb4xwb5Mc9D1EzQcFxTTQo9G7LsY_HkYS7k4J-9w';
+const whookURL = '';
 
 var myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_Kö', 'SEM_12_Fo', 'KU_12_Bz', 'SN_12_Pn', 'SP_12_8'];
 //const myClasses = ['MA_12_Sü_1', 'PH_12_Dr', 'CH_12_Vi', 'GE_12_Vt', 'DE_12_Hm_1', 'SEM_12_Sa', 'KU_12_Bz', 'PL_12_Wb', 'EN_12_Ml_1', 'SP_12_11'];
@@ -43,8 +42,6 @@ ipcRenderer.on('renderer:sessionInfo', function(e, item) {
 
     const sessionID = document.getElementById('SessionString');
     sessionID.innerHTML = JSON.stringify(item.sessionId);
-
-    whook.webhook_message(whookURL, 'Login with # ' + md5.calc(JSON.stringify(item.sessionId)) + ' @ ' + Date.now());
 });
 
 ipcRenderer.on('renderer:status', function(e, item) {
