@@ -67,9 +67,13 @@ function setCellStatusColor(x, y, code) {
 }
 
 function addSubjectToTable(x, y, timeTableData) {
-//    console.log(timeTableData);
-    var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2) + '<br>' + '[' + timeTableData.ro[0].name + ']';
+//    if(timeTableData.sg === "POWI_12_Ps_1")
+//	console.log(timeTableData);
 
+    var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2) + '<br>' + '[' + timeTableData.ro[0].name + ']';
+    if(timeTableData.ro[0].orgname)
+	text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2) + '<br>' + '<div style="background-color: #FFD1E3;">[' + timeTableData.ro[0].name + ']</div>';
+    
     if(timeTableData.substText) {
         text += '<br>' + timeTableData.substText;
         timeTableData.code = 'sup';
@@ -115,7 +119,7 @@ function addEventToTable(x, y, timeTableData) {
 }
 
 function addHolidayToTable(x, y, timeTableData) {
-    
+ 
 }
 
 function dataToTable(timeTableData, x, y) {
