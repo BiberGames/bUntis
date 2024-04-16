@@ -1,20 +1,21 @@
 {
     "name": "bUntis",
     "productName": "bUntis",
-    "version": "0.77.0",
+    "version": "0.78.0",
     "description": "A free and full featured webuntis desktop client.",
     "main": "./code/main.js",
     "scripts": {
         "start": "electron .",
         "postinstall": "electron-builder install-app-deps",
         "pack": "electron-builder --dir",
+	"upgrade": "ncu -u",
         "dist": "electron-builder --linux"
     },
     "author": "benjamin (c) benjaGames 2024",
     "license": "Ask Benjamin",
     "devDependencies": {
-        "@electron/rebuild": "^3.2.13",
-        "electron": "^26.6.7",
+        "@electron/rebuild": "^3.6.0",
+        "electron": "^30.0.0",
         "electron-builder": "^24.13.3"
     },
     "dependencies": {
@@ -23,13 +24,14 @@
         "electon": "^0.0.1-security",
         "electron-squirrel-startup": "^1.0.0",
         "keytar": "^7.9.0",
+        "npm-check-updates": "^16.14.18",
         "secure-electron-store": "^4.0.2",
-        "webuntis": "^2.0.3"
+        "webuntis": "^2.2.1"
     },
     "build": {
         "appId": "com.benjagames.buntis",
-	"linux": {
-	    "target": "AppImage"
-	}
+        "linux": {
+            "target": "AppImage"
+        }
     }
 }
