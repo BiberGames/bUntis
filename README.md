@@ -8,7 +8,7 @@ A free and full featured webuntis desktop client.
 ## For npm
 - Debian-based:  ```sudo apt-get install npm ```
 - Red Hat-based:  ```sudo yum install npm ```
-- Arch Linux: sudo  ```pacman -S npm ```
+- Arch Linux: ```sudo pacman -S npm ```
 
 ### For npm packages
 - Open dir and type ```npm install```
