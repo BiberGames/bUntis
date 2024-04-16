@@ -32,6 +32,9 @@
         "appId": "com.benjagames.buntis",
         "linux": {
             "target": "AppImage"
-        }
+        },
+	"windows": {
+	    "target": "portable"
+	}
     }
 }
