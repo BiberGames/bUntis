@@ -1,9 +1,17 @@
-# bUnits
+# bUntis
 A free and full featured webuntis desktop client.  
 
 # Build instructions
 - install npm
 - install electron webuntis and keytar
+
+## For npm
+- Debian-based: sudo apt-get install npm
+- Red Hat-based: sudo yum install npm
+- Arch Linux: sudo pacman -S npm
+
+### For npm packages
+- Open dir and type ```npm install```
 
 ## For keytar
 - Debian-based: sudo apt-get install libsecret-1-dev
