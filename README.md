@@ -6,22 +6,22 @@ A free and full featured webuntis desktop client.
 - install electron webuntis and keytar
 
 ## For npm
-- Debian-based: sudo apt-get install npm
-- Red Hat-based: sudo yum install npm
-- Arch Linux: sudo pacman -S npm
+- Debian-based:  ```sudo apt-get install npm ```
+- Red Hat-based:  ```sudo yum install npm ```
+- Arch Linux: sudo  ```pacman -S npm ```
 
 ### For npm packages
 - Open dir and type ```npm install```
 
 ## For keytar
-- Debian-based: sudo apt-get install libsecret-1-dev
-- Red Hat-based: sudo yum install libsecret-devel
-- Arch Linux: sudo pacman -S libsecret
+- Debian-based:  ```sudo apt-get install libsecret-1-dev ```
+- Red Hat-based:  ```sudo yum install libsecret-devel ```
+- Arch Linux:  ```sudo pacman -S libsecret ```
 
 ## To use the AppImage
-- Debian-based: sudo apt-get install fuse libfuse2
-- Red Hat-based: sudo yum install fuse
-- Arch Linux: sudo pacman -S fuse
+- Debian-based:  ```sudo apt-get install fuse libfuse2 ```
+- Red Hat-based:  ```sudo yum install fuse ```
+- Arch Linux:  ```sudo pacman -S fuse ```
 
 # Credits
 [Electron](https://github.com/electron/electron)  
