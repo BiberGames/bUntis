@@ -123,6 +123,11 @@ ipcMain.handle('server:save', async (event, saveData) => {
     app.exit();
 });
 
+ipcMain.handle('server:restart', async () => {
+    app.relaunch();
+    app.exit();
+});
+
 async function loadServer() {
     keytar.getPassword('bUntis', 'login')
 	.then((password) => {
