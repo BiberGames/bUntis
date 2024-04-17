@@ -9,6 +9,15 @@ const convertUntisDate = function(date) {
     return `${day}.${month}.${year}`;
 }
 
+const getDateDistance = function(dateOne, dateTwo) {
+    var dateOneSub = dateOne.split(".")
+    var dateTwoSub = dateTwo.split(".")
+    var distance = 0
+    // If dateTwo is smaller than dateOne, switch them.
+    distance += (dateOneSub[2] - dateTwoSub[2]) * 365 + (dateOneSub[1] - dateTwoSub[1]) * 31 + (dateOneSub[0] - dateTwoSub[0])
+    return distance
+}
+
 const mergeCells = function(table, x, y) {
 	if(getCellInTable(table, x, y).innerHTML == getCellInTable(table, x, y-1).innerHTML) {
 	    getCellInTable(table, x, y).style.display = 'none';
@@ -74,5 +83,5 @@ const setCookie = function(name, value, days) {
 }
 
 module.exports = {
-    removeDuplicatesAndSort, convertUntisDate, mergeCells, setContentInTable, isMyClass, getCellInTable, sanitizeInput, timeToElements, setCookie
+    removeDuplicatesAndSort, convertUntisDate, mergeCells, setContentInTable, isMyClass, getCellInTable, sanitizeInput, timeToElements, setCookie, getDateDistance
 }
