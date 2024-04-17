@@ -16,12 +16,11 @@ const show = function(homeWorkTable, homeWorkData) {
 
     for(let i = 0; i < homeWorkData.homeworks.length; i++) {
 	if(homeWorkData.homeworks[i].completed !== true) {
-	    var homeWorkDueDate = utils.convertUntisDate(homeWorkData.homeworks[i].dueDate)
+	    var homeWorkDueDate = utils.convertUntisDate(homeWorkData.homeworks[i].dueDate);
+	    var dateDistance = utils.getDateDistance(homeWorkDueDate, today);
 
-	    var dateDistance = utils.getDateDistance(homeWorkDueDate, today)
-
-	    if(dateDistance < 0) {
-		return
+	    if(dateDistance <= 0) {
+		return;
 	    }
 	    
             var row = homeWorkTable.insertRow();
