@@ -5,7 +5,7 @@
     font-family: 'Roboto';
     user-select: none;
     /*overflow: hidden;*/
-    font-size: 13px;
+    /*font-size: 13px;*/
 }
 
 button {
@@ -18,6 +18,8 @@ button {
     display: inline-block;
     font-size: 14px;
     transition: 0.3s;
+    
+    font-size: 13px;
 }
 
 button:hover {
@@ -33,6 +35,8 @@ input[type=text] {
     padding: .4em;
     color: #3498db;
     margin-bottom: 0.2em;
+
+    font-size: 13px;
 }
 
 input[type=password] {
@@ -44,6 +48,13 @@ input[type=password] {
     padding: .4em;
     color: #3498db;
     margin-bottom: 0.2em;
+
+    font-size: 13px;
+}
+
+input[type="color"] {
+    width: 5em;
+    height: 5em;
 }
 
 body {
