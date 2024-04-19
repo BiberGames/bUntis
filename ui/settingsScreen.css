@@ -13,3 +13,8 @@
     transform: translate(-50%, -50%);
 }
 
+.colorSetting {
+    float: left;
+    padding-right: 0.3em;
+    padding-left: 0.3em;
+}

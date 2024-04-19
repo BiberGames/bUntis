@@ -54,16 +54,47 @@
     </div>
     
     <div class="bigPanel" id="settingsScreen">
+      <div>
+	<br>
+	<h1> <img src="../images/font/settings_white_24dp.svg"> Settings</h1>
+      </div>
+
       <br>
-      <h1> <img src="../images/font/settings_white_24dp.svg"> Settings</h1>
-      <input id="school" type="text" placeholder="School ID"><br>
-      <input id="name" type="text" placeholder="User name"><br>
-      <input id="server" type="text" placeholder="Server adress"><br>
-      <input id="code" type="password" placeholder="Secret code"><br>
       
-      <h2> <img src="../images/font/class_white_24dp.svg"> My classes </h2>
-      <input type="text" id="MyClassesInput" placeholder="Enter Class"> <button onclick="saveSettings()">Save</button>
-      <button class="buttonNavBarButton" onclick="showPage(5)">DEBUG</button>
+      <div>
+	<h2>Account</h2>
+	<button onclick="showPage(7)">Reset</button>
+      </div>
+      
+      <br>
+      
+      <div class="colorSettingsDiv">
+	<h2>Colors</h2>
+	<div class="colorSetting">
+	  Regular<br>
+	  <input type="color" id="head" name="head" value="#B2E672" />
+	</div>
+	<div class="colorSetting">
+	  Cancled<br>
+	  <input type="color" id="head" name="head" value="#FFFD88" />
+	</div>
+	<div class="colorSetting">
+	  Event<br>
+	  <input type="color" id="head" name="head" value="#FFD478" />
+	</div>
+	<div class="colorSetting">
+	  Substitution<br>
+	  <input type="color" id="head" name="head" value="#F96B85" />
+	</div>
+	<div class="colorSetting">
+	  Room change<br>
+	  <input type="color" id="head" name="head" value="#FFD1E3" />
+	</div>
+	<br>
+	<br>
+	<!--<button onclick="alert('Nope')">Reset colors</button>-->
+      </div>
+      
     </div>
     
     <div class="bigPanel" id="debug">

@@ -28,4 +28,5 @@ A free and full featured webuntis desktop client.
 [Electron Builder](https://github.com/electron-userland/electron-builder)  
 [Untis API](https://github.com/SchoolUtils/WebUntis)  
 [Keytar](https://github.com/atom/node-keytar)  
+[Google Fonts](https://fonts.google.com/icons?preview.text=Welcome!&query=script&icon.set=Material+Icons)  
 And many Stack Overflow posts  

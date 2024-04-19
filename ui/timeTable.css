@@ -1,9 +1,11 @@
 .timeCell {
     width: 3em;
+    font-size: 13px;
 }
 
 .thinCell {
     max-width: 32px;
+    font-size: 13px;
     /*padding: 2px;*/
 }
 
@@ -19,6 +21,12 @@
     max-height: 64px;
     height: 64px;
     width: 64px;
+
+    font-size: 13px;
+}
+
+.roomChange {
+    background-color: #FFD1E3;
 }
 
 .cancelled {

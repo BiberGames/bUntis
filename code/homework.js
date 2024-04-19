@@ -18,7 +18,8 @@ const show = function(homeWorkTable, homeWorkData) {
 	if(homeWorkData.homeworks[i].completed !== true) {
 	    var homeWorkDueDate = utils.convertUntisDate(homeWorkData.homeworks[i].dueDate);
 	    var dateDistance = utils.getDateDistance(homeWorkDueDate, today);
-	    
+
+	    //console.log(dateDistance);
 	    if(dateDistance <= 0) {
 		return;
 	    }
