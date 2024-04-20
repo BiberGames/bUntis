@@ -31,7 +31,8 @@
     "build": {
         "appId": "com.benjagames.buntis",
         "linux": {
-            "target": "AppImage"
+            "target": "AppImage",
+	    "category": "Education"
         },
 	"win": {
 	    "target": "portable"
