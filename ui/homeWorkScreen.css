@@ -1,3 +1,7 @@
+.homeWorkTable {
+    width: 100%;
+}
+
 .homeWorkTable td {
     padding: 2px;
     border-radius: 0px;
@@ -7,7 +11,7 @@
     border-left: none;
     border-right: none;
 
-    width: 10%;
+    /*width: 10%;*/
 }
 
 .homeWorkTable tr {
