@@ -72,7 +72,7 @@ function addSubjectToTable(x, y, timeTableData) {
 
     var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2) + '<br>' + '[' + timeTableData.ro[0].name + ']';
     if(timeTableData.ro[0].orgname)
-	text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2) + '<br>' + '<div class="roomChange">[' + timeTableData.ro[0].name + ']</div>';
+	text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2) + '<br>' + '<p class="roomChange">[' + timeTableData.ro[0].name + ']</p>';
     
     if(timeTableData.substText) {
         text += '<br>' + timeTableData.substText;

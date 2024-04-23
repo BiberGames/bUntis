@@ -57,6 +57,7 @@
 }
 
 .roomChange {
+    min-width: 100%;
     background-color: #FFD1E3;
 }
 
