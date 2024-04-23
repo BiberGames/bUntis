@@ -20,7 +20,7 @@ const show = function(homeWorkTable, homeWorkData) {
 	    var dateDistance = utils.getDateDistance(homeWorkDueDate, today);
 
 	    //console.log(dateDistance);
-	    if(dateDistance <= 0) {
+	    if(dateDistance === -1) {
 		return;
 	    }
 	    
