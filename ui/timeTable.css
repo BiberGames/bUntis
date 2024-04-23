@@ -1,12 +1,43 @@
-.timeCell {
-    width: 3em;
+.TimeTable {
+    width: 100vw;
+    height: 96.5vh;
+
     font-size: 13px;
 }
 
-.thinCell {
-    max-width: 32px;
-    font-size: 13px;
-    /*padding: 2px;*/
+.TimeTable tr :nth-child(1) {
+    width: 2%;
+    max-width: 2%;
+}
+
+.TimeTable tr :nth-child(2) {
+    width: 2%;
+    max-width: 2%;
+}
+
+.TimeTable tr :nth-child(3) {
+    width: 19.2%;
+    max-width: 19.2%;
+}
+
+.TimeTable tr :nth-child(4) {
+    width: 19.2%;
+    max-width: 19.2%;
+}
+
+.TimeTable tr :nth-child(5) {
+    width: 19.2%;
+    max-width: 19.2%;
+}
+
+.TimeTable tr :nth-child(6) {
+    width: 19.2%;
+    max-width: 19.2%;
+}
+
+.TimeTable tr :nth-child(7) {
+    width: 19.2%;
+    max-width: 19.2%;
 }
 
 .timeTableElement {
@@ -17,12 +48,12 @@
     border-left: 10px solid rgba(100, 100, 100, .2);
     
     padding: 2px;
+/*
     max-width: 64px;
     max-height: 64px;
     height: 64px;
     width: 64px;
-
-    font-size: 13px;
+*/
 }
 
 .roomChange {
