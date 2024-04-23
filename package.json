@@ -1,7 +1,7 @@
 {
     "name": "bUntis",
     "productName": "bUntis",
-    "version": "0.100.0",
+    "version": "0.103.0",
     "description": "A free and full featured webuntis desktop client.",
     "main": "./code/main.js",
     "scripts": {
