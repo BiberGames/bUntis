@@ -40,20 +40,32 @@
     max-width: 19.2%;
 }
 
-.timeTableElement {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    
-    color: black;
-    border-left: 10px solid rgba(100, 100, 100, .2);
-    
-    padding: 2px;
-/*
-    max-width: 64px;
-    max-height: 64px;
-    height: 64px;
-    width: 64px;
-*/
+@media screen and (min-width: 500px) {
+    .timeTableElement {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
+	color: black;
+	border-left: 10px solid rgba(100, 100, 100, .2);
+	
+	padding: 2px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .timeTableElement {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
+	color: black;
+	border-left: 10px solid rgba(100, 100, 100, .2);
+	
+	padding: 2px;
+	
+	height: 64px;
+	width: 64px;
+	
+    }
 }
 
 .roomChange {
