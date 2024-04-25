@@ -11,11 +11,11 @@
 	"upgrade": "ncu -u",
         "dist": "electron-builder --linux"
     },
-    "author": "benjamin (c) benjaGames 2024",
+    "author": "Benjamin (c) BenjaGames 2024",
     "license": "Ask Benjamin",
     "devDependencies": {
         "@electron/rebuild": "^3.6.0",
-        "electron": "^30.0.0",
+        "electron": "^30.0.1",
         "electron-builder": "^24.13.3"
     },
     "dependencies": {
