@@ -169,7 +169,10 @@ async function getWebData(loginData) {
     weekStart = getFirstDayOfWeek();
     weekEnd.setDate(weekStart.getDate() + 4);
 
-    weekEnd.setMonth(weekStart.getMonth());
+    if(weekStart.getDate() + 4 > 30)
+	weekEnd.setMonth(weekStart.getMonth() + 1);
+
+    // Add next year check here.
     
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
