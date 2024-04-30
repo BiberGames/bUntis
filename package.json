@@ -24,7 +24,7 @@
         "electon": "^0.0.1-security",
         "electron-squirrel-startup": "^1.0.0",
         "keytar": "^7.9.0",
-        "npm-check-updates": "^16.14.18",
+        "npm-check-updates": "^16.14.20",
         "secure-electron-store": "^4.0.2",
         "webuntis": "^2.2.1"
     },
