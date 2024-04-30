@@ -36,7 +36,7 @@ var openPage = 0;
 showPage(0);
 
 settings.loadSettings();
-ipcRenderer.on('renderer:pharseSettings', function(e, item) {
+ipcRenderer.on('renderer:parseSettings', function(e, item) {
 });
 
 ipcRenderer.on('renderer:sessionInfo', function(e, item) {
@@ -62,7 +62,7 @@ ipcRenderer.on('renderer:dateInfo', function(e, item) {
 });
 
 ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetableThisWeek, timetableNextWeek) {
-    console.log('Receiving and pharsing Time Table Data');
+    console.log('Receiving and parsing Time Table Data');
 
     //timeTable.createTable(myClasses, timetableLastWeek, -1);
     //console.log(timetableThisWeek);
@@ -77,12 +77,12 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
 });
 
 ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
-    console.log('Receiving and pharsing Home Work Data');
+    console.log('Receiving and parsing Home Work Data');
     homeWork.show(homeWorkTable, homeWorkData);
 });
 
 ipcRenderer.on('renderer:inbox', function(e, inboxData) {
-    console.log('Receiving and pharsing Home Work Data');
+    console.log('Receiving and parsing Home Work Data');
     inbox.show(inboxData);
 });
 

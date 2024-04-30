@@ -86,13 +86,17 @@
 }
 
 .sup {
-	background-color: #F96B85;
+    background-color: #F96B85;
+}
+
+.free {
+    background-color: #8E7AB5;
 }
 
 .err {
-	background-color: #FF0000;
+    background-color: #FF0000;
 }
 
 .default {
-	background-color: #B2E672;
+    background-color: #B2E672;
 }

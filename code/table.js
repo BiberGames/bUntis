@@ -59,6 +59,10 @@ function setCellStatusColor(x, y, code) {
     case 'err':
         utils.getCellInTable(mainTimeTable, x, y).classList.add('err');
         break;
+
+    case 'free':
+	utils.getCellInTable(mainTimeTable, x, y).classList.add('free');
+	break
 	
     default:
         utils.getCellInTable(mainTimeTable, x, y).classList.add('default');
@@ -99,51 +103,56 @@ function addSubjectWithoutRoom(x, y, timeTableData) {
 }
 
 function addEventToTable(x, y, timeTableData) {
-//    console.log(timeTableData);
-
     var text = timeTableData.lstext;
     var rawEventLength = utils.timeToElements(timeTableData.endTime) - utils.timeToElements(timeTableData.startTime);
-
-    //console.log(rawEventLength);
 
     setCellStatusColor(x +2, y +1, timeTableData.code);
     utils.setContentInTable(mainTimeTable, x +2, y +1, text);
     utils.getCellInTable(mainTimeTable, x +2, y +1).rowSpan = rawEventLength+1;
 
-    for (let i = 1; i < rawEventLength +1; i+=1) {
+    for (let i = 1; i < rawEventLength +1; i++) {
         utils.getCellInTable(mainTimeTable, x +2, y +1 +i).style.display = 'none';
     }
 
     utils.getCellInTable(mainTimeTable, x +2, y +1).onclick = function() {showPage(4); event.update(timeTableData);};
-
 }
 
 function addHolidayToTable(x, y, timeTableData) {
- 
+    utils.setContentInTable(mainTimeTable, x +2, y +1, timeTableData.name + "<br>" + timeTableData.longName);
+
+    
+    setCellStatusColor(x + 2, y + 1, timeTableData.code);
+    utils.getCellInTable(mainTimeTable, x +2, y +1).rowSpan = 8;
+
+
+    for (let i = 1; i < 8; i++) {
+        utils.getCellInTable(mainTimeTable, x +2, y +1 +i).style.display = 'none';
+    }
 }
 
 function dataToTable(timeTableData, x, y) {
     utils.getCellInTable(mainTimeTable, x+2, y+1).classList.add('timeTableElement');
-    if(utils.isMyClass(classes, timeTableData.sg) || timeTableData.lstext) {
+    if(utils.isMyClass(classes, timeTableData.sg) || timeTableData.lstext || timeTableData.free) {
         try {
-            if(timeTableData.su.length > 0 && timeTableData.ro.length > 0) { // normal subject with room number and name
+            if(!timeTableData.free && timeTableData.su.length > 0 && timeTableData.ro.length > 0) { // normal subject with room number and name
                 addSubjectToTable(x, y, timeTableData);
             }
-            else if(timeTableData.su.length > 0 && timeTableData.ro.length == 0) { // normal subject with name and without room number
+            else if(!timeTableData.free && timeTableData.su.length > 0 && timeTableData.ro.length == 0) { // normal subject with name and without room number
                 addSubjectWithoutRoom(x, y, timeTableData);
             }
-            else if(timeTableData.lstext.length > 0) { // normal subject with name but without room number
+            else if(!timeTableData.free && timeTableData.lstext.length > 0) { // normal subject with name but without room number
                 addEventToTable(x, y, timeTableData);
             }
-            else {
-                utils.setContentInTable(mainTimeTable, x + 2, y + 1, 'err');
-            }
+	    else if(timeTableData.free) { // if you have a free day :)
+		addHolidayToTable(x, y, timeTableData);
+	    }
 
             // Merging subjects to blocks for better readability...
             utils.mergeCells(mainTimeTable, x+2, y+1);
         }
         catch(e) {
-            if(timeTableData.su[0]) {
+	    console.log(timeTableData);
+            if(timeTableData.su) {
                 utils.setContentInTable(mainTimeTable, x + 2, y + 1, timeTableData.su[0].name);
             }
             console.info(timeTableData);
@@ -190,22 +199,17 @@ function populateTableSpecificDay(timeTableData, day) {
 }
 
 function addHolidayToTimetableData(dates) {
-    //console.log(holidayData);
-    /*var  currentDate = new Date();
-    const year = currentDate.getFullYear();
-    let month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-    const day = currentDate.getDate().toString().padStart(2, '0');
-    currentDate = `${year}${month}${day}`;*/
-    //console.log(Math.min(...dates) + " " + Math.max(...dates));
     holidayData.forEach(holiday => {
 	if (holiday.startDate >= Math.min(...dates)) {
-	    for (let i = 0; i < dates.length - 1; i++) {
-		if (holiday.startDate > dates[i] && holiday.startDate < dates[i + 1]) {
-		    dates.splice(i + 1, 0, holiday.startDate);
+	    for (let i = 0; i < dates.length -1; i++) {
+		if (holiday.startDate > dates[i] && holiday.startDate < dates[i +1]) {
+		    console.log(holiday);
+		    timeTableData.push(JSON.parse(`{"free":true,"date":${holiday.startDate},"startTime":745,"endTime":830,"name":"${holiday.name}","longName":"${holiday.longName}","code":"free"}`));
+		    
+		    dates.splice(i +1, 0, holiday.startDate);
 		    break;
 		}
 	    }
-	    //console.log(holiday);
 	}
     });
     
@@ -215,19 +219,18 @@ function addHolidayToTimetableData(dates) {
 const createTable = function(_classes, _timeTableData, _holidayData, id) {
     console.log("Creating Table...");
     generateTable(timetableStructure, id);
-
+    
     mainTimeTable = document.getElementById('TimeTable ' + id);
-
+    
     timeTableData = _timeTableData;
     classes = _classes;
-	
-    for (let i = 0; i < timeTableData.length; i+=1) {
+    
+    for (let i = 0; i < timeTableData.length; i++) {
         dates.push(timeTableData[i].date);
     }
     dates = utils.removeDuplicatesAndSort(dates);
     dates = addHolidayToTimetableData(dates);
-    console.log(dates);
-
+    
     for (let i = 0; i < timeTableData.length; i++) {
         if(timeTableData[i].date == dates[0]) {
             populateTableSpecificDay(timeTableData[i], 0);
@@ -245,7 +248,7 @@ const createTable = function(_classes, _timeTableData, _holidayData, id) {
             populateTableSpecificDay(timeTableData[i], 4);
         }
     }
-
+    
     console.log("Table Created...");
 }
 

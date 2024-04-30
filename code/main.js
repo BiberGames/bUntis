@@ -133,7 +133,7 @@ async function loadServer() {
     keytar.getPassword('bUntis', 'login')
 	.then((password) => {
 	    if (password) {
-		mainWindow.send('renderer:pharseSettings', password);
+		mainWindow.send('renderer:parseSettings', password);
 		
 		//vsCodeDebugConsole.log('Password retrieved successfully:', password);
 		password = JSON.parse(password);
@@ -219,7 +219,7 @@ async function getWebData(loginData) {
     await mainWindow.send('renderer:dateInfo', weekStart);
     //mainWindow.send('renderer:inbox', inbox);
     
-    mainWindow.send('renderer:status', 'Pharsing data.');
+    mainWindow.send('renderer:status', 'Parsing data.');
     
     vsCodeDebugConsole.log("Logging out.");
     await untis.logout();
