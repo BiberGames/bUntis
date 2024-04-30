@@ -32,6 +32,7 @@ var timetableNextWeak = '';
 var homework = '';
 var holidays = '';
 var timegrid = '';
+
 //var subjects = ''
 // DATA //
 
@@ -177,9 +178,9 @@ async function getWebData(loginData) {
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
 
-    //mainWindow.send('renderer:status', 'Recieving inbox');
-    //timeGrid = await untis.Timegrid.timeUnits;
-    //timeUnits.log(timeGrid);
+    mainWindow.send('renderer:status', 'Recieving timegrid');
+    timegrid = await untis.getTimegrid();
+    //vsCodeDebugConsole.log(timeGrid);
     
     mainWindow.send('renderer:status', 'Recieving timetable.');
     //timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
@@ -199,21 +200,24 @@ async function getWebData(loginData) {
     mainWindow.send('renderer:status', 'Recieving homework.');
     weekEnd.setDate(weekEnd.getDate() + 7);
     homework = await untis.getHomeWorksFor(weekStart, weekEnd);
-
+    
     weekStart.setDate(weekStart.getDate() + 7);
+    if(weekStart.getDate() + 4 > 30)
+	weekEnd.setMonth(weekStart.getMonth() + 1);
     timetableNextWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
-
+    
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
     
     vsCodeDebugConsole.log('Sending data!');
-    mainWindow.send('renderer:sessionInfo', sessionInfo);
-    mainWindow.send('renderer:timeTableInfo', 'timetableLastWeak', timetableThisWeak, timetableNextWeak);
+    await mainWindow.send('renderer:sessionInfo', sessionInfo);
+    await mainWindow.send('renderer:holidayInfo', holidays);
+    await mainWindow.send('renderer:timegrid', timegrid);
+    await mainWindow.send('renderer:timeTableInfo', 'timetableLastWeak', timetableThisWeak, timetableNextWeak);
     //mainWindow.send('renderer:subjectsData', subjects);
-    mainWindow.send('renderer:homeWorkInfo', homework);
-    mainWindow.send('renderer:dateInfo', weekStart);
-    mainWindow.send('renderer:inbox', inbox);
-    mainWindow.send('renderer:holidayInfo', holidays);
+    await mainWindow.send('renderer:homeWorkInfo', homework);
+    await mainWindow.send('renderer:dateInfo', weekStart);
+    //mainWindow.send('renderer:inbox', inbox);
     
     mainWindow.send('renderer:status', 'Pharsing data.');
     

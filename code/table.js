@@ -189,7 +189,30 @@ function populateTableSpecificDay(timeTableData, day) {
     }
 }
 
-const createTable = function(_classes, _timeTableData, id) {
+function addHolidayToTimetableData(dates) {
+    //console.log(holidayData);
+    /*var  currentDate = new Date();
+    const year = currentDate.getFullYear();
+    let month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    currentDate = `${year}${month}${day}`;*/
+    //console.log(Math.min(...dates) + " " + Math.max(...dates));
+    holidayData.forEach(holiday => {
+	if (holiday.startDate >= Math.min(...dates)) {
+	    for (let i = 0; i < dates.length - 1; i++) {
+		if (holiday.startDate > dates[i] && holiday.startDate < dates[i + 1]) {
+		    dates.splice(i + 1, 0, holiday.startDate);
+		    break;
+		}
+	    }
+	    //console.log(holiday);
+	}
+    });
+    
+    return dates;
+}
+
+const createTable = function(_classes, _timeTableData, _holidayData, id) {
     console.log("Creating Table...");
     generateTable(timetableStructure, id);
 
@@ -202,9 +225,10 @@ const createTable = function(_classes, _timeTableData, id) {
         dates.push(timeTableData[i].date);
     }
     dates = utils.removeDuplicatesAndSort(dates);
+    dates = addHolidayToTimetableData(dates);
     console.log(dates);
 
-    for (let i = 0; i < timeTableData.length; i+=1) {
+    for (let i = 0; i < timeTableData.length; i++) {
         if(timeTableData[i].date == dates[0]) {
             populateTableSpecificDay(timeTableData[i], 0);
         }

@@ -13,6 +13,7 @@ const whookURL = '';
 //var myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_Kö', 'SEM_12_Fo', 'KU_12_Bz', 'SN_12_Pn', 'SP_12_8'];
 //const myClasses = ['MA_12_Sü_1', 'PH_12_Dr', 'CH_12_Vi', 'GE_12_Vt', 'DE_12_Hm_1', 'SEM_12_Sa', 'KU_12_Bz', 'PL_12_Wb', 'EN_12_Ml_1', 'SP_12_11'];
 var myClasses = '';
+var holidayData = '';
 
 var mainTimeTable = document.getElementById('timeTables');
 const homeWorkTable = document.getElementById('homeWorkTable')
@@ -34,7 +35,7 @@ var pages = [document.getElementById('loadingScreen'),
 var openPage = 0;
 showPage(0);
 
-/*var myClasses =*/ settings.loadSettings();
+settings.loadSettings();
 ipcRenderer.on('renderer:pharseSettings', function(e, item) {
 });
 
@@ -43,6 +44,10 @@ ipcRenderer.on('renderer:sessionInfo', function(e, item) {
 
     const sessionID = document.getElementById('SessionString');
     sessionID.innerHTML = JSON.stringify(item.sessionId);
+});
+
+ipcRenderer.on('renderer:timegrid', function(e, item) {
+    console.log(item);
 });
 
 ipcRenderer.on('renderer:status', function(e, item) {
@@ -61,7 +66,7 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
 
     //timeTable.createTable(myClasses, timetableLastWeek, -1);
     //console.log(timetableThisWeek);
-    timeTable.createTable(myClasses, timetableThisWeek, 0);
+    timeTable.createTable(myClasses, timetableThisWeek, holidayData, 0);
     //timeTable.createTable(myClasses, timetableNextWeek, 1);
     //mainTimeTable = document.getElementById('TimeTable');
 
@@ -81,18 +86,20 @@ ipcRenderer.on('renderer:inbox', function(e, inboxData) {
     inbox.show(inboxData);
 });
 
-ipcRenderer.on('renderer:holidayInfo', function(e, holidayData) {
-    var currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() - 1);
-    holidayData.forEach(function(holiday) {
-
-	var startDate = new Date(holiday.startDate.toString().substr(0, 4), parseInt(holiday.startDate.toString().substr(4, 2)) - 1, holiday.startDate.toString().substr(6, 2));
-	var endDate = new Date(holiday.endDate.toString().substr(0, 4), parseInt(holiday.endDate.toString().substr(4, 2)) - 1, holiday.endDate.toString().substr(6, 2));
-	
-	if (currentDate >= startDate && currentDate <= endDate) {
-            console.log("Das aktuelle Datum liegt in den Ferien: " + holiday.longName);
+ipcRenderer.on('renderer:holidayInfo', function(e, _holidayData) {
+    holidayData = _holidayData;
+    /*console.log(holidayData);
+    var  currentDate = new Date();
+    const year = currentDate.getFullYear();
+    let month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    currentDate = `${year}${month}${day}`;
+    //console.log(currentDate);
+    holidayData.forEach(holiday => {
+	if (holiday.startDate >= currentDate) {
+	    console.log(holiday);
 	}
-    });
+    });*/
 });
 
 async function saveSettings() {
