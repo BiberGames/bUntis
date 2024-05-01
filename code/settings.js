@@ -54,7 +54,7 @@ const loadSettings = function() {
 	    if (password) {
 		password = password.split(" ");
 		myClasses = password;
-		console.log(password);
+		//console.log(password);
 		return password
 	    } else {
 		console.log('Password not found');

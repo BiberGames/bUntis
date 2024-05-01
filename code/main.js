@@ -164,25 +164,24 @@ async function getWebData(loginData) {
     mainWindow.send('renderer:status', 'Setting date.');
     
     weekStart = new Date();
-    //weekStart.setDate(weekStart.getDate());
     weekEnd = new Date();
     
     weekStart = getFirstDayOfWeek();
-    weekEnd.setDate(weekStart.getDate() + 4);
-
-    if(weekStart.getDate() + 4 > 30)
+    if(weekStart.getDate() + 4 > 30) {
 	weekEnd.setMonth(weekStart.getMonth() + 1);
+    }
+    weekEnd.setDate(weekStart.getDate() + 4);
 
     // Add next year check here.
     
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
 
-    mainWindow.send('renderer:status', 'Recieving timegrid');
+    mainWindow.send('renderer:status', 'Recieving Timegrid');
     timegrid = await untis.getTimegrid();
     //vsCodeDebugConsole.log(timeGrid);
     
-    mainWindow.send('renderer:status', 'Recieving timetable.');
+    mainWindow.send('renderer:status', 'Recieving Timetable.');
     //timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
     timetableThisWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
 
@@ -197,13 +196,18 @@ async function getWebData(loginData) {
     //mainWindow.send('renderer:status', 'Recieving subjects.');
     //subjects = await untis.Timegrid(weekStart, );
     
-    mainWindow.send('renderer:status', 'Recieving homework.');
+    mainWindow.send('renderer:status', 'Recieving Homework.');
+    
+    if(weekEnd.getDate() + 4 > 30)
+	weekEnd.setMonth(weekStart.getMonth() + 1);
     weekEnd.setDate(weekEnd.getDate() + 7);
+    
     homework = await untis.getHomeWorksFor(weekStart, weekEnd);
     
-    weekStart.setDate(weekStart.getDate() + 7);
-    if(weekStart.getDate() + 4 > 30)
+    if(weekStart.getDate() + 7 > 30)
 	weekEnd.setMonth(weekStart.getMonth() + 1);
+    weekStart.setDate(weekStart.getDate() + 7);
+    
     timetableNextWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
     
     vsCodeDebugConsole.log(weekStart);

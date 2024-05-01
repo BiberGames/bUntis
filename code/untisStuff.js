@@ -47,7 +47,7 @@ ipcRenderer.on('renderer:sessionInfo', function(e, item) {
 });
 
 ipcRenderer.on('renderer:timegrid', function(e, item) {
-    console.log(item);
+    //console.log(item);
 });
 
 ipcRenderer.on('renderer:status', function(e, item) {

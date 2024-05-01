@@ -119,12 +119,10 @@ function addEventToTable(x, y, timeTableData) {
 
 function addHolidayToTable(x, y, timeTableData) {
     utils.setContentInTable(mainTimeTable, x +2, y +1, timeTableData.name + "<br>" + timeTableData.longName);
-
     
     setCellStatusColor(x + 2, y + 1, timeTableData.code);
     utils.getCellInTable(mainTimeTable, x +2, y +1).rowSpan = 8;
-
-
+    
     for (let i = 1; i < 8; i++) {
         utils.getCellInTable(mainTimeTable, x +2, y +1 +i).style.display = 'none';
     }
@@ -146,7 +144,7 @@ function dataToTable(timeTableData, x, y) {
 	    else if(timeTableData.free) { // if you have a free day :)
 		addHolidayToTable(x, y, timeTableData);
 	    }
-
+	    
             // Merging subjects to blocks for better readability...
             utils.mergeCells(mainTimeTable, x+2, y+1);
         }
@@ -202,9 +200,7 @@ function addHolidayToTimetableData(dates) {
     holidayData.forEach(holiday => {
 	if (holiday.startDate >= Math.min(...dates)) {
 	    for (let i = 0; i < dates.length -1; i++) {
-		if (holiday.startDate > dates[i] && holiday.startDate < dates[i +1]) {
-		    console.log(holiday);
-		    timeTableData.push(JSON.parse(`{"free":true,"date":${holiday.startDate},"startTime":745,"endTime":830,"name":"${holiday.name}","longName":"${holiday.longName}","code":"free"}`));
+		if (holiday.startDate > dates[i] && holiday.startDate < dates[i +1]) { timeTableData.push(JSON.parse(`{"free":true,"date":${holiday.startDate},"startTime":745,"endTime":830,"name":"${holiday.name}","longName":"${holiday.longName}","code":"free"}`));
 		    
 		    dates.splice(i +1, 0, holiday.startDate);
 		    break;
