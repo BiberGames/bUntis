@@ -77,7 +77,7 @@
 
 .cancelled {
     text-decoration: line-through;
-    background-color: #FFFD88;
+    background-color: #FF9B9B;
 }
 
 .irregular {
@@ -90,7 +90,7 @@
 }
 
 .free {
-    background-color: #8E7AB5;
+    background-color: #7a8fb5;
 }
 
 .err {

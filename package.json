@@ -1,7 +1,7 @@
 {
     "name": "bUntis",
     "productName": "bUntis",
-    "version": "0.116.0",
+    "version": "0.117.0",
     "description": "A free and full featured webuntis desktop client.",
     "main": "./code/main.js",
     "scripts": {
@@ -15,7 +15,7 @@
     "license": "Ask Benjamin",
     "devDependencies": {
         "@electron/rebuild": "^3.6.0",
-        "electron": "^30.0.1",
+        "electron": "^30.0.2",
         "electron-builder": "^24.13.3"
     },
     "dependencies": {
