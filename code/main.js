@@ -2,7 +2,7 @@
 
 // Modules to control application life and create native browser window
 // Electron //
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const electron = require('electron');
 const path = require('path')
 const { subDays, endOfMonth } = require('date-fns');
@@ -41,6 +41,94 @@ var nodeConsole = require('console');
 var vsCodeDebugConsole = new nodeConsole.Console(process.stdout, process.stderr);
 // CONSOLE //
 
+const isMac = process.platform === 'darwin'
+const template = [
+    // { role: 'appMenu' }
+    ...(isMac
+	? [{
+            label: app.name,
+            submenu: [
+		{ role: 'about' },
+		{ type: 'separator' },
+		{ role: 'services' },
+		{ type: 'separator' },
+		{ role: 'hide' },
+		{ role: 'hideOthers' },
+		{ role: 'unhide' },
+		{ type: 'separator' },
+		{ role: 'quit' }
+            ]
+	}]
+	: []),
+    // { role: 'fileMenu' }
+    {
+	label: 'File',
+	submenu: [
+	    isMac ? { role: 'close' } : { role: 'quit' }
+	]
+    },
+    // { role: 'viewMenu' }
+    {
+	label: 'Dev',
+	submenu: [
+	    { role: 'toggleDevTools' },
+	    { type: 'separator' },
+	    {
+		label: 'Page 0',
+		accelerator: 'CmdOrCtrl+0',
+		role: 'page0'
+	    },
+	    {
+		label: 'Page 1',
+		accelerator: 'CmdOrCtrl+1',
+		role: 'page1'
+	    },
+	    {
+		label: 'Page 2',
+		accelerator: 'CmdOrCtrl+2',
+		role: 'page2'
+	    },
+	    {
+		label: 'Page 3',
+		accelerator: 'CmdOrCtrl+3',
+		role: 'page3'
+	    },
+	    {
+		label: 'Page 4',
+		accelerator: 'CmdOrCtrl+4',
+		role: 'page4'
+	    },
+	    {
+		label: 'Page 5',
+		accelerator: 'CmdOrCtrl+5',
+		role: 'page5'
+	    },
+	    {
+		label: 'Page 6',
+		accelerator: 'CmdOrCtrl+6',
+		role: 'page6'
+	    },
+	    {
+		label: 'Page 7',
+		accelerator: 'CmdOrCtrl+7',
+		role: 'page7'
+	    },
+	    { type: 'separator' }
+	]
+    },
+    {
+	role: 'help',
+	submenu: [
+	    {
+		label: 'Learn More',
+		click: async () => {
+		    const { shell } = require('electron')
+		    await shell.openExternal('https://codeberg.org/BiberGames/bUntis')
+		}
+	    }
+	]
+    }
+]
 
 const createWindow = () => {
     // Create the browser window.
@@ -60,7 +148,9 @@ const createWindow = () => {
 	protocol: 'file:',
 	slashes:true
     }));
-    
+
+    const menu = Menu.buildFromTemplate(template);
+    Menu.setApplicationMenu(menu);
     // Open the DevTools.
     //mainWindow.webContents.openDevTools()
 }
