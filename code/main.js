@@ -76,42 +76,66 @@ const template = [
 	    {
 		label: 'Page 0',
 		accelerator: 'CmdOrCtrl+0',
-		role: 'page0'
+		role: 'page0',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 0);
+		}
 	    },
 	    {
 		label: 'Page 1',
 		accelerator: 'CmdOrCtrl+1',
-		role: 'page1'
+		role: 'page1',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 1);
+		}
 	    },
 	    {
 		label: 'Page 2',
 		accelerator: 'CmdOrCtrl+2',
-		role: 'page2'
+		role: 'page2',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 2);
+		}
 	    },
 	    {
 		label: 'Page 3',
 		accelerator: 'CmdOrCtrl+3',
-		role: 'page3'
+		role: 'page3',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 3);
+		}
 	    },
 	    {
 		label: 'Page 4',
 		accelerator: 'CmdOrCtrl+4',
-		role: 'page4'
+		role: 'page4',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 4);
+		}
 	    },
 	    {
 		label: 'Page 5',
 		accelerator: 'CmdOrCtrl+5',
-		role: 'page5'
+		role: 'page5',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 5);
+		}
 	    },
 	    {
 		label: 'Page 6',
 		accelerator: 'CmdOrCtrl+6',
-		role: 'page6'
+		role: 'page6',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 6);
+		}
 	    },
 	    {
 		label: 'Page 7',
 		accelerator: 'CmdOrCtrl+7',
-		role: 'page7'
+		role: 'page7',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 7);
+		}
 	    },
 	    { type: 'separator' }
 	]

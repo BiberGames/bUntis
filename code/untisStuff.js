@@ -39,6 +39,10 @@ settings.loadSettings();
 ipcRenderer.on('renderer:parseSettings', function(e, item) {
 });
 
+ipcRenderer.on('renderer:chPage', function(e, item) {
+    showPage(item);
+});
+
 ipcRenderer.on('renderer:sessionInfo', function(e, item) {
     console.log('Receiving Session Data');
 
