@@ -7,12 +7,15 @@ const show = function(homeWorkTable, homeWorkData) {
         var cellHomeworkText = row.insertCell();
 	cellSubject.innerHTML = 'Have a nice day!';
     }
+
+    // Has to be fixed later.
+    // Reason buggy / not working code.
     
-    var today = new Date();
+    /*var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
-    today = dd + "." + mm + "." + yyyy;
+    today = dd + "." + mm + "." + yyyy;*/
     
     for(let i = 0; i < homeWorkData.homeworks.length; i++) {
 	if(homeWorkData.homeworks[i].completed !== true) {
@@ -20,9 +23,9 @@ const show = function(homeWorkTable, homeWorkData) {
 	    var dateDistance = utils.getDateDistance(homeWorkDueDate, today);
 
 	    //console.log(dateDistance);
-	    if(dateDistance === -1) {
+	    /*if(dateDistance === -1) {
 		return;
-	    }
+	    }*/
 	    
             var row = homeWorkTable.insertRow();
             var cellSubject = row.insertCell();
