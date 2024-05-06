@@ -11,8 +11,8 @@ const show = function(homeWorkTable, homeWorkData) {
     // Has to be fixed later.
     // Reason buggy / not working code.
     
-    /*var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
+    var today = new Date();
+    /*var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
     today = dd + "." + mm + "." + yyyy;*/
@@ -20,7 +20,7 @@ const show = function(homeWorkTable, homeWorkData) {
     for(let i = 0; i < homeWorkData.homeworks.length; i++) {
 	if(homeWorkData.homeworks[i].completed !== true) {
 	    var homeWorkDueDate = utils.convertUntisDate(homeWorkData.homeworks[i].dueDate);
-	    var dateDistance = utils.getDateDistance(homeWorkDueDate, today);
+	    //var dateDistance = utils.getDateDistance(homeWorkDueDate, today);
 
 	    //console.log(dateDistance);
 	    /*if(dateDistance === -1) {
