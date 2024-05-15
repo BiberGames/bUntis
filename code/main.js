@@ -9,7 +9,7 @@ const { subDays, endOfMonth } = require('date-fns');
 const url = require('url');
 const fs = require("fs");
 const keytar = require('keytar');
-const md5 = require('../code/md5.js');
+const utils = require('../code/utils.js')
 
 var mainWindow = '';
 var tempData = [];
@@ -204,7 +204,7 @@ app.on("new-window", (event, url) => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
-
+/*
 function getFirstDayOfWeek() 
 {
     const today = new Date();
@@ -222,6 +222,7 @@ function getFirstDayOfWeek()
     
     return monday;
 }
+*/
 ipcMain.handle('server:save', async (event, saveData) => {
     vsCodeDebugConsole.log("Saving Settings");
     //vsCodeDebugConsole.log(saveData);
@@ -254,7 +255,7 @@ async function loadServer() {
 		//vsCodeDebugConsole.log('Password retrieved successfully:', password);
 		getWebData(password);
 		//vsCodeDebugConsole.log(password[0] + ' ' + password[1] + ' ' + password[3] + ' ' + password[2]);
-	    } else {
+	    } else {//const md5 = require('../code/md5.js');
 		vsCodeDebugConsole.log('Password not found');
 	    }
 	}).catch((err) => {
@@ -268,7 +269,6 @@ async function getWebData(loginData) {
     const untis = new WebUntisSecretAuth(loginData[0], loginData[1], loginData[2], loginData[3], 'custom-identity', authenticator);
     vsCodeDebugConsole.log("Logging in.");
     
-    
     mainWindow.send('renderer:status', 'Logging in.');
     await untis.login();
     
@@ -280,7 +280,7 @@ async function getWebData(loginData) {
     weekStart = new Date();
     weekEnd = new Date();
     
-    weekStart = getFirstDayOfWeek();
+    weekStart = utils.getFirstDayOfWeek();
     if(weekStart.getDate() + 4 > 30) {
 	weekEnd.setMonth(weekStart.getMonth() + 1);
     }

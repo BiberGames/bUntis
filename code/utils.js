@@ -70,6 +70,46 @@ const timeToElements = function(time) {
     }
 }
 
+const getFirstDayOfWeek = function() {
+    const today = new Date();
+    const currentDay = today.getDay(); // 0 is Sunday, 1 is Monday, ..., 6 is Saturday
+    
+    // If today is Sunday or Saturday, advance to the next week
+    if (currentDay === 0 || currentDay === 6) {
+	const daysUntilMonday = currentDay === 0 ? 1 : 2;
+	today.setDate(today.getDate() + daysUntilMonday);
+    }
+    
+    // Calculate the Monday of the current week
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1));
+    
+    return monday;
+}
+
+const toUntisDate = function(date) {
+    let month = date.getMonth() +1;
+
+    if(month < 10)
+	month = "0" + month;
+    
+    let newDate = date.getFullYear() + "" + month + "" + date.getDate();
+
+    return newDate;
+}
+
+const getWeekDates = function() {
+    let dates = [];
+    let startDate = getFirstDayOfWeek();
+    startDate = parseInt(toUntisDate(startDate));
+
+    dates.push(startDate);
+    for(let i = 1; i < 5; i++)
+	dates.push(startDate + i); // add some kind of overflow check
+
+    return dates;
+}
+
 module.exports = {
-    removeDuplicatesAndSort, convertUntisDate, mergeCells, setContentInTable, isMyClass, getCellInTable, sanitizeInput, timeToElements, getDateDistance
+    removeDuplicatesAndSort, convertUntisDate, mergeCells, setContentInTable, isMyClass, getCellInTable, sanitizeInput, timeToElements, getDateDistance, getFirstDayOfWeek, toUntisDate, getWeekDates
 }
