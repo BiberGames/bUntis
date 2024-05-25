@@ -35,6 +35,8 @@ jobs:
       run: npm install electron-builder --save-dev
 
     - name: Package the app
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: npx electron-builder
 
     - name: Upload Artifacts
