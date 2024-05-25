@@ -31,16 +31,11 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Build the app
-      run: npm run dist
-
     - name: Install electron-builder
       run: npm install electron-builder --save-dev
 
-    - name: Package the app
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: npx electron-builder
+    - name: Build the app
+      run: npm run dist
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
