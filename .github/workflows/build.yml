@@ -1,0 +1,44 @@
+name: Automatic build
+
+on:
+  push:
+    branches:
+      - main  # Change to your main branch name if different
+  pull_request:
+    branches:
+      - main  # Change to your main branch name if different
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14, 16]  # Specify the Node.js versions you want to test
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the app
+      run: npm run dist
+
+    - name: Install electron-builder
+      run: npm install electron-builder --save-dev
+
+    - name: Package the app
+      run: npx electron-builder
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: release-artifacts
+        path: dist/
