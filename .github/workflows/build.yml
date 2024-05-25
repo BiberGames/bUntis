@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20, 22]  # Specify the Node.js versions you want to test
+        node-version: [20]  # Specify the Node.js versions you want to test
 
     steps:
     - name: Checkout code
@@ -35,6 +35,8 @@ jobs:
       run: npm install electron-builder --save-dev
 
     - name: Build the app
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: npm run dist
 
     - name: Upload Artifacts
