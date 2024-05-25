@@ -1,28 +1,28 @@
 {
     "name": "bUntis",
     "productName": "bUntis",
-    "version": "0.125.0",
+    "version": "0.127.0",
     "description": "A free and full featured webuntis desktop client.",
     "main": "./code/main.js",
     "scripts": {
         "start": "electron .",
         "postinstall": "electron-builder install-app-deps",
         "pack": "electron-builder --dir",
-	"upgrade": "ncu -u",
+        "upgrade": "ncu -u",
         "dist": "electron-builder --linux"
     },
     "author": "Benjamin (c) BenjaGames 2024",
     "license": "Ask Benjamin",
     "devDependencies": {
         "@electron/rebuild": "^3.6.0",
-        "electron": "^30.0.3",
+        "electron": "^30.0.8",
         "electron-builder": "^24.13.3"
     },
     "dependencies": {
         "authenticator": "^1.1.5",
         "buffer": "^6.0.3",
         "electon": "^0.0.1-security",
-        "electron-squirrel-startup": "^1.0.0",
+        "electron-squirrel-startup": "^1.0.1",
         "keytar": "^7.9.0",
         "npm-check-updates": "^16.14.20",
         "secure-electron-store": "^4.0.2",
@@ -30,12 +30,20 @@
     },
     "build": {
         "appId": "com.benjagames.buntis",
+        "icon": "./images/icon.png",
         "linux": {
-            "target": "AppImage",
-	    "category": "Education"
+            "target": [
+                {
+                    "target": "AppImage",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ],
+            "category": "Education"
         },
-	"win": {
-	    "target": "portable"
-	}
+        "win": {
+            "target": "portable"
+        }
     }
 }

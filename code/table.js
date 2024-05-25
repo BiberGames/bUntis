@@ -201,7 +201,7 @@ const createTable = function(_classes, _timeTableData, _holidayData, id) {
     classes = _classes;
 
     dates = utils.getWeekDates();
-    console.log(dates);
+    //console.log(dates);
     
     for (let i = 0; i < timeTableData.length; i++) {
         if(timeTableData[i].date == dates[0]) {

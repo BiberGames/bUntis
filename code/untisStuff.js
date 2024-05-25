@@ -92,18 +92,6 @@ ipcRenderer.on('renderer:inbox', function(e, inboxData) {
 
 ipcRenderer.on('renderer:holidayInfo', function(e, _holidayData) {
     holidayData = _holidayData;
-    /*console.log(holidayData);
-    var  currentDate = new Date();
-    const year = currentDate.getFullYear();
-    let month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-    const day = currentDate.getDate().toString().padStart(2, '0');
-    currentDate = `${year}${month}${day}`;
-    //console.log(currentDate);
-    holidayData.forEach(holiday => {
-	if (holiday.startDate >= currentDate) {
-	    console.log(holiday);
-	}
-    });*/
 });
 
 async function saveSettings() {

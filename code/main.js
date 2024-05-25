@@ -282,7 +282,7 @@ async function getWebData(loginData) {
     
     weekStart = utils.getFirstDayOfWeek();
     if(weekStart.getDate() + 4 > 30) {
-	weekEnd.setMonth(weekStart.getMonth() + 1);
+	//weekEnd.setMonth(weekStart.getMonth() + 1);
     }
     weekEnd.setDate(weekStart.getDate() + 4);
 
