@@ -11,7 +11,8 @@
         "upgrade": "ncu -u",
         "dist": "electron-builder --linux"
     },
-    "author": "Benjamin (c) BenjaGames 2024",
+    "author": "Benjamin (c) BenjaGames 2024 <ZrBwbXqo0I@proton.me>",
+    "homepage": "https://codeberg.org/BiberGames/bUntis",
     "license": "Ask Benjamin",
     "devDependencies": {
         "@electron/rebuild": "^3.6.0",
@@ -30,12 +31,13 @@
     },
     "build": {
         "appId": "com.benjagames.buntis",
-        "icon": "./images/icon.png",
+        "icon": "./images/icon-x2.png",
         "linux": {
             "target": [
                 {
                     "target": "AppImage",
                     "arch": [
+			"arm64",
                         "x64"
                     ]
                 }

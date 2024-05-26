@@ -39,8 +39,14 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: npm run dist
 
-    - name: Upload Artifacts
+    - name: Upload x64 Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: release-artifacts
-        path: dist/*.AppImage
+        name: bUntis-x64
+        path: dist/*0.AppImage
+
+    - name: Upload arm64 Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: bUntis-arm64
+        path: dist/*arm64.AppImage
