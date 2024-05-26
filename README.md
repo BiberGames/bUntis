@@ -23,6 +23,11 @@ A free and full featured webuntis desktop client.
 - Red Hat-based:  ```sudo yum install fuse ```
 - Arch Linux:  ```sudo pacman -S fuse ```
 
+# Prebuilt Downloads
+[Linux x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-x64.zip)  
+[Linux arm64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-arm64.zip)  
+[Windows x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-windows-x64.zip)  
+
 # Credits
 [Electron](https://github.com/electron/electron)  
 [Electron Builder](https://github.com/electron-userland/electron-builder)  
