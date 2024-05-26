@@ -34,6 +34,7 @@ var openPage = 0;
 showPage(0);
 
 settings.loadSettings();
+
 ipcRenderer.on('renderer:parseSettings', function(e, item) {
 });
 
@@ -68,7 +69,8 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
 
     //timeTable.createTable(myClasses, timetableLastWeek, -1);
     //console.log(timetableThisWeek);
-    timetable.createTable(myClasses, timetableThisWeek, holidayData, 0);
+    //mainTimeTable = document.getElementById('timeTables');
+    timetable.createTable(mainTimeTable, myClasses, timetableThisWeek, holidayData, 0);
     //timeTable.createTable(myClasses, timetableNextWeek, 1);
     //mainTimeTable = document.getElementById('TimeTable');
 

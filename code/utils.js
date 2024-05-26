@@ -102,8 +102,8 @@ utils.toUntisDate = function(date) {
 
 utils.getWeekDates = function() {
     let dates = [];
-    let startDate = getFirstDayOfWeek();
-    startDate = parseInt(toUntisDate(startDate));
+    let startDate = utils.getFirstDayOfWeek();
+    startDate = parseInt(utils.toUntisDate(startDate));
 
     dates.push(startDate);
     for(let i = 1; i < 5; i++)
