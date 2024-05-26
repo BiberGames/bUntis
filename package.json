@@ -9,7 +9,7 @@
         "postinstall": "electron-builder install-app-deps",
         "pack": "electron-builder --dir",
         "upgrade": "ncu -u",
-        "dist": "electron-builder --linux"
+        "dist": "electron-builder -lw"
     },
     "author": "Benjamin (c) BenjaGames 2024 <ZrBwbXqo0I@proton.me>",
     "homepage": "https://codeberg.org/BiberGames/bUntis",
@@ -45,7 +45,7 @@
             "category": "Education"
         },
         "win": {
-            "target": "portable"
+            "target": "nsis"
         }
     }
 }
