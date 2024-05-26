@@ -2,6 +2,7 @@ import { utils } from './utils.js';
 import { event } from './event.js';
 
 const timetable = {};
+var mainTimeTable = document.getElementById('TimeTable 0');
 
 var timeTableData = '';
 var dates = [];
@@ -193,11 +194,9 @@ function populateTableSpecificDay(timeTableData, day) {
     }
 }
 
-timetable.createTable = function(_classes, _timeTableData, _holidayData, id) {
+timetable.createTable = function(mainTimeTable, _classes, _timeTableData, _holidayData, id) {
     console.log("Creating Table...");
     generateTable(timetableStructure, id);
-    
-    mainTimeTable = document.getElementById('TimeTable ' + id);
     
     timeTableData = _timeTableData;
     classes = _classes;

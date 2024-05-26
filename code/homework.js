@@ -1,3 +1,5 @@
+import { utils } from "./utils.js";
+
 const homework = {};
 
 homework.show = function(homeWorkTable, homeWorkData) {
@@ -40,8 +42,7 @@ homework.show = function(homeWorkTable, homeWorkData) {
         }		
     }
 }
-
-homework.getSubjectFromHomeWork = function(id, subjects) {
+function getSubjectFromHomeWork(id, subjects) {
     for(let i = 0; i < subjects.length; i++) {
         if(subjects[i].id == id) {
             return subjects[i].subject;

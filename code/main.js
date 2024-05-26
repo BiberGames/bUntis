@@ -10,7 +10,7 @@ import { subDays, endOfMonth } from 'date-fns';
 import url from 'url';
 import { fileURLToPath } from 'url';
 import fs from "fs";
-import store from 'electron-store';
+import Store from 'electron-store';
 import { utils } from '../code/utils.js';
 
 var mainWindow = '';
@@ -39,7 +39,7 @@ var timegrid = '';
 // DATA //
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 // CONSOLE //
 import nodeConsole from 'console';
@@ -166,10 +166,10 @@ const createWindow = () => {
 	width: 470,
 	height: 650,
 	webPreferences: {
-    	    nodeIntegration: true,
-	    contextIsolation: false
+	    contextIsolation: false,
+	    nodeIntegration: true
 	}
-    })
+    });
     
     // and load the index.html of the app.
     mainWindow.loadURL(url.format({
@@ -208,22 +208,32 @@ app.on("new-window", (event, url) => {
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
-})
+});
+
+ipcMain.handle('server:saveTimeTable', async (event, saveData) => {
+    const loginData = new Store();
+    loginData.set('classes', saveData);
+    loginData.set('setup', 1);
+});
 
 ipcMain.handle('server:save', async (event, saveData) => {
-    vsCodeDebugConsole.log("Saving Settings");
-    //vsCodeDebugConsole.log(saveData);
-    
-    /*keytar.setPassword('bUntis', 'login', JSON.stringify(saveData))
-	.then(() => {
-            vsCodeDebugConsole.log('Password saved successfully');
-	})
-	.catch((err) => {
-            vsCodeDebugConsole.error('Error saving password:', err);
-	});
-    
+    const loginData = new Store();
+    loginData.set('login', JSON.stringify(saveData));
+
     app.relaunch();
-    app.exit();*/
+    app.exit();
+});
+
+ipcMain.handle('server:readSetup', async (event) => {
+    const loginData = new Store();
+    let d = loginData.get('setup');
+    return d;
+});
+
+ipcMain.handle('server:readClases', async (event) => {
+    const loginData = new Store();
+
+    return loginData.get('classes');
 });
 
 ipcMain.handle('server:restart', async () => {
@@ -232,8 +242,9 @@ ipcMain.handle('server:restart', async () => {
 });
 
 async function loadServer() {
-    const loginData = new store();
+    const loginData = new Store();
     const password = loginData.get('login');
+    
     mainWindow.send('renderer:parseSettings', password);
     //vsCodeDebugConsole.log('Password retrieved successfully:', password);
     getWebData(JSON.parse(password));
@@ -288,8 +299,8 @@ async function getWebData(loginData) {
     
     mainWindow.send('renderer:status', 'Recieving Homework.');
     
-    if(weekEnd.getDate() + 4 > 30)
-	weekEnd.setMonth(weekStart.getMonth() + 1);
+   // if(weekEnd.getDate() + 4 > 30)
+	//weekEnd.setMonth(weekStart.getMonth() + 1);
     weekEnd.setDate(weekEnd.getDate() + 7);
     
     homework = await untis.getHomeWorksFor(weekStart, weekEnd);
