@@ -3,6 +3,7 @@
     "productName": "bUntis",
     "version": "0.127.0",
     "description": "A free and full featured webuntis desktop client.",
+    "type": "module",
     "main": "./code/main.js",
     "scripts": {
         "start": "electron .",
@@ -24,7 +25,7 @@
         "buffer": "^6.0.3",
         "electon": "^0.0.1-security",
         "electron-squirrel-startup": "^1.0.1",
-        "keytar": "^7.9.0",
+        "electron-store": "^9.0.0",
         "npm-check-updates": "^16.14.20",
         "secure-electron-store": "^4.0.2",
         "webuntis": "^2.2.1"
@@ -37,8 +38,8 @@
                 {
                     "target": "AppImage",
                     "arch": [
-			"arm64",
-                        "x64"
+                        "x64",
+			"arm64"
                     ]
                 }
             ],

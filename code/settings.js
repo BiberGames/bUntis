@@ -1,6 +1,7 @@
 const md5 = require('../code/md5.js');
 const utils = require('../code/utils.js');
-const keytar = require('keytar');
+import Store from 'electron-store';
+//const keytar = require('keytar');
 
 const saveSettings = async function(_school, _username, _server, _code, _classes) {
     var saveDataServer = [];

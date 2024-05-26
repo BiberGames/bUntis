@@ -2,14 +2,16 @@
 
 // Modules to control application life and create native browser window
 // Electron //
-const { app, BrowserWindow, ipcMain, Menu } = require('electron');
-const electron = require('electron');
-const path = require('path')
-const { subDays, endOfMonth } = require('date-fns');
-const url = require('url');
-const fs = require("fs");
-const keytar = require('keytar');
-const utils = require('../code/utils.js')
+import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import electron from 'electron';
+import path from 'path';
+import { dirname } from 'path';
+import { subDays, endOfMonth } from 'date-fns';
+import url from 'url';
+import { fileURLToPath } from 'url';
+import fs from "fs";
+import store from 'electron-store';
+import { utils } from '../code/utils.js';
 
 var mainWindow = '';
 var tempData = [];
@@ -18,8 +20,8 @@ var tempData = [];
 // ELECTRON //
 
 // UNTIS //
-const { WebUntisSecretAuth } = require('webuntis');
-const { authenticator } = require('otplib');
+import { WebUntisSecretAuth } from 'webuntis';
+import { authenticator } from 'otplib';
 // UNTIS //
 
 // DATA //
@@ -36,8 +38,11 @@ var timegrid = '';
 //var subjects = ''
 // DATA //
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // CONSOLE //
-var nodeConsole = require('console');
+import nodeConsole from 'console';
 var vsCodeDebugConsole = new nodeConsole.Console(process.stdout, process.stderr);
 // CONSOLE //
 
@@ -146,8 +151,8 @@ const template = [
 	    {
 		label: 'Learn More',
 		click: async () => {
-		    const { shell } = require('electron')
-		    await shell.openExternal('https://codeberg.org/BiberGames/bUntis')
+		    //import shell from 'electron';
+		    //await shell.openExternal('https://codeberg.org/BiberGames/bUntis');
 		}
 	    }
 	]
