@@ -1,4 +1,6 @@
-const show = function(homeWorkTable, homeWorkData) {
+const homework = {};
+
+homework.show = function(homeWorkTable, homeWorkData) {
     //console.log(homeWorkData);
     if(homeWorkData.homeworks.length === 0) {
 	var row = homeWorkTable.insertRow();
@@ -39,7 +41,7 @@ const show = function(homeWorkTable, homeWorkData) {
     }
 }
 
-const getSubjectFromHomeWork = function(id, subjects) {
+homework.getSubjectFromHomeWork = function(id, subjects) {
     for(let i = 0; i < subjects.length; i++) {
         if(subjects[i].id == id) {
             return subjects[i].subject;
@@ -48,6 +50,4 @@ const getSubjectFromHomeWork = function(id, subjects) {
     return 'err';
 }
 
-module.exports = {
-    show, getSubjectFromHomeWork
-}
+export { homework };

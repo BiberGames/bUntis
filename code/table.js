@@ -1,5 +1,7 @@
-const utils = require('./utils.js');
-const event = require('./event.js');
+import { utils } from './utils.js';
+import { event } from './event.js';
+
+const timetable = {};
 
 var timeTableData = '';
 var dates = [];
@@ -191,7 +193,7 @@ function populateTableSpecificDay(timeTableData, day) {
     }
 }
 
-const createTable = function(_classes, _timeTableData, _holidayData, id) {
+timetable.createTable = function(_classes, _timeTableData, _holidayData, id) {
     console.log("Creating Table...");
     generateTable(timetableStructure, id);
     
@@ -224,6 +226,4 @@ const createTable = function(_classes, _timeTableData, _holidayData, id) {
     console.log("Table Created...");
 }
 
-module.exports = {
-    createTable
-}
+export { timetable };

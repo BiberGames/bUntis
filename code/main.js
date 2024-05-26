@@ -209,30 +209,12 @@ app.on("new-window", (event, url) => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
-/*
-function getFirstDayOfWeek() 
-{
-    const today = new Date();
-    const currentDay = today.getDay(); // 0 is Sunday, 1 is Monday, ..., 6 is Saturday
-    
-    // If today is Sunday or Saturday, advance to the next week
-    if (currentDay === 0 || currentDay === 6) {
-	const daysUntilMonday = currentDay === 0 ? 1 : 2;
-	today.setDate(today.getDate() + daysUntilMonday);
-    }
-    
-    // Calculate the Monday of the current week
-    const monday = new Date(today);
-    monday.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1));
-    
-    return monday;
-}
-*/
+
 ipcMain.handle('server:save', async (event, saveData) => {
     vsCodeDebugConsole.log("Saving Settings");
     //vsCodeDebugConsole.log(saveData);
     
-    keytar.setPassword('bUntis', 'login', JSON.stringify(saveData))
+    /*keytar.setPassword('bUntis', 'login', JSON.stringify(saveData))
 	.then(() => {
             vsCodeDebugConsole.log('Password saved successfully');
 	})
@@ -241,7 +223,7 @@ ipcMain.handle('server:save', async (event, saveData) => {
 	});
     
     app.relaunch();
-    app.exit();
+    app.exit();*/
 });
 
 ipcMain.handle('server:restart', async () => {
@@ -250,27 +232,16 @@ ipcMain.handle('server:restart', async () => {
 });
 
 async function loadServer() {
-    keytar.getPassword('bUntis', 'login')
-	.then((password) => {
-	    if (password) {
-		mainWindow.send('renderer:parseSettings', password);
-		
-		//vsCodeDebugConsole.log('Password retrieved successfully:', password);
-		password = JSON.parse(password);
-		//vsCodeDebugConsole.log('Password retrieved successfully:', password);
-		getWebData(password);
-		//vsCodeDebugConsole.log(password[0] + ' ' + password[1] + ' ' + password[3] + ' ' + password[2]);
-	    } else {//const md5 = require('../code/md5.js');
-		vsCodeDebugConsole.log('Password not found');
-	    }
-	}).catch((err) => {
-	    vsCodeDebugConsole.error('Error retrieving password:', err);
-	});
+    const loginData = new store();
+    const password = loginData.get('login');
+    mainWindow.send('renderer:parseSettings', password);
+    //vsCodeDebugConsole.log('Password retrieved successfully:', password);
+    getWebData(JSON.parse(password));
 }
 
 async function getWebData(loginData) {
     vsCodeDebugConsole.log("untisApi;");
-    
+
     const untis = new WebUntisSecretAuth(loginData[0], loginData[1], loginData[2], loginData[3], 'custom-identity', authenticator);
     vsCodeDebugConsole.log("Logging in.");
     
@@ -282,13 +253,13 @@ async function getWebData(loginData) {
     
     mainWindow.send('renderer:status', 'Setting date.');
     
-    weekStart = new Date();
-    weekEnd = new Date();
+    var weekStart = new Date();
+    var weekEnd = new Date();
     
     weekStart = utils.getFirstDayOfWeek();
-    if(weekStart.getDate() + 4 > 30) {
+    /*if(weekStart.getDate() + 4 > 30) {
 	//weekEnd.setMonth(weekStart.getMonth() + 1);
-    }
+    }*/
     weekEnd.setDate(weekStart.getDate() + 4);
 
     // Add next year check here.
@@ -323,8 +294,8 @@ async function getWebData(loginData) {
     
     homework = await untis.getHomeWorksFor(weekStart, weekEnd);
     
-    if(weekStart.getDate() + 7 > 30)
-	weekEnd.setMonth(weekStart.getMonth() + 1);
+    /*if(weekStart.getDate() + 7 > 30)
+	weekEnd.setMonth(weekStart.getMonth() + 1);*/
     weekStart.setDate(weekStart.getDate() + 7);
     
     timetableNextWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);

@@ -1,17 +1,15 @@
 const electron = require('electron');
-const {ipcRenderer} = electron;
+const { ipcRenderer } = require('electron');
 
-const utils = require('../code/utils.js');
-const md5 = require('../code/md5.js');
-const timeTable = require('../code/table.js');
-const homeWork = require('../code/homework.js');
-const settings = require('../code/settings.js');
-const inbox = require('../code/inbox.js');
+import { utils } from '../code/utils.js';
+//import md5 from'../code/md5.js';
+import { timetable } from '../code/table.js';
+import { homework } from '../code/homework.js';
+import { settings } from '../code/settings.js';
+import { inbox } from '../code/inbox.js';
 
 const whookURL = '';
 
-//var myClasses = ['MA_12_Ti', 'PH_12_Dr', 'CH_12_Vi', 'POWI_12_Ps_1', 'DE_12_Kö', 'SEM_12_Fo', 'KU_12_Bz', 'SN_12_Pn', 'SP_12_8'];
-//const myClasses = ['MA_12_Sü_1', 'PH_12_Dr', 'CH_12_Vi', 'GE_12_Vt', 'DE_12_Hm_1', 'SEM_12_Sa', 'KU_12_Bz', 'PL_12_Wb', 'EN_12_Ml_1', 'SP_12_11'];
 var myClasses = '';
 var holidayData = '';
 
@@ -70,7 +68,7 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
 
     //timeTable.createTable(myClasses, timetableLastWeek, -1);
     //console.log(timetableThisWeek);
-    timeTable.createTable(myClasses, timetableThisWeek, holidayData, 0);
+    timetable.createTable(myClasses, timetableThisWeek, holidayData, 0);
     //timeTable.createTable(myClasses, timetableNextWeek, 1);
     //mainTimeTable = document.getElementById('TimeTable');
 
@@ -82,7 +80,7 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
 
 ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
     console.log('Receiving and parsing Home Work Data');
-    homeWork.show(homeWorkTable, homeWorkData);
+    homework.show(homeWorkTable, homeWorkData);
 });
 
 ipcRenderer.on('renderer:inbox', function(e, inboxData) {

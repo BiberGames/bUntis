@@ -1,9 +1,12 @@
-const md5 = require('../code/md5.js');
-const utils = require('../code/utils.js');
-import Store from 'electron-store';
+//import md5 from '../code/md5.js';
+import { utils } from '../code/utils.js';
+//import Store from 'electron-store';
+//const store = require('electron-store');
 //const keytar = require('keytar');
 
-const saveSettings = async function(_school, _username, _server, _code, _classes) {
+const settings = {};
+
+settings.saveSettings = async function(_school, _username, _server, _code, _classes) {
     var saveDataServer = [];
     var classes = [];
 
@@ -35,7 +38,7 @@ function saveClient(saveData, hook) {
 	});
 }
 
-const loadSettings = function() {
+settings.loadSettings = function() {
     let data;
     keytar.getPassword('bUntis', 'setup')
 	.then((password) => {
@@ -67,6 +70,4 @@ const loadSettings = function() {
     return ["NOTHING :("];
 }
 
-module.exports = {
-    saveSettings, loadSettings
-}
+export { settings };

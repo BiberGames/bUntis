@@ -1,4 +1,6 @@
-const show = async function(_inboxData) {
+const inbox = {};
+
+inbox.show = async function(_inboxData) {
     //console.log(_inboxData);
     
     for(let i = 0; i < _inboxData.incomingMessages.length; i++) {
@@ -20,6 +22,4 @@ const show = async function(_inboxData) {
     }
 }
 
-module.exports = {
-    show
-}
+export { inbox };
