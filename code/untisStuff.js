@@ -7,6 +7,7 @@ import { timetable } from '../code/table.js';
 import { homework } from '../code/homework.js';
 import { settings } from '../code/settings.js';
 import { inbox } from '../code/inbox.js';
+import { ui } from '../code/ui.js';
 
 const whookURL = '';
 
@@ -21,29 +22,18 @@ const inboxTable = document.getElementById('inboxTable');
 
 var firstTime = await ipcRenderer.invoke('server:readSetup');
 
-var pages = [document.getElementById('loadingScreen'),
-	     mainTimeTable,
-	     document.getElementById('homeWork'),
-	     document.getElementById('settingsScreen'),
-	     document.getElementById('events'),
-	     debug,
-	     document.getElementById('inbox'),
-	     document.getElementById('firstTimeScreen')];
-
-var openPage = 0;
-
 settings.loadSettings();
 
 if(firstTime)
-    showPage(0);
+    ui.showPage(0);
 else
-    showPage(7);
+    ui.showPage(7);
 
 ipcRenderer.on('renderer:parseSettings', function(e, item) {
 });
 
 ipcRenderer.on('renderer:chPage', function(e, item) {
-    showPage(item);
+    ui.showPage(item);
 });
 
 ipcRenderer.on('renderer:sessionInfo', function(e, item) {
@@ -79,7 +69,7 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
     //mainTimeTable = document.getElementById('TimeTable');
 
     if(firstTime) {
-	showPage(1);
+	ui.showPage(1);
 	document.getElementById('bottomNavBar').style.display = 'block';
     }
 });
@@ -97,22 +87,3 @@ ipcRenderer.on('renderer:inbox', function(e, inboxData) {
 ipcRenderer.on('renderer:holidayInfo', function(e, _holidayData) {
     holidayData = _holidayData;
 });
-
-async function saveSettings() {
-    const schoolField = utils.sanitizeInput(document.getElementById('school').value);
-    const userNameField = utils.sanitizeInput(document.getElementById('name').value);
-    const serverURLField = utils.sanitizeInput(document.getElementById('server').value);
-    const authCodeField = utils.sanitizeInput(document.getElementById('code').value);
-    const settingsScreenAddMyClassInput = utils.sanitizeInput(document.getElementById("MyClassesInput").value);
-    
-    await settings.saveSettings(schoolField, userNameField, serverURLField, authCodeField, settingsScreenAddMyClassInput);
-}
-
-function showPage(id) {
-    openPage = id;
-    
-    for(let i = 0; i < pages.length; i++) {
-	pages[i].style.display = 'none';
-    }
-    pages[id].style.display = 'block';
-}

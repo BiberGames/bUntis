@@ -32,7 +32,7 @@
 	<br>
 	<p id="loadingInfo">Starting.</p>
       </div>
-      <button class="bottomNavBarButton" onclick="showPage(7)">Login</button>
+      <button class="bottomNavBarButton" onclick="ui.showPage(7)">Login</button>
     </div>
     <div class="bigPanel" id="firstTimeScreen">
       <div class="center-center blur">
@@ -46,7 +46,7 @@
 	<br>
 	<center>
 	  <div class="loginButtons">
-	    <button onclick="saveSettings()">Login</button>
+	    <button onclick="ui.saveSettings()">Login</button>
 	    <button> ? </button>
 	  </div>
 	</center>
@@ -63,7 +63,7 @@
       
       <div>
 	<h2>Account</h2>
-	<button onclick="showPage(7)">Reset</button>
+	<button onclick="ui.showPage(7)">Reset</button>
       </div>
       
       <br>
@@ -149,11 +149,11 @@
     <div class="bottomNavBar" id="bottomNavBar">
       <center>
 	<button class="bottomNavBarButton" onclick="ipcRenderer.invoke('server:restart');"><img src="../images/font/restart_alt_white_24dp.svg"></button>
-        <button class="bottomNavBarButton" onclick="showPage(1)"><img src="../images/font/calendar_month_white_24dp.svg"> Timetable</button>
-        <button class="bottomNavBarButton" onclick="showPage(2)"><img src="../images/font/home_work_white_24dp.svg"> Homework</button>
+        <button class="bottomNavBarButton" onclick="ui.showPage(1)"><img src="../images/font/calendar_month_white_24dp.svg"> Timetable</button>
+        <button class="bottomNavBarButton" onclick="ui.showPage(2)"><img src="../images/font/home_work_white_24dp.svg"> Homework</button>
         <!--<button class="bottomNavBarButton" onclick="showPage(4)"><span class="material-icons">event</span> Events</button>-->
 	<!--<button class="bottomNavBarButton" onclick="showPage(6)"><img src="../images/font/home_work_white_24dp.svg"> Inbox</button>-->
-        <button class="bottomNavBarButton" onclick="showPage(3)"><img src="../images/font/settings_white_24dp.svg"> Settings</button>
+        <button class="bottomNavBarButton" onclick="ui.showPage(3)"><img src="../images/font/settings_white_24dp.svg"> Settings</button>
 	<!--<button class='bottomNavBarButton' onclick="showPage(1)"><img src="../images/font/arrow_forward_white_24dp.svg"></button>-->
       </center>
     </div>
