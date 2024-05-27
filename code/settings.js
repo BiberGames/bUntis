@@ -19,7 +19,7 @@ settings.saveSettings = async function(_school, _username, _server, _code, _clas
 }
 
 async function saveClient(saveData, hook) {
-    const result = await ipcRenderer.invoke('server:saveDataToFile', 'classes', 'saveData');
+    const result = await ipcRenderer.invoke('server:saveDataToFile', 'classes', saveData);
     await ipcRenderer.invoke('server:saveDataToFile', 'setup', 1);
     
 }
