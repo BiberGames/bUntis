@@ -210,30 +210,19 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 });
 
-ipcMain.handle('server:saveTimeTable', async (event, saveData) => {
-    const loginData = new Store();
-    loginData.set('classes', saveData);
-    loginData.set('setup', 1);
+ipcMain.handle('server:saveDataToFile', async (event, key, saveData) => {
+    const data = new Store();
+    data.set(key, saveData);
 });
 
-ipcMain.handle('server:save', async (event, saveData) => {
+ipcMain.handle('server:readDataToFile', async (event, key) => {
     const loginData = new Store();
-    loginData.set('login', JSON.stringify(saveData));
-
-    app.relaunch();
-    app.exit();
+    return loginData.get(key);
 });
 
-ipcMain.handle('server:readSetup', async (event) => {
+ipcMain.handle('server:removeDataToFile', async (event, key) => {
     const loginData = new Store();
-    let d = loginData.get('setup');
-    return d;
-});
-
-ipcMain.handle('server:readClases', async (event) => {
-    const loginData = new Store();
-
-    return loginData.get('classes');
+    return loginData.delete(key);
 });
 
 ipcMain.handle('server:restart', async () => {

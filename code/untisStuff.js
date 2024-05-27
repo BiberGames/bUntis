@@ -20,7 +20,7 @@ const loadingScreenInfoText = document.getElementById('loadingInfo');
 const debug = document.getElementById('debug');
 const inboxTable = document.getElementById('inboxTable');
 
-var firstTime = await ipcRenderer.invoke('server:readSetup');
+var firstTime = await ipcRenderer.invoke('server:readDataToFile', 'setup');
 
 settings.loadSettings();
 
