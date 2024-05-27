@@ -19,7 +19,7 @@ const loadingScreenInfoText = document.getElementById('loadingInfo');
 const debug = document.getElementById('debug');
 const inboxTable = document.getElementById('inboxTable');
 
-var firstTime = 1;
+var firstTime = await ipcRenderer.invoke('server:readSetup');
 
 var pages = [document.getElementById('loadingScreen'),
 	     mainTimeTable,
@@ -31,9 +31,13 @@ var pages = [document.getElementById('loadingScreen'),
 	     document.getElementById('firstTimeScreen')];
 
 var openPage = 0;
-showPage(0);
 
 settings.loadSettings();
+
+if(firstTime)
+    showPage(0);
+else
+    showPage(7);
 
 ipcRenderer.on('renderer:parseSettings', function(e, item) {
 });
@@ -70,11 +74,11 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
     //timeTable.createTable(myClasses, timetableLastWeek, -1);
     //console.log(timetableThisWeek);
     //mainTimeTable = document.getElementById('timeTables');
-    timetable.createTable(mainTimeTable, myClasses, timetableThisWeek, holidayData, 0);
+    timetable.createTable(timetableThisWeek, holidayData, 0);
     //timeTable.createTable(myClasses, timetableNextWeek, 1);
     //mainTimeTable = document.getElementById('TimeTable');
 
-    if(firstTime === 0) {
+    if(firstTime) {
 	showPage(1);
 	document.getElementById('bottomNavBar').style.display = 'block';
     }

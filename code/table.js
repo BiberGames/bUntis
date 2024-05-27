@@ -2,11 +2,9 @@ import { utils } from './utils.js';
 import { event } from './event.js';
 
 const timetable = {};
-var mainTimeTable = document.getElementById('TimeTable 0');
 
 var timeTableData = '';
 var dates = [];
-var classes = [];
 
 const timetableStructure = [
     [" ", "Times", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
@@ -37,38 +35,39 @@ function generateTable(data, id) {
     });
     
     tableContainer.appendChild(table);
+    global.mainTimeTable = document.getElementById('TimeTable 0');
 }
 
 function setCellStatusColor(x, y, code) {
-    if(utils.getCellInTable(mainTimeTable, x, y).classList.value !== 'timeTableElement')
+    if(utils.getCellInTable(global.mainTimeTable, x, y).classList.value !== 'timeTableElement')
         return;
 
     switch(code) {
     case 'irregular':
-        utils.getCellInTable(mainTimeTable, x, y).classList.add('irregular');
+        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('irregular');
         break;
 	
     case 'cancelled':
         // adds zero width char to make merging simpler
-        utils.getCellInTable(mainTimeTable, x, y).classList.add('cancelled');
-        utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
+        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('cancelled');
+        utils.getCellInTable(global.mainTimeTable, x, y).innerHTML += '​';
         break;
 	
     case 'sup':
-        utils.getCellInTable(mainTimeTable, x, y).classList.add('sup');
-        utils.getCellInTable(mainTimeTable, x, y).innerHTML += '​';
+        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('sup');
+        utils.getCellInTable(global.mainTimeTable, x, y).innerHTML += '​';
         break;
 	
     case 'err':
-        utils.getCellInTable(mainTimeTable, x, y).classList.add('err');
+        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('err');
         break;
 
     case 'free':
-	utils.getCellInTable(mainTimeTable, x, y).classList.add('free');
+	utils.getCellInTable(global.mainTimeTable, x, y).classList.add('free');
 	break
 	
     default:
-        utils.getCellInTable(mainTimeTable, x, y).classList.add('default');
+        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('default');
         break;
     }
 }
@@ -86,7 +85,7 @@ function addSubjectToTable(x, y, timeTableData) {
 
     //console.log(timeTableData.sg.slice(-2));
 
-    utils.setContentInTable(mainTimeTable, x + 2, y + 1, text);
+    utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, text);
     
     //console.log(timeTableData.date);
     setCellStatusColor(x + 2, y + 1, timeTableData.code);
@@ -95,9 +94,9 @@ function addSubjectToTable(x, y, timeTableData) {
 function addSubjectWithoutRoom(x, y, timeTableData) {
     //console.log(timeTableData);
     var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2);
-    utils.setContentInTable(mainTimeTable, x + 2, y + 1, text);
+    utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, text);
 
-    console.log(timeTableData.sg.slice(-2));
+    //console.log(timeTableData.sg.slice(-2));
     
     //console.log(timeTableData.id);
     setCellStatusColor(x + 2, y + 1, timeTableData.code);
@@ -108,30 +107,30 @@ function addEventToTable(x, y, timeTableData) {
     var rawEventLength = utils.timeToElements(timeTableData.endTime) - utils.timeToElements(timeTableData.startTime);
 
     setCellStatusColor(x +2, y +1, timeTableData.code);
-    utils.setContentInTable(mainTimeTable, x +2, y +1, text);
-    utils.getCellInTable(mainTimeTable, x +2, y +1).rowSpan = rawEventLength+1;
+    utils.setContentInTable(global.mainTimeTable, x +2, y +1, text);
+    utils.getCellInTable(global.mainTimeTable, x +2, y +1).rowSpan = rawEventLength+1;
 
     for (let i = 1; i < rawEventLength +1; i++) {
-        utils.getCellInTable(mainTimeTable, x +2, y +1 +i).style.display = 'none';
+        utils.getCellInTable(global.mainTimeTable, x +2, y +1 +i).style.display = 'none';
     }
 
-    utils.getCellInTable(mainTimeTable, x +2, y +1).onclick = function() {showPage(4); event.update(timeTableData);};
+    utils.getCellInTable(global.mainTimeTable, x +2, y +1).onclick = function() {showPage(4); event.update(timeTableData);};
 }
 
 function addHolidayToTable(x, y, timeTableData) {
-    utils.setContentInTable(mainTimeTable, x +2, y +1, timeTableData.name + "<br>" + timeTableData.longName);
+    utils.setContentInTable(global.mainTimeTable, x +2, y +1, timeTableData.name + "<br>" + timeTableData.longName);
     
     setCellStatusColor(x + 2, y + 1, timeTableData.code);
-    utils.getCellInTable(mainTimeTable, x +2, y +1).rowSpan = 8;
+    utils.getCellInTable(global.mainTimeTable, x +2, y +1).rowSpan = 8;
     
     for (let i = 1; i < 8; i++) {
-        utils.getCellInTable(mainTimeTable, x +2, y +1 +i).style.display = 'none';
+        utils.getCellInTable(global.mainTimeTable, x +2, y +1 +i).style.display = 'none';
     }
 }
 
 function dataToTable(timeTableData, x, y) {
-    utils.getCellInTable(mainTimeTable, x+2, y+1).classList.add('timeTableElement');
-    if(utils.isMyClass(classes, timeTableData.sg) || timeTableData.lstext || timeTableData.free) {
+    utils.getCellInTable(global.mainTimeTable, x+2, y+1).classList.add('timeTableElement');
+    if(utils.isMyClass(global.classes, timeTableData.sg) || timeTableData.lstext || timeTableData.free) {
         try {
             if(!timeTableData.free && timeTableData.su.length > 0 && timeTableData.ro.length > 0) { // normal subject with room number and name
                 addSubjectToTable(x, y, timeTableData);
@@ -149,7 +148,7 @@ function dataToTable(timeTableData, x, y) {
         catch(e) {
 	    console.log(timeTableData);
             if(timeTableData.su) {
-                utils.setContentInTable(mainTimeTable, x + 2, y + 1, timeTableData.su[0].name);
+                utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, timeTableData.su[0].name);
             }
             console.info(timeTableData);
             console.info(e);
@@ -194,12 +193,12 @@ function populateTableSpecificDay(timeTableData, day) {
     }
 }
 
-timetable.createTable = function(mainTimeTable, _classes, _timeTableData, _holidayData, id) {
+timetable.createTable = function(_timeTableData, _holidayData, id) {
     console.log("Creating Table...");
     generateTable(timetableStructure, id);
+    console.log(timetableStructure);
     
     timeTableData = _timeTableData;
-    classes = _classes;
 
     dates = utils.getWeekDates();
     //console.log(dates);

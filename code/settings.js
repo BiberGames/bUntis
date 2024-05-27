@@ -22,11 +22,8 @@ async function saveClient(saveData, hook) {
 }
 
 settings.loadSettings = async function() {
-    //const firstTime = await ipcRenderer.invoke('server:readSetup');
-
     let classes = await ipcRenderer.invoke('server:readClases');
-    classes = classes.split(" ");
-    return classes;
+    global.classes = classes.split(" ");
 }
 
 export { settings };
