@@ -143,7 +143,7 @@ function dataToTable(timeTableData, x, y) {
             }
 	    
             // Merging subjects to blocks for better readability...
-            utils.mergeCells(mainTimeTable, x+2, y+1);
+            utils.mergeCells(global.mainTimeTable, x+2, y+1);
         }
         catch(e) {
 	    console.log(timeTableData);
@@ -193,15 +193,13 @@ function populateTableSpecificDay(timeTableData, day) {
     }
 }
 
-timetable.createTable = function(_timeTableData, _holidayData, id) {
+timetable.createTable = function(_timeTableData, id) {
     console.log("Creating Table...");
     generateTable(timetableStructure, id);
-    console.log(timetableStructure);
     
     timeTableData = _timeTableData;
 
     dates = utils.getWeekDates();
-    //console.log(dates);
     
     for (let i = 0; i < timeTableData.length; i++) {
         if(timeTableData[i].date == dates[0]) {

@@ -54,7 +54,7 @@ ipcRenderer.on('renderer:sessionInfo', function(e, item) {
 });
 
 ipcRenderer.on('renderer:timegrid', function(e, item) {
-    console.log(item);
+    //console.log(item);
 });
 
 ipcRenderer.on('renderer:status', function(e, item) {
@@ -74,7 +74,7 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
     //timeTable.createTable(myClasses, timetableLastWeek, -1);
     //console.log(timetableThisWeek);
     //mainTimeTable = document.getElementById('timeTables');
-    timetable.createTable(timetableThisWeek, holidayData, 0);
+    timetable.createTable(timetableThisWeek, 0);
     //timeTable.createTable(myClasses, timetableNextWeek, 1);
     //mainTimeTable = document.getElementById('TimeTable');
 
