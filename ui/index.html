@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>bUntis</title>
     <script defer type="module" src="../code/untisStuff.js"></script>
+    <script defer type="module">import { ui } from '../code/ui.js'; window.ui = ui;</script>
   </head>
   <body>
     <div class="bigPanel" id="loadingScreen">
@@ -32,7 +33,7 @@
 	<br>
 	<p id="loadingInfo">Starting.</p>
       </div>
-      <button class="bottomNavBarButton" onclick="ui.showPage(7)">Login</button>
+      <button class="bottomNavBarButton" onclick="ui.showPage(7)" >Login</button>
     </div>
     <div class="bigPanel" id="firstTimeScreen">
       <div class="center-center blur">

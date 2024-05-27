@@ -1,3 +1,6 @@
+import { utils } from './utils.js';
+import { settings } from './settings.js';
+
 const ui = {};
 
 global.pages = [document.getElementById('loadingScreen'),
