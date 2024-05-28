@@ -35,7 +35,7 @@ function generateTable(data, id) {
     });
     
     tableContainer.appendChild(table);
-    global.mainTimeTable = document.getElementById('TimeTable 0');
+    global.mainTimeTable = document.getElementById('TimeTable ' +id);
 }
 
 function setCellStatusColor(x, y, code) {

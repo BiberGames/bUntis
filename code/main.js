@@ -2,7 +2,7 @@
 
 // Modules to control application life and create native browser window
 // Electron //
-import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, shell } from 'electron';
 import electron from 'electron';
 import path from 'path';
 import { dirname } from 'path';
@@ -151,8 +151,7 @@ const template = [
 	    {
 		label: 'Learn More',
 		click: async () => {
-		    //import shell from 'electron';
-		    //await shell.openExternal('https://codeberg.org/BiberGames/bUntis');
+		    await shell.openExternal('https://codeberg.org/BiberGames/bUntis');
 		}
 	    }
 	]
