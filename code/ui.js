@@ -1,6 +1,6 @@
 import { utils } from './utils.js';
 import { settings } from './settings.js';
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, shell } = require('electron');
 
 const ui = {};
 
@@ -28,6 +28,10 @@ ui.showPage = function(id) {
 
 ui.restart = function() {
     ipcRenderer.invoke('server:restart');
+}
+
+ui.openURL = async function(URL) {
+    await shell.openExternal(URL);
 }
 
 ui.saveSettings = async function() {
