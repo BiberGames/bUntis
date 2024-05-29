@@ -1,5 +1,6 @@
 import { utils } from './utils.js';
 import { settings } from './settings.js';
+const { ipcRenderer } = require('electron');
 
 const ui = {};
 
@@ -23,6 +24,10 @@ ui.showPage = function(id) {
     }
     if(global.pages[id])
 	global.pages[id].style.display = 'block';
+}
+
+ui.restart = function() {
+    ipcRenderer.invoke('server:restart');
 }
 
 ui.saveSettings = async function() {
