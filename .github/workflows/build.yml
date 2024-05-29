@@ -18,10 +18,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
@@ -43,19 +43,19 @@ jobs:
       run: npm run dist
 
     - name: Upload Linux x64 Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: bUntis-linux-x64
         path: dist/*0.AppImage
 
     - name: Upload Linux arm64 Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: bUntis-linux-arm64
         path: dist/*arm64.AppImage
 
     - name: Upload Windows x64 Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: bUntis-windows-x64
         path: dist/*0.exe
