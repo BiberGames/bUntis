@@ -91,11 +91,15 @@ utils.getFirstDayOfWeek = function() {
 
 utils.toUntisDate = function(date) {
     let month = date.getMonth() +1;
+    let day = date.getDate();
 
     if(month < 10)
 	month = "0" + month;
+
+    if(day < 10)
+	day = "0" + day;
     
-    let newDate = date.getFullYear() + "" + month + "" + date.getDate();
+    let newDate = date.getFullYear() + "" + month + "" + day;
 
     return newDate;
 }
@@ -104,6 +108,7 @@ utils.getWeekDates = function() {
     let dates = [];
     let startDate = utils.getFirstDayOfWeek();
     startDate = parseInt(utils.toUntisDate(startDate));
+    //console.log(startDate);
 
     dates.push(startDate);
     for(let i = 1; i < 5; i++)
