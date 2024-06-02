@@ -1,17 +1,18 @@
 # bUntis
 A free and full featured webuntis desktop client.  
 
+# Building from source
 ## How to install npm
 - Debian-based:  ```sudo apt-get install npm ```
 - Red Hat-based:  ```sudo yum install npm ```
 - Arch Linux: ```sudo pacman -S npm ```
 
-# How to build from source
+## Cloning an building
 - Download repository ```git clone https://codeberg.org/BiberGames/bUntis.git ```
 - Enter bUntis directory and type ```npm install ```
 - Now enter the command ```npm run dist ```
 
-## How to use the prebuilt AppImage
+# How to use the prebuilt AppImage
 - Debian-based:  ```sudo apt-get install fuse libfuse2 ```
 - Red Hat-based:  ```sudo yum install fuse ```
 - Arch Linux:  ```sudo pacman -S fuse ```
