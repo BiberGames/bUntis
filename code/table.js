@@ -39,36 +39,13 @@ function generateTable(data, id) {
 }
 
 function setCellStatusColor(x, y, code) {
-    if(utils.getCellInTable(global.mainTimeTable, x, y).classList.value !== 'timeTableElement')
-        return;
+    const cell = utils.getCellInTable(global.mainTimeTable, x, y);
+    if(cell.classList.value !== 'timeTableElement') return;
 
-    switch(code) {
-    case 'irregular':
-        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('irregular');
-        break;
-	
-    case 'cancelled':
-        // adds zero width char to make merging simpler
-        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('cancelled');
-        utils.getCellInTable(global.mainTimeTable, x, y).innerHTML += '​';
-        break;
-	
-    case 'sup':
-        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('sup');
-        utils.getCellInTable(global.mainTimeTable, x, y).innerHTML += '​';
-        break;
-	
-    case 'err':
-        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('err');
-        break;
-
-    case 'free':
-	utils.getCellInTable(global.mainTimeTable, x, y).classList.add('free');
-	break
-	
-    default:
-        utils.getCellInTable(global.mainTimeTable, x, y).classList.add('default');
-        break;
+    cell.classList.add(code || 'default');
+    
+    if (code === 'cancelled' || code === 'sup') {
+        cell.innerHTML += '​';  // Adds zero width char for merging
     }
 }
 
@@ -158,38 +135,19 @@ function dataToTable(timeTableData, x, y) {
 }
 
 function populateTableSpecificDay(timeTableData, day) {
-    switch(timeTableData.startTime) {
-    case 745:
-	dataToTable(timeTableData, day, 0);
-        break;
-            
-    case 835:
-        dataToTable(timeTableData, day, 1);
-        break;
-
-    case 940:
-        dataToTable(timeTableData, day, 2);
-        break;
-
-    case 1030:
-        dataToTable(timeTableData, day, 3);
-        break;
-
-    case 1135:
-        dataToTable(timeTableData, day, 4);
-        break;
-
-    case 1225:
-        dataToTable(timeTableData, day, 5);
-        break;
-
-    case 1340:
-        dataToTable(timeTableData, day, 6);
-        break;
-
-    case 1430:
-        dataToTable(timeTableData, day, 7);
-        break;
+    const timeMap = {
+        745: 0,
+        835: 1,
+        940: 2,
+        1030: 3,
+        1135: 4,
+        1225: 5,
+        1340: 6,
+        1430: 7
+    };
+    const period = timeMap[timeTableData.startTime];
+    if (period !== undefined) {
+        dataToTable(timeTableData, day, period);
     }
 }
 
@@ -201,23 +159,12 @@ timetable.createTable = function(_timeTableData, id) {
 
     dates = utils.getWeekDates();
     
-    for (let i = 0; i < timeTableData.length; i++) {
-        if(timeTableData[i].date == dates[0]) {
-            populateTableSpecificDay(timeTableData[i], 0);
+    timeTableData.forEach(entry => {
+        const dayIndex = dates.indexOf(entry.date);
+        if (dayIndex !== -1) {
+            populateTableSpecificDay(entry, dayIndex);
         }
-        else if(timeTableData[i].date == dates[1]) {
-            populateTableSpecificDay(timeTableData[i], 1);
-        }
-        else if(timeTableData[i].date == dates[2]) {
-            populateTableSpecificDay(timeTableData[i], 2);
-        }
-        else if(timeTableData[i].date == dates[3]) {
-            populateTableSpecificDay(timeTableData[i], 3);
-        }
-        else if(timeTableData[i].date == dates[4]) {
-            populateTableSpecificDay(timeTableData[i], 4);
-        }
-    }
+    });
     
     console.log("Table Created...");
 }
