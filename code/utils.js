@@ -59,17 +59,34 @@ utils.sanitizeInput = function(input) {
     return input;//.replace(/^[a-zA-Z0-9_.]+$/g, '');
 }
 
-utils.timeToElements = function(time) {
-    switch(time) {
-    case 745: return 1; break;
-    case 920: return 2; break;
-    case 1025: return 3; break;
-    case 1115: return 4; break;
-    case 1220: return 5; break;
-    case 1310: return 6; break;
-    case 1425: return 7; break;
-    case 1515: return 8; break;
-    }
+utils.endTimeToElements = function(time) {
+    const timeMap = {
+	745: 0,
+	920: 1,
+	1025: 2,
+	1115: 3,
+	1220: 4,
+	1310: 5,
+	1425: 6,
+	1515: 7
+    };
+
+    return timeMap[time];
+}
+
+utils.startTimeToElements = function(time) {
+    const timeMap = {
+        745: 0,
+        835: 1,
+        940: 2,
+        1030: 3,
+        1135: 4,
+        1225: 5,
+        1340: 6,
+        1430: 7
+    };
+
+    return timeMap[time];
 }
 
 utils.getFirstDayOfWeek = function() {

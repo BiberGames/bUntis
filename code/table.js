@@ -81,7 +81,9 @@ function addSubjectWithoutRoom(x, y, timeTableData) {
 
 function addEventToTable(x, y, timeTableData) {
     var text = timeTableData.lstext;
-    var rawEventLength = utils.timeToElements(timeTableData.endTime) - utils.timeToElements(timeTableData.startTime);
+    var rawEventLength = utils.endTimeToElements(timeTableData.endTime) - utils.startTimeToElements(timeTableData.startTime);
+    //console.log(utils.timeToElements(timeTableData.endTime) + ' ' + utils.timeToElements(timeTableData.startTime));
+    console.log(rawEventLength);
 
     setCellStatusColor(x +2, y +1, timeTableData.code);
     utils.setContentInTable(global.mainTimeTable, x +2, y +1, text);
@@ -125,7 +127,7 @@ function dataToTable(timeTableData, x, y) {
         catch(e) {
 	    console.log(timeTableData);
             if(timeTableData.su) {
-                utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, timeTableData.su[0].name);
+                //utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, timeTableData.su[0].name);
             }
             console.info(timeTableData);
             console.info(e);
@@ -135,17 +137,7 @@ function dataToTable(timeTableData, x, y) {
 }
 
 function populateTableSpecificDay(timeTableData, day) {
-    const timeMap = {
-        745: 0,
-        835: 1,
-        940: 2,
-        1030: 3,
-        1135: 4,
-        1225: 5,
-        1340: 6,
-        1430: 7
-    };
-    const period = timeMap[timeTableData.startTime];
+    const period = utils.startTimeToElements(timeTableData.startTime);
     if (period !== undefined) {
         dataToTable(timeTableData, day, period);
     }
