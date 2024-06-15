@@ -266,8 +266,8 @@ async function getWebData(loginData) {
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
 
-    mainWindow.send('renderer:status', 'Recieving Timegrid');
-    timegrid = await untis.getTimegrid();
+    //mainWindow.send('renderer:status', 'Recieving Timegrid');
+    //timegrid = await untis.getTimegrid();
     //vsCodeDebugConsole.log(timeGrid);
     
     mainWindow.send('renderer:status', 'Recieving Timetable.');
@@ -278,8 +278,8 @@ async function getWebData(loginData) {
     //var inbox = await untis.getInbox();
     //vsCodeDebugConsole.log(inbox);
 
-    mainWindow.send('renderer:status', 'Recieving Holidays');
-    holidays = await untis.getHolidays();
+    //mainWindow.send('renderer:status', 'Recieving Holidays');
+    //holidays = await untis.getHolidays();
     //vsCodeDebugConsole.log(holidays);
     
     //mainWindow.send('renderer:status', 'Recieving subjects.');
@@ -290,14 +290,18 @@ async function getWebData(loginData) {
    // if(weekEnd.getDate() + 4 > 30)
 	//weekEnd.setMonth(weekStart.getMonth() + 1);
     weekEnd.setDate(weekEnd.getDate() + 7);
-    
-    homework = await untis.getHomeWorksFor(weekStart, weekEnd);
+
+    try {
+	homework = await untis.getHomeWorksFor(weekStart, weekEnd);
+    }
+    catch(e) {
+	mainWindow.send('renderer:status', 'Error Recieving Homework.');
+	await new Promise(r => setTimeout(r, 1000));
+    }
     
     /*if(weekStart.getDate() + 7 > 30)
-	weekEnd.setMonth(weekStart.getMonth() + 1);*/
-    weekStart.setDate(weekStart.getDate() + 7);
-    
-    timetableNextWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
+      weekEnd.setMonth(weekStart.getMonth() + 1);*/
+    //weekStart.setDate(weekStart.getDate() + 7);
     
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
