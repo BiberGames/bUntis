@@ -84,6 +84,8 @@ ipcRenderer.on('renderer:inbox', function(e, inboxData) {
     inbox.show(inboxData);
 });
 
-ipcRenderer.on('renderer:holidayInfo', function(e, _holidayData) {
-    holidayData = _holidayData;
+ipcRenderer.on('renderer:holidayScreen', function(e) {
+    document.getElementsByClassName('loader')[0].style.display = 'none';
+    document.getElementsByClassName('loader-holiday')[0].style.display = 'block';
+    document.getElementById('loadingInfo').innerHTML = '<br><br><br><br><br><br>' + document.getElementById('loadingInfo').innerHTML;
 });

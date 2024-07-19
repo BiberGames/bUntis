@@ -8,8 +8,19 @@
 }
 
 .loader {
+    display: block;
     width: 100%;
     height: 15px;
+    text-align: center;
+}
+
+.loader-holiday {
+    display: none;
+}
+
+.loader-holiday-text {
+    width: 100%;
+    font-size: 6em;
     text-align: center;
 }
 

@@ -246,6 +246,12 @@ async function getWebData(loginData) {
     
     mainWindow.send('renderer:status', 'Logging in.');
     await untis.login();
+
+    if(!utils.getLatestSchoolyear) {
+	mainWindow.send('renderer:status', 'No school year defined...');
+	await mainWindow.send('renderer:holidayScreen');
+	return;
+    }
     
     sessionInfo = untis.sessionInformation;
     classID = sessionInfo.klasseId;
@@ -308,7 +314,6 @@ async function getWebData(loginData) {
     
     vsCodeDebugConsole.log('Sending data!');
     await mainWindow.send('renderer:sessionInfo', sessionInfo);
-    await mainWindow.send('renderer:holidayInfo', holidays);
     await mainWindow.send('renderer:timegrid', timegrid);
     await mainWindow.send('renderer:timeTableInfo', 'timetableLastWeak', timetableThisWeak, timetableNextWeak);
     //mainWindow.send('renderer:subjectsData', subjects);
