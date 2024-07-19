@@ -60,18 +60,6 @@ jobs:
         name: bUntis-linux-arm64
         path: dist/*arm64.AppImage
 
-    - name: Upload Linux x64 flatpak Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: bUntis-linux-x64
-        path: dist/*x86_64.flatpak
-
-    - name: Upload Linux arm64 flatpak Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: bUntis-linux-arm64
-        path: dist/*aarch64.flatpak
-
     - name: Upload Windows x64 Artifacts
       uses: actions/upload-artifact@v4
       with:
