@@ -1,0 +1,28 @@
+{
+  "app-id": "de.benjagames.buntis",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "21.08",
+  "sdk": "org.freedesktop.Sdk",
+  "command": "./bUntis",
+  "finish-args": [
+    "--share=ipc",
+    "--share=network",
+    "--filesystem=home"
+  ],
+  "modules": [
+    {
+      "name": "bUntis",
+      "buildsystem": "simple",
+      "build-commands": [
+        "echo 'wut'"
+      ],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://example.com/your-app.tar.gz",
+          "sha256": "your-archive-checksum"
+        }
+      ]
+    }
+  ]
+}

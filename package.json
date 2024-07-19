@@ -17,7 +17,7 @@
     "license": "Ask Benjamin",
     "devDependencies": {
         "@electron/rebuild": "^3.6.0",
-        "electron": "^31.0.0",
+        "electron": "^31.2.1",
         "electron-builder": "^24.13.3"
     },
     "dependencies": {
@@ -25,7 +25,7 @@
         "buffer": "^6.0.3",
         "electon": "^0.0.1-security",
         "electron-squirrel-startup": "^1.0.1",
-        "electron-store": "^9.0.0",
+        "electron-store": "^10.0.0",
         "npm-check-updates": "^16.14.20",
         "secure-electron-store": "^4.0.2",
         "webuntis": "^2.2.1"
@@ -36,10 +36,10 @@
         "linux": {
             "target": [
                 {
-                    "target": "AppImage",
+                    "target": "flatpak",
                     "arch": [
                         "x64",
-			"arm64"
+                        "arm64"
                     ]
                 }
             ],

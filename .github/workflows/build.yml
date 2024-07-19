@@ -25,8 +25,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: updating
+      run: sudo apt-get update -y
+
     - name: Install fuse and libfuse2
-      run: sudo apt-get update && sudo apt-get install -y fuse libfuse2
+      run: sudo apt-get install -y fuse libfuse2
+
+    - name: Install flatpak and flatpak-builder
+      run sudo apt-get install -y flatpak flatpak-builder
 
     - name: Install wine
       run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install wine32
@@ -42,17 +48,29 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: npm run dist
 
-    - name: Upload Linux x64 Artifacts
+    - name: Upload Linux x64 AppImage Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: bUntis-linux-x64
         path: dist/*0.AppImage
 
-    - name: Upload Linux arm64 Artifacts
+    - name: Upload Linux arm64 AppImage Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: bUntis-linux-arm64
         path: dist/*arm64.AppImage
+
+    - name: Upload Linux x64 flatpak Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: bUntis-linux-x64
+        path: dist/*0.flatpak
+
+    - name: Upload Linux arm64 flatpak Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: bUntis-linux-arm64
+        path: dist/*arm64.flatpak
 
     - name: Upload Windows x64 Artifacts
       uses: actions/upload-artifact@v4
