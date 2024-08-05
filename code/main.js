@@ -247,11 +247,12 @@ async function getWebData(loginData) {
     mainWindow.send('renderer:status', 'Logging in.');
     await untis.login();
 
-    if(!utils.getLatestSchoolyear) {
+    vsCodeDebugConsole.log(utils.getLatestSchoolyear);
+    /*if(!utils.getLatestSchoolyear) {
 	mainWindow.send('renderer:status', 'No school year defined...');
 	await mainWindow.send('renderer:holidayScreen');
 	return;
-    }
+    }*/
     
     sessionInfo = untis.sessionInformation;
     classID = sessionInfo.klasseId;
