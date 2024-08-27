@@ -1,0 +1,45 @@
+#profileScreen {
+    background: linear-gradient(-45deg, #FFCF96, #ee7752, #e73c7e);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+}
+
+@keyframes gradient {
+    0% {
+	background-position: 0% 50%;
+    }
+    50% {
+	background-position: 100% 50%;
+    }
+    100% {
+	background-position: 0% 50%;
+    }
+}
+
+.profileButton {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+
+    margin-top: 5px;
+
+    width: 100% !important;
+    
+    font-size: 13px;
+}
+
+.profileButtons {
+    background: #00000080;
+    padding: 2em;
+}
+
+#profileScreen ul {
+    list-style-type: none;
+}
+
+#profileScreen div h1 {
+    font-family: "Style Script", cursive;
+    font-size: 5em;
+}

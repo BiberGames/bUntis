@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="./inboxScreen.css">
     <link rel="stylesheet" type="text/css" href="./navBar.css">
     <link rel="stylesheet" type="text/css" href="./welcomeScreen.css">
+    <link rel="stylesheet" type="text/css" href="./profileScreen.css">
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>bUntis</title>
@@ -38,6 +39,20 @@
       </div>
       <button class="bottomNavBarButton" onclick="ui.showPage(7)" >Login</button>
     </div>
+
+    <div class="bigPanel" id="profileScreen">
+      <div class="center-center blur profileButtons">
+	<h1>Welcome&nbsp;</h1>
+	<div>
+	  <ul>
+	    <li><button class="profileButton">1</button></li>
+	    <li><button class="profileButton">2</button></li>
+	    <li><button class="profileButton">3</button></li>
+	  </ul> 
+	</div>
+      </div>
+    </div>
+    
     <div class="bigPanel" id="firstTimeScreen">
       <div class="center-center blur">
 	<h1>Welcome&nbsp;</h1>
@@ -45,7 +60,8 @@
 	<input id="name" type="text" placeholder="User name"><br>
 	<input id="server" type="text" placeholder="Server adress"><br>
 	<input id="code" type="password" placeholder="Secret code"><br>
-	<input type="text" id="MyClassesInput" placeholder="Your Class">
+	<input type="text" id="MyClassesInput" placeholder="Your Class"><br>
+	<input type="text" id="ConfigName" placeholder="Config">
 	<br>
 	<br>
 	<center>
@@ -67,7 +83,14 @@
       
       <div>
 	<h2>Account</h2>
-	<button onclick="ui.showPage(7)">Reset</button>
+	<button onclick="ui.showPage(7)">Reset</button> <br> <br> <br>
+	 <label for="configs">Choose a profile:</label>
+
+	 <select name="configs" id="cars">
+	   <option value="config_0">Default</option>
+	   <option value="config_1">sPAIN</option>
+	   <option value="config_2">localAPI</option>
+	 </select> 
       </div>
       
       <br>

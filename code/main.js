@@ -229,7 +229,17 @@ ipcMain.handle('server:restart', async () => {
     app.exit();
 });
 
+async function getConfigs() {
+    fs.readdir(app.getPath ('userData') + "/config", (err, files) => {
+	vsCodeDebugConsole.log(files);
+    })
+}
+
 async function loadServer() {
+    getConfigs();
+    
+    app.setPath ('userData', app.getPath ('userData') + "/config/default");
+    vsCodeDebugConsole.log(app.getPath ('userData'));
     const loginData = new Store();
     const password = loginData.get('login');
     
