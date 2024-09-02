@@ -5,13 +5,14 @@ const { ipcRenderer, shell } = require('electron');
 const ui = {};
 
 global.pages = [document.getElementById('loadingScreen'),
-	     global.mainTimeTable,
-	     document.getElementById('homeWork'),
-	     document.getElementById('settingsScreen'),
-	     document.getElementById('events'),
-	     debug,
-	     document.getElementById('inbox'),
-	     document.getElementById('firstTimeScreen')];
+		global.mainTimeTable,
+		document.getElementById('homeWork'),
+		document.getElementById('settingsScreen'),
+		document.getElementById('events'),
+		debug,
+		document.getElementById('inbox'),
+		document.getElementById('firstTimeScreen'),
+		document.getElementById('profileScreen')];
 
 global.openPage = 0;
 
@@ -43,5 +44,8 @@ ui.saveSettings = async function() {
     
     await settings.saveSettings(schoolField, userNameField, serverURLField, authCodeField, settingsScreenAddMyClassInput);
 }
+
+ui.startProfile = function(name) {}
+ui.addProfileButton = function(name) {}
 
 export { ui };

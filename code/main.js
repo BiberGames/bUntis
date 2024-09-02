@@ -10,6 +10,7 @@ import { subDays, endOfMonth } from 'date-fns';
 import url from 'url';
 import { fileURLToPath } from 'url';
 import fs from "fs";
+//import { promisify } from "util";
 import Store from 'electron-store';
 import { utils } from '../code/utils.js';
 
@@ -142,6 +143,14 @@ const template = [
 		    await mainWindow.send('renderer:chPage', 7);
 		}
 	    },
+	    {
+		label: 'Page 8',
+		accelerator: 'CmdOrCtrl+8',
+		role: 'page7',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 8);
+		}
+	    },
 	    { type: 'separator' }
 	]
     },
@@ -228,24 +237,46 @@ ipcMain.handle('server:restart', async () => {
     app.relaunch();
     app.exit();
 });
-
+/*
 async function getConfigs() {
-    fs.readdir(app.getPath ('userData') + "/config", (err, files) => {
-	vsCodeDebugConsole.log(files);
-    })
-}
-
-async function loadServer() {
-    getConfigs();
+    const readdir = promisify(fs.readdir);
+    const dirPath = app.getPath('userData') + "/config";
     
+    try {
+        const files = await readdir(dirPath);
+        //console.log("Profiles on disk: " + files);
+        return files;
+    } catch (err) {
+        console.error("Error reading directory:", err);
+        return ["err"];
+    }
+}
+*/
+function loadServer() {
+/*
+      var profiles = getConfigs().then(profiles => {
+	//console.log("Profiles:", profiles);
+
+	if(profiles.length > 1) {
+	    mainWindow.send('renderer:showProfiles', profiles);
+	}
+
+	app.setPath ('userData', app.getPath ('userData') + "/config/" + profiles[0]);
+*/
+    //vsCodeDebugConsole.log(app.getPath ('userData'));
     app.setPath ('userData', app.getPath ('userData') + "/config/default");
-    vsCodeDebugConsole.log(app.getPath ('userData'));
     const loginData = new Store();
     const password = loginData.get('login');
     
     mainWindow.send('renderer:parseSettings', password);
     //vsCodeDebugConsole.log('Password retrieved successfully:', password);
     getWebData(JSON.parse(password));
+/*
+    
+    }).catch(error => {
+	console.error("Error:", error);
+    });
+*/
 }
 
 async function getWebData(loginData) {

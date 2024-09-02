@@ -7,6 +7,7 @@ import { timetable } from '../code/table.js';
 import { homework } from '../code/homework.js';
 import { settings } from '../code/settings.js';
 import { inbox } from '../code/inbox.js';
+//import { profiles } from '../code/profiles.js';
 import { ui } from '../code/ui.js';
 
 const whookURL = '';
@@ -28,7 +29,13 @@ if(firstTime)
     ui.showPage(0);
 else
     ui.showPage(7);
-
+/*
+ipcRenderer.on('renderer:showProfiles', function(e, item) {
+    //ui.showPage(8);
+    profiles.createUIList(item);
+    console.log('More than one profile detected!: ', profiles.length - 1);
+});
+*/
 ipcRenderer.on('renderer:parseSettings', function(e, item) {
 });
 
