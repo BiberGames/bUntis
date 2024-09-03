@@ -288,7 +288,7 @@ async function getWebData(loginData) {
     mainWindow.send('renderer:status', 'Logging in.');
     await untis.login();
 
-    vsCodeDebugConsole.log(utils.getLatestSchoolyear);
+    //vsCodeDebugConsole.log(utils.getLatestSchoolyear);
     /*if(!utils.getLatestSchoolyear) {
 	mainWindow.send('renderer:status', 'No school year defined...');
 	await mainWindow.send('renderer:holidayScreen');
@@ -304,9 +304,7 @@ async function getWebData(loginData) {
     var weekEnd = new Date();
     
     weekStart = utils.getFirstDayOfWeek();
-    /*if(weekStart.getDate() + 4 > 30) {
-	//weekEnd.setMonth(weekStart.getMonth() + 1);
-    }*/
+
     weekEnd.setDate(weekStart.getDate() + 4);
 
     // Add next year check here.
@@ -314,9 +312,9 @@ async function getWebData(loginData) {
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
 
-    //mainWindow.send('renderer:status', 'Recieving Timegrid');
-    //timegrid = await untis.getTimegrid();
-    //vsCodeDebugConsole.log(timeGrid);
+    mainWindow.send('renderer:status', 'Recieving Timegrid');
+    timegrid = await untis.getTimegrid();
+    //vsCodeDebugConsole.log(timegrid);
     
     mainWindow.send('renderer:status', 'Recieving Timetable.');
     //timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
@@ -334,9 +332,7 @@ async function getWebData(loginData) {
     //subjects = await untis.Timegrid(weekStart, );
     
     mainWindow.send('renderer:status', 'Recieving Homework.');
-    
-   // if(weekEnd.getDate() + 4 > 30)
-	//weekEnd.setMonth(weekStart.getMonth() + 1);
+
     weekEnd.setDate(weekEnd.getDate() + 7);
 
     try {
@@ -346,11 +342,7 @@ async function getWebData(loginData) {
 	mainWindow.send('renderer:status', 'Error Recieving Homework.');
 	await new Promise(r => setTimeout(r, 1000));
     }
-    
-    /*if(weekStart.getDate() + 7 > 30)
-      weekEnd.setMonth(weekStart.getMonth() + 1);*/
-    //weekStart.setDate(weekStart.getDate() + 7);
-    
+
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
     
@@ -361,7 +353,7 @@ async function getWebData(loginData) {
     //mainWindow.send('renderer:subjectsData', subjects);
     await mainWindow.send('renderer:homeWorkInfo', homework);
     await mainWindow.send('renderer:dateInfo', weekStart);
-    //mainWindow.send('renderer:inbox', inbox);
+    //await mainWindow.send('renderer:inbox', inbox);
     
     mainWindow.send('renderer:status', 'Parsing data.');
     
