@@ -1,6 +1,8 @@
 .TimeTable {
-    width: 100vw;
-    height: 96.5vh;
+    height: 100vh;
+
+    margin-left: 3em;
+    width: calc(100vw - 3em);
 
     font-size: 13px;
 }

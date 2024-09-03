@@ -1,14 +1,25 @@
 .bottomNavBar {
-	background-color: #1b1a1a;
-	overflow: hidden;
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	display: none;
+    background-color: #1b1a1a;
+    position: fixed;
+    left: 0;
+    height: 100%;
+    width: 2em;
+    display: none;
 }
 
-.bottomNavBarButton img {
-    height: 1em;
+.bottomNavBar li:nth-child(3) button {
+    position: absolute;
+    bottom: 3em;
+}
+
+.bottomNavBar li:nth-child(4) button {
+    position: absolute;
+    bottom: 0;
+}
+
+.bottomNavBar li button img {
+    min-width: 2em;
+    min-height: 2em;
 }
 
 .infoText {
