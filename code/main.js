@@ -234,8 +234,8 @@ ipcMain.handle('server:removeDataToFile', async (event, key) => {
 });
 
 ipcMain.handle('server:restart', async () => {
-    app.relaunch();
-    app.exit();
+    mainWindow.webContents.reload();
+    getWebData(tempData);
 });
 /*
 async function getConfigs() {
@@ -253,30 +253,15 @@ async function getConfigs() {
 }
 */
 function loadServer() {
-/*
-      var profiles = getConfigs().then(profiles => {
-	//console.log("Profiles:", profiles);
-
-	if(profiles.length > 1) {
-	    mainWindow.send('renderer:showProfiles', profiles);
-	}
-
-	app.setPath ('userData', app.getPath ('userData') + "/config/" + profiles[0]);
-*/
-    //vsCodeDebugConsole.log(app.getPath ('userData'));
     app.setPath ('userData', app.getPath ('userData') + "/config/default");
     const loginData = new Store();
     const password = loginData.get('login');
     
     mainWindow.send('renderer:parseSettings', password);
     //vsCodeDebugConsole.log('Password retrieved successfully:', password);
-    getWebData(JSON.parse(password));
-/*
     
-    }).catch(error => {
-	console.error("Error:", error);
-    });
-*/
+    tempData = JSON.parse(password)
+    getWebData(tempData);
 }
 
 async function getWebData(loginData) {

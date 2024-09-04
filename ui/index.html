@@ -71,7 +71,7 @@
       </div>
     </div>
     
-    <div class="bigPanel" id="settingsScreen">
+    <div class="indentedPanel" id="settingsScreen">
       <div>
 	<br>
 	<h1> <img src="../images/font/settings_white_24dp.svg"> Settings</h1>
@@ -122,7 +122,7 @@
       
     </div>
     
-    <div class="bigPanel" id="debug">
+    <div class="indentedPanel" id="debug">
       <br>
       <h1> <img src="../images/font/settings_white_24dp.svg"> Debug</h1>
       <p>Connected to Internet; $BOOL</p>
@@ -131,7 +131,7 @@
       <p>Version; 99 (git commit)</p>
     </div>
     
-    <div class="bigPanel" id="homeWork">
+    <div class="indentedPanel" id="homeWork">
       <br>
       <h1> <img src="../images/font/home_work_white_24dp.svg"> Homework</h1>
       <div class="homeWorkTableContainer">
@@ -145,7 +145,7 @@
       </div>
     </div>
     
-    <div class="bigPanel" id="inbox">
+    <div class="indentedPanel" id="inbox">
       <br>
       <h1> <img src="../images/font/home_work_white_24dp.svg"> Inbox</h1>
       <table id="inboxTable" class="inboxTable">
@@ -155,7 +155,7 @@
       </table>
     </div>
     
-    <div class="bigPanel" id="events">
+    <div class="indentedPanel" id="events">
       <br>
       <h1> <span class="material-icons">event</span> Event Info</h1>
       <div class="eventInfo" id="eventInfo">
@@ -170,10 +170,10 @@
     </div>
     
     <ul class="bottomNavBar" id="bottomNavBar">
-        <li><button onclick="ui.showPage(1)"><img src="../images/font/calendar_month_white_24dp.svg"></button></li>
-        <li><button onclick="ui.showPage(2)"><img src="../images/font/home_work_white_24dp.svg"></button></li>
-        <li><button onclick="ui.showPage(3)"><img src="../images/font/settings_white_24dp.svg"></button></li>
-	<li><button onclick="ui.restart()"><img src="../images/font/restart_alt_white_24dp.svg"></button></li>
+        <li><button onclick="ui.showPage(1)"><img src="../images/font/calendar_month_white_24dp.svg" title="Timetable"></button></li>
+        <li><button onclick="ui.showPage(2)"><img src="../images/font/home_work_white_24dp.svg" title="Homework"></button></li>
+        <li><button onclick="ui.showPage(3)"><img src="../images/font/settings_white_24dp.svg" title="Settings"></button></li>
+	<li><button onclick="ui.restart()"><img src="../images/font/restart_alt_white_24dp.svg" title="Refresh"></button></li>
     </ul>
     
     <div class="timeTables" id="timeTables"></div>

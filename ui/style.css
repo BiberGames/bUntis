@@ -66,7 +66,17 @@ body {
     position: fixed;
 
     height: 100vh;
+    width: 100vw;
+    
+    background-color: #121212;
+    overflow: hidden;
+}
 
+.indentedPanel {
+    position: fixed;
+    
+    height: 100vh;
+    
     margin-left: 2.5em;
     width: calc(100vw - 2.5em);
     
