@@ -1,23 +1,19 @@
 .homeWorkTable {
-    width: 100%;
+    word-wrap: break-word;
 }
 
 .homeWorkTable td {
-    padding: 2px;
+    padding: 5px;
     border-radius: 0px;
+    white-space: normal;
+}
 
+.homeworkTableDate {
     border: 1px solid;
-    border-top: none;
     border-left: none;
-    border-right: none;
-
-    /*width: 10%;*/
+    border-right: none; 
 }
 
-.homeWorkTable tr {
-    height: 1.5em;
-}
-
-.homeWorkTable tr:nth-of-type(even) {
+.homeworkTableData {
     background-color: #f0f0f020;
 }

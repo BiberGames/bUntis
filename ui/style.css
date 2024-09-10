@@ -1,9 +1,9 @@
 * {
     padding: 0px;
     margin: 0px;
-    z-index: 0;
     font-family: 'Roboto';
     user-select: none;
+    z-index: 0;
     /*overflow: hidden;*/
     /*font-size: 13px;*/
 }
@@ -69,17 +69,15 @@ body {
     width: 100vw;
     
     background-color: #121212;
-    overflow: hidden;
 }
 
 .indentedPanel {
     position: fixed;
-    
+    z-index: -1;
+
     height: 100vh;
-    
     margin-left: 2.5em;
-    width: calc(100vw - 2.5em);
-    
+    width: calc(100% - 2.5em);
+
     background-color: #121212;
-    overflow: hidden;
 }

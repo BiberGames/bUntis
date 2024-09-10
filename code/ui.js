@@ -5,14 +5,15 @@ const { ipcRenderer, shell } = require('electron');
 const ui = {};
 
 global.pages = [document.getElementById('loadingScreen'),
-		global.mainTimeTable,
+		document.getElementById('timeTables'),
 		document.getElementById('homeWork'),
 		document.getElementById('settingsScreen'),
 		document.getElementById('events'),
 		debug,
 		document.getElementById('inbox'),
 		document.getElementById('firstTimeScreen'),
-		document.getElementById('profileScreen')];
+		document.getElementById('profileScreen'),
+		];
 
 global.openPage = 0;
 

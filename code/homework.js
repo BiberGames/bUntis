@@ -1,37 +1,59 @@
 import { utils } from "./utils.js";
 
 const homework = {};
+var homeworkDates = [];
 
 homework.show = function(homeWorkTable, homeWorkData) {
-    //console.log(homeWorkData);
+    console.log(homeWorkTable)
+    console.log(homeWorkData);
+
     if(homeWorkData.homeworks.length === 0) {
 	var row = homeWorkTable.insertRow();
         var cellSubject = row.insertCell();
-        var cellTimeSpan = row.insertCell();
-        var cellHomeworkText = row.insertCell();
-	cellSubject.innerHTML = 'Have a nice day!';
+	cellSubject.innerHTML = '🏖️ Have a nice day!';
     }
 
     var today = new Date();
 
     for(let i = 0; i < homeWorkData.homeworks.length; i++) {
 	if(homeWorkData.homeworks[i].completed !== true) {
-	    var homeWorkDueDate = utils.convertUntisDate(homeWorkData.homeworks[i].dueDate);
-
-            var row = homeWorkTable.insertRow();
-            var cellSubject = row.insertCell();
-            var cellTimeSpan = row.insertCell();
-            var cellHomeworkText = row.insertCell();
-	    
-            cellSubject.innerHTML = getSubjectFromHomeWork(homeWorkData.homeworks[i].lessonId, homeWorkData.lessons);
-            cellTimeSpan.innerHTML = utils.convertUntisDate(homeWorkData.homeworks[i].date) + ' to ' + homeWorkDueDate;
-            cellHomeworkText.innerHTML = homeWorkData.homeworks[i].text;
+	    homeworkDates.push(homeWorkData.homeworks[i].dueDate);
         }		
     }
+    
+    homeworkDates = utils.removeDuplicatesAndSort(homeworkDates);
+    
+    for(let i = 0; i < homeworkDates.length; i++) {
+	var row = homeWorkTable.insertRow();
+	var cellDate = row.insertCell();
+	cellDate.innerHTML = '<h3>' + utils.convertUntisDate(homeworkDates[i]) + '</h3>';
+	cellDate.classList.add('homeworkTableDate');
+
+	for(let hw = 0; hw < homeWorkData.homeworks.length; hw++) {
+	    if(homeWorkData.homeworks[hw].dueDate === homeworkDates[i]) {
+		var row = homeWorkTable.insertRow();
+		var cellInfo = row.insertCell();
+		cellInfo.classList.add('homeworkTableData');
+		
+		cellInfo.innerHTML += '<img src="../images/font/date_range_white_24dp.svg">';
+		cellInfo.innerHTML += utils.convertUntisDate(homeWorkData.homeworks[hw].date) + ' to ' + utils.convertUntisDate(homeWorkData.homeworks[hw].dueDate);
+		cellInfo.innerHTML += '<img src="../images/font/menu_book_white_24dp.svg">';
+		cellInfo.innerHTML += getSubjectFromHomeWork(homeWorkData.homeworks[hw].lessonId, homeWorkData.lessons);
+
+		/*row = homeWorkTable.insertRow();
+		var cellHwText = row.insertCell();*/
+		cellInfo.innerHTML += '<br>';
+		cellInfo.innerHTML += '<img src="../images/font/home_work_white_24dp.svg">';
+		cellInfo.innerHTML += homeWorkData.homeworks[hw].text;
+	    }
+	}
+    }
+    console.log(homeworkDates);
 }
+
 function getSubjectFromHomeWork(id, subjects) {
     for(let i = 0; i < subjects.length; i++) {
-        if(subjects[i].id == id) {
+        if(subjects[i].id === id) {
             return subjects[i].subject;
         }
     }
