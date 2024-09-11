@@ -321,7 +321,7 @@ async function getWebData(loginData) {
     weekEnd.setDate(weekEnd.getDate() + 7);
 
     try {
-	homework = await untis.getHomeWorksFor(weekStart, weekEnd);
+	homework = await untis.getHomeWorksFor(new Date(), weekEnd);
     }
     catch(e) {
 	mainWindow.send('renderer:status', 'Error Recieving Homework.');
