@@ -35,8 +35,6 @@ homework.show = function(homeWorkTable, homeWorkData) {
 		var cellInfo = row.insertCell();
 		cellInfo.classList.add('homeworkTableData');
 		
-		cellInfo.innerHTML += '<img src="../images/font/date_range_white_24dp.svg">';
-		cellInfo.innerHTML += utils.convertUntisDate(homeWorkData.homeworks[hw].date) + ' to ' + utils.convertUntisDate(homeWorkData.homeworks[hw].dueDate);
 		cellInfo.innerHTML += '<img src="../images/font/menu_book_white_24dp.svg">';
 		cellInfo.innerHTML += getSubjectFromHomeWork(homeWorkData.homeworks[hw].lessonId, homeWorkData.lessons);
 
