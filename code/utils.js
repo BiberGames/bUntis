@@ -123,13 +123,14 @@ utils.toUntisDate = function(date) {
 
 utils.getWeekDates = function() {
     let dates = [];
-    let startDate = utils.getFirstDayOfWeek();
-    startDate = parseInt(utils.toUntisDate(startDate));
-    //console.log(startDate);
+    let startDate = utils.getFirstDayOfWeek(); // Assuming this returns a Date object
 
-    dates.push(startDate);
-    for(let i = 1; i < 5; i++)
-	dates.push(startDate + i); // add some kind of overflow check
+    for (let i = 0; i < 5; i++) {
+        let currentDate = new Date(startDate);
+        currentDate.setDate(startDate.getDate() + i);
+        let formattedDate = utils.toUntisDate(currentDate); // Assuming this formats Date as "YYYYMMDD"
+        dates.push(parseInt(formattedDate));
+    }
 
     return dates;
 }
