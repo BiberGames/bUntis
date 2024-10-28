@@ -51,7 +51,7 @@ ipcRenderer.on('renderer:sessionInfo', function(e, item) {
 });
 
 ipcRenderer.on('renderer:timegrid', function(e, item) {
-    console.log(item);
+    // console.log(item);
 });
 
 ipcRenderer.on('renderer:status', function(e, item) {
@@ -96,3 +96,7 @@ ipcRenderer.on('renderer:holidayScreen', function(e) {
     document.getElementsByClassName('loader-holiday')[0].style.display = 'block';
     document.getElementById('loadingInfo').innerHTML = '<br><br><br><br><br><br>' + document.getElementById('loadingInfo').innerHTML;
 });
+
+ipcRenderer.on('renderer:reload', function(e) {
+    ui.restart();
+})

@@ -70,6 +70,15 @@ const template = [
     {
 	label: 'File',
 	submenu: [
+	    {
+		label: 'Reload',
+		accelerator: 'CmdOrCtrl+r',
+		role: 'reloadClient',
+		click: async () => {
+		    await mainWindow.send('renderer:reload', 0);
+		}
+	    },
+	    { type: 'separator' },
 	    isMac ? { role: 'close' } : { role: 'quit' }
 	]
     },
