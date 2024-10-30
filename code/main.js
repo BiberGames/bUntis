@@ -33,6 +33,7 @@ var timetableLastWeak = '';
 var timetableThisWeak = '';
 var timetableNextWeak = '';
 var homework = '';
+var inbox = '';
 var holidays = '';
 var timegrid = '';
 
@@ -297,8 +298,14 @@ async function getWebData(loginData) {
     //timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
     timetableThisWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
 
-    mainWindow.send('renderer:status', 'Recieving inbox');
-    var inbox = await untis.getInbox();
+    mainWindow.send('renderer:status', 'Recieving Inbox.');
+    try {
+	inbox = await untis.getInbox();
+    }
+    catch(e) {
+	mainWindow.send('renderer:status', 'Error Recieving Inbox.');
+	await new Promise(r => setTimeout(r, 1000));
+    }
     //vsCodeDebugConsole.log(inbox);
 
     //mainWindow.send('renderer:status', 'Recieving Holidays');
@@ -336,4 +343,5 @@ async function getWebData(loginData) {
     
     vsCodeDebugConsole.log("Logging out.");
     await untis.logout();
+    mainWindow.send('renderer:status', 'Done.');
 }

@@ -3,22 +3,18 @@
     word-wrap: break-word;
 }
 
-.inboxTable tr :nth-child(1) {
-    width: 2%;
-    max-width: 2%;
+.inboxTable td {
+    padding: 5px;
+    border-radius: 0px;
+    white-space: normal;
 }
 
-.inboxTable tr :nth-child(2) {
-    width: 2%;
-    max-width: 2%;
+.inboxTableHeader {
+    border: 1px solid;
+    border-left: none;
+    border-right: none; 
 }
 
-.inboxTable tr :nth-child(3) {
-    width: 19.2%;
-    max-width: 19.2%;
-}
-
-
-.inboxTable tr:nth-of-type(even) {
+.inboxTableContent {
     background-color: #f0f0f020;
 }
