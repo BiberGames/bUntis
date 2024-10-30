@@ -82,17 +82,19 @@
       <div>
 	<h2>Account</h2>
 	<button onclick="ui.showPage(7)">Reset</button> <br> <br> <br>
+	<!--
 	 <label for="configs">Choose a profile:</label>
 
 	 <select name="configs" id="cars">
 	   <option value="config_0">Default</option>
 	   <option value="config_1">sPAIN</option>
 	   <option value="config_2">localAPI</option>
-	 </select> 
+	 </select>
+	 -->
       </div>
       
       <br>
-      
+      <!--
       <div class="colorSettingsDiv">
 	<h2>Colors</h2>
 	<div class="colorSetting">
@@ -117,9 +119,9 @@
 	</div>
 	<br>
 	<br>
-	<!--<button onclick="alert('Nope')">Reset colors</button>-->
+	<button onclick="alert('Nope')">Reset colors</button>
       </div>
-      
+      -->
     </div>
     
     <div class="indentedPanel" id="debug">
@@ -143,7 +145,7 @@
     
     <div class="indentedPanel" id="inbox">
       <br>
-      <h1> <img src="../images/font/home_work_white_24dp.svg"> Inbox</h1>
+      <h1> <img src="../images/font/class_white_24dp.svg"> Inbox</h1>
       <table id="inboxTable" class="inboxTable">
         <tr>
 	  
@@ -168,6 +170,8 @@
     <ul class="bottomNavBar" id="bottomNavBar">
         <li><button onclick="ui.showPage(1)"><img src="../images/font/calendar_month_white_24dp.svg" title="Timetable"></button></li>
         <li><button onclick="ui.showPage(2)"><img src="../images/font/home_work_white_24dp.svg" title="Homework"></button></li>
+	<li><button onclick="ui.showPage(6)"><img src="../images/font/class_white_24dp.svg" title="Inbox"></button></li>
+
         <li><button onclick="ui.showPage(3)"><img src="../images/font/settings_white_24dp.svg" title="Settings"></button></li>
 	<li><button onclick="ui.restart()"><img src="../images/font/restart_alt_white_24dp.svg" title="Refresh"></button></li>
     </ul>

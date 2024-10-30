@@ -43,7 +43,7 @@ function setCellStatusColor(x, y, code) {
     if(cell.classList.value !== 'timeTableElement') return;
 
     cell.classList.add(code || 'default');
-    
+
     if (code === 'cancelled' || code === 'sup') {
         cell.innerHTML += '​';  // Adds zero width char for merging
     }

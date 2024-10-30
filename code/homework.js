@@ -4,8 +4,8 @@ const homework = {};
 var homeworkDates = [];
 
 homework.show = function(homeWorkTable, homeWorkData) {
-    console.log(homeWorkTable)
-    console.log(homeWorkData);
+    // console.log(homeWorkTable)
+    // console.log(homeWorkData);
 
     if(homeWorkData.homeworks.length === 0) {
 	var row = homeWorkTable.insertRow();
@@ -46,7 +46,7 @@ homework.show = function(homeWorkTable, homeWorkData) {
 	    }
 	}
     }
-    console.log(homeworkDates);
+    // console.log(homeworkDates);
 }
 
 function getSubjectFromHomeWork(id, subjects) {

@@ -1,8 +1,9 @@
+import { utils } from "./utils.js";
+
 const inbox = {};
 
 inbox.show = async function(_inboxData) {
-    //console.log(_inboxData);
-    
+    console.log(_inboxData);  
     for(let i = 0; i < _inboxData.incomingMessages.length; i++) {
         var row = inboxTable.insertRow();
 	var cellSender = row.insertCell();
@@ -13,13 +14,20 @@ inbox.show = async function(_inboxData) {
 
 	cellSender.innerHTML = _inboxData.incomingMessages[i].sender.displayName;
         cellSubject.innerHTML = _inboxData.incomingMessages[i].subject;
-	/*if(_inboxData.incomingMassages[i].contentPreview !== null) {
-	    cellContent.innetHTML = _inboxData.incomingMassages[i].contentPreview;
-	}*/
+	cellContent.innerHTML = _inboxData.incomingMessages[i].contentPreview;
+
+	// if(typeof _inboxData.incomingMassages[i].contentPreview === null) return;
+	//console.log(_inboxData.incomingMessages[i].contentPreview);
+
+	//cellContent.innetHTML = _inboxData.incomingMassages[i].contentPreview;
+	    
 	//Getsubjectfromhomeworkt(homeWorkData.homeworks[i].lessonId, homeWorkData.lessons);
         //cellTimeSpan.innerHTML = utils.convertUntisDate(homeWorkData.homeworks[i].date) + ' to ' +utils.convertUntisDate(homeWorkData.homeworks[i].dueDate);
-        //cellHomeworkText.innerHTML = homeWorkData.homeworks[i].text;		
-    }
+        //cellHomeworkText.innerHTML = homeWorkData.homeworks[i].text;
+
+    
+	}
+
 }
 
 export { inbox };

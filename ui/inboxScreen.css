@@ -1,18 +1,23 @@
-.inboxTable td {
-    padding: 2px;
-    border-radius: 0px;
-
-    border: 1px solid;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-
-    /*width: 10%;*/
+.inboxTable {
+    width: 100%;
+    word-wrap: break-word;
 }
 
-.inboxTable tr {
-    height: 1.5em;
+.inboxTable tr :nth-child(1) {
+    width: 2%;
+    max-width: 2%;
 }
+
+.inboxTable tr :nth-child(2) {
+    width: 2%;
+    max-width: 2%;
+}
+
+.inboxTable tr :nth-child(3) {
+    width: 19.2%;
+    max-width: 19.2%;
+}
+
 
 .inboxTable tr:nth-of-type(even) {
     background-color: #f0f0f020;

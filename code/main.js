@@ -171,6 +171,12 @@ const template = [
 		click: async () => {
 		    await shell.openExternal('https://codeberg.org/BiberGames/bUntis');
 		}
+	    },
+	    {
+		label: 'Wiki',
+		click: async () => {
+		    await shell.openExternal('https://codeberg.org/BiberGames/bUntis/wiki');
+		}
 	    }
 	]
     }
@@ -187,8 +193,7 @@ const createWindow = () => {
 	    nodeIntegration: true
 	}
     });
-    
-    // and load the index.html of the app.
+
     mainWindow.loadURL(url.format({
 	pathname: path.join(__dirname, '../ui/index.html'),
 	protocol: 'file:',
@@ -197,30 +202,22 @@ const createWindow = () => {
 
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
-    // Open the DevTools.
-    //mainWindow.webContents.openDevTools()
 }
 
 app.on('ready', () => {
     createWindow();
-    //getWebData();
     loadServer();
 })
 
 app.on('activate', () => {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0)
-    {
+    if (BrowserWindow.getAllWindows().length === 0) {
 	createWindow();
 	loadServer();
-	//getWebData();
     }
 })
 
 app.on("new-window", (event, url) => {
     createWindow();
-    //getWebData();
 });
 
 app.on('window-all-closed', () => {
@@ -246,21 +243,7 @@ ipcMain.handle('server:restart', async () => {
     mainWindow.webContents.reload();
     getWebData(tempData);
 });
-/*
-async function getConfigs() {
-    const readdir = promisify(fs.readdir);
-    const dirPath = app.getPath('userData') + "/config";
-    
-    try {
-        const files = await readdir(dirPath);
-        //console.log("Profiles on disk: " + files);
-        return files;
-    } catch (err) {
-        console.error("Error reading directory:", err);
-        return ["err"];
-    }
-}
-*/
+
 function loadServer() {
     app.setPath ('userData', app.getPath ('userData') + "/config/default");
     const loginData = new Store();
@@ -282,8 +265,8 @@ async function getWebData(loginData) {
     mainWindow.send('renderer:status', 'Logging in.');
     await untis.login();
 
-    //vsCodeDebugConsole.log(utils.getLatestSchoolyear);
-    /*if(!utils.getLatestSchoolyear) {
+    /*vsCodeDebugConsole.log(utils.getLatestSchoolyear);
+    if(!utils.getLatestSchoolyear) {
 	mainWindow.send('renderer:status', 'No school year defined...');
 	await mainWindow.send('renderer:holidayScreen');
 	return;
@@ -314,8 +297,8 @@ async function getWebData(loginData) {
     //timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
     timetableThisWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
 
-    //mainWindow.send('renderer:status', 'Recieving inbox');
-    //var inbox = await untis.getInbox();
+    mainWindow.send('renderer:status', 'Recieving inbox');
+    var inbox = await untis.getInbox();
     //vsCodeDebugConsole.log(inbox);
 
     //mainWindow.send('renderer:status', 'Recieving Holidays');
@@ -347,7 +330,7 @@ async function getWebData(loginData) {
     //mainWindow.send('renderer:subjectsData', subjects);
     await mainWindow.send('renderer:homeWorkInfo', homework);
     await mainWindow.send('renderer:dateInfo', weekStart);
-    //await mainWindow.send('renderer:inbox', inbox);
+    await mainWindow.send('renderer:inbox', inbox);
     
     mainWindow.send('renderer:status', 'Parsing data.');
     

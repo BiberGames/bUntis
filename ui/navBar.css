@@ -6,15 +6,37 @@
     width: 2em;
     display: none;
 }
-
-.bottomNavBar li:nth-child(3) button {
-    position: absolute;
-    bottom: 3em;
+/*
+.bottomNavBar li:nth-child(2) button {
+    background-color: #1D5B79;
+}
+.bottomNavBar li:nth-child(2) button:hover {
+    background-color: #176B87;
 }
 
+.bottomNavBar li:nth-child(3) button {
+    background-color: #002B5B;
+}
+.bottomNavBar li:nth-child(3) button:hover {
+    background-color: #004a5b;
+}
+*/
 .bottomNavBar li:nth-child(4) button {
     position: absolute;
+    bottom: 3em;
+    background-color: #384378;
+}
+.bottomNavBar li:nth-child(4) button:hover {
+    background-color: #385378;
+}
+
+.bottomNavBar li:nth-child(5) button {
+    position: absolute;
     bottom: 0;
+    background-color: #AF1740;
+}
+.bottomNavBar li:nth-child(5) button:hover {
+    background-color: #CC2B52;
 }
 
 .bottomNavBar li button img {
