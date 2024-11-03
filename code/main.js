@@ -37,6 +37,8 @@ var inbox = '';
 var holidays = '';
 var timegrid = '';
 
+var canReload = true;
+
 //var subjects = ''
 // DATA //
 
@@ -241,6 +243,10 @@ ipcMain.handle('server:removeDataToFile', async (event, key) => {
 });
 
 ipcMain.handle('server:restart', async () => {
+    if(canReload === false)
+	return;
+
+    canReload = false;
     mainWindow.webContents.reload();
     getWebData(tempData);
 });
@@ -344,4 +350,5 @@ async function getWebData(loginData) {
     vsCodeDebugConsole.log("Logging out.");
     await untis.logout();
     mainWindow.send('renderer:status', 'Done.');
+    canReload = true;
 }
