@@ -34,6 +34,9 @@ jobs:
     - name: Install wine
       run: sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install wine32
 
+    - name: Install bsdtar for pacman build support
+      run: sudo apt-get install --no-install-recommends -y bsdtar
+
     - name: Install dependencies
       run: npm install
 
@@ -56,6 +59,12 @@ jobs:
       with:
         name: bUntis-linux-arm64
         path: dist/*arm64.AppImage
+
+    - name: Upload Linux x64 pacman Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: bUntis-linux-x64
+        path: dist/*0.pkg.tar.zst
 
     - name: Upload Windows x64 Artifacts
       uses: actions/upload-artifact@v4
