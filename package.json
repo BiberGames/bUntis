@@ -1,7 +1,7 @@
 {
     "name": "bUntis",
     "productName": "bUntis",
-    "version": "0.198.0",
+    "version": "0.202.0",
     "description": "A free and full featured webuntis desktop client.",
     "type": "module",
     "main": "./code/main.js",
@@ -16,8 +16,8 @@
     "homepage": "https://codeberg.org/BiberGames/bUntis",
     "license": "Ask Benjamin",
     "devDependencies": {
-        "@electron/rebuild": "^3.7.0",
-        "electron": "^33.0.2",
+        "@electron/rebuild": "^3.7.1",
+        "electron": "^33.2.0",
         "electron-builder": "^25.1.8"
     },
     "dependencies": {
@@ -26,7 +26,7 @@
         "electon": "^0.0.1-security",
         "electron-squirrel-startup": "^1.0.1",
         "electron-store": "^10.0.0",
-        "npm-check-updates": "^17.1.9",
+        "npm-check-updates": "^17.1.11",
         "secure-electron-store": "^4.0.2",
         "webuntis": "^2.2.1"
     },

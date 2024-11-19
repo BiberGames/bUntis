@@ -2,8 +2,6 @@
 A free webuntis desktop client.  
 
 ## How to use
-### Setup
-
 ### Building from source
 - Debian-based:  ```sudo apt-get install npm ```
 - Red Hat-based:  ```sudo yum install npm ```
@@ -20,7 +18,6 @@ A free webuntis desktop client.
 
 ## Downloads
 [Linux x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-x64.zip)  
-[Linux arm64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-arm64.zip)  
 [Windows x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-windows-x64.zip)  
 [Source code](https://codeberg.org/BiberGames/bUntis/archive/main.zip)  
 Extract and launch executable.  

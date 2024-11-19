@@ -50,6 +50,8 @@ function setCellStatusColor(x, y, code) {
 }
 
 function addSubjectToTable(x, y, timeTableData) {
+    // if(timeTableData.sg === "WN_12_Fo") console.log(timeTableData);
+    
     var room = timeTableData.ro[0].name.split('-');
     var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2) + '<br>' + room[0];
     if(timeTableData.ro[0].orgname)
