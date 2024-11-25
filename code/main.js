@@ -36,8 +36,11 @@ var homework = '';
 var inbox = '';
 var holidays = '';
 var timegrid = '';
+var absences = '';
 
 var canReload = true;
+
+var errorWait = 3000;
 
 //var subjects = ''
 // DATA //
@@ -283,9 +286,15 @@ async function getWebData(loginData) {
     classID = sessionInfo.klasseId;
     
     mainWindow.send('renderer:status', 'Setting date.');
-    
-    var weekStart = new Date();
-    var weekEnd = new Date();
+    try {
+	var weekStart = new Date();
+	var weekEnd = new Date();
+    }
+    catch(e) {
+	mainWindow.send('renderer:status', 'Error Setting Date.');
+	vsCodeDebugConsole.error(e);
+	await new Promise(r => setTimeout(r, errorWait));
+    }
     
     weekStart = utils.getFirstDayOfWeek();
 
@@ -297,7 +306,15 @@ async function getWebData(loginData) {
     vsCodeDebugConsole.log(weekEnd);
 
     mainWindow.send('renderer:status', 'Recieving Timegrid');
-    timegrid = await untis.getTimegrid();
+    try {
+	timegrid = await untis.getTimegrid();
+    }
+    catch(e) {
+	mainWindow.send('renderer:status', 'Error Recieving Timegrid.');
+	vsCodeDebugConsole.error(e);
+	await new Promise(r => setTimeout(r, errorWait));
+    }
+    
     //vsCodeDebugConsole.log(timegrid);
     
     mainWindow.send('renderer:status', 'Recieving Timetable.');
@@ -310,7 +327,8 @@ async function getWebData(loginData) {
     }
     catch(e) {
 	mainWindow.send('renderer:status', 'Error Recieving Inbox.');
-	await new Promise(r => setTimeout(r, 1000));
+	vsCodeDebugConsole.error(e);
+	await new Promise(r => setTimeout(r, errorWait));
     }
     //vsCodeDebugConsole.log(inbox);
 
@@ -322,15 +340,24 @@ async function getWebData(loginData) {
     //subjects = await untis.Timegrid(weekStart, );
     
     mainWindow.send('renderer:status', 'Recieving Homework.');
-
     weekEnd.setDate(weekEnd.getDate() + 7);
-
     try {
 	homework = await untis.getHomeWorksFor(new Date(), weekEnd);
     }
     catch(e) {
 	mainWindow.send('renderer:status', 'Error Recieving Homework.');
-	await new Promise(r => setTimeout(r, 1000));
+	vsCodeDebugConsole.error(e);
+	await new Promise(r => setTimeout(r, errorWait));
+    }
+
+    mainWindow.send('renderer:status', 'Recieving Absences');
+    try {
+	absences = await untis.getAbsentLesson(new Date(new Date().getFullYear(), 0, 1), new Date());
+    }
+    catch(e) {
+	mainWindow.send('renderer:status', 'Error Recieving Absences.');
+	vsCodeDebugConsole.error(e);
+	await new Promise(r => setTimeout(r, errorWait));
     }
 
     vsCodeDebugConsole.log(weekStart);
@@ -344,6 +371,7 @@ async function getWebData(loginData) {
     await mainWindow.send('renderer:homeWorkInfo', homework);
     await mainWindow.send('renderer:dateInfo', weekStart);
     await mainWindow.send('renderer:inbox', inbox);
+    await mainWindow.send('renderer:absences', absences);
     
     mainWindow.send('renderer:status', 'Parsing data.');
     

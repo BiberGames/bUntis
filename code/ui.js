@@ -9,10 +9,11 @@ global.pages = [document.getElementById('loadingScreen'),
 		document.getElementById('homeWork'),
 		document.getElementById('settingsScreen'),
 		document.getElementById('events'),
-		debug,
+		document.getElementById('absences'),
 		document.getElementById('inbox'),
 		document.getElementById('firstTimeScreen'),
 		document.getElementById('profileScreen'),
+		document.getElementById('debug'),
 		];
 
 global.openPage = 0;

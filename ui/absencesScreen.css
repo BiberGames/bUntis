@@ -1,0 +1,20 @@
+.absencesTable {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.absencesTable td {
+    padding: 5px;
+    border-radius: 0px;
+    white-space: normal;
+}
+
+.absencesTableDate {
+    border: 1px solid;
+    border-left: none;
+    border-right: none; 
+}
+
+.absencesTableData {
+    background-color: #f0f0f020;
+}

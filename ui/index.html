@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="./loadingScreen.css">
     <link rel="stylesheet" type="text/css" href="./settingsScreen.css">
     <link rel="stylesheet" type="text/css" href="./homeWorkScreen.css">
+    <link rel="stylesheet" type="text/css" href="./absencesScreen.css">
     <link rel="stylesheet" type="text/css" href="./inboxScreen.css">
     <link rel="stylesheet" type="text/css" href="./navBar.css">
     <link rel="stylesheet" type="text/css" href="./welcomeScreen.css">
@@ -152,6 +153,16 @@
         </tr>
       </table>
     </div>
+
+    <div class="indentedPanel" id="absences">
+      <br>
+      <h1> <img src="../images/font/watch_later_white_24dp.svg"> Absences</h1>
+      <table id="absencesTable" class="absencesTable">
+        <tr>
+	  
+        </tr>
+      </table>
+    </div>
     
     <div class="indentedPanel" id="events">
       <br>
@@ -171,6 +182,7 @@
         <li><button onclick="ui.showPage(1)"><img src="../images/font/calendar_month_white_24dp.svg" title="Timetable"></button></li>
         <li><button onclick="ui.showPage(2)"><img src="../images/font/home_work_white_24dp.svg" title="Homework"></button></li>
 	<li><button onclick="ui.showPage(6)"><img src="../images/font/class_white_24dp.svg" title="Inbox"></button></li>
+	<li><button onclick="ui.showPage(5)"><img src="../images/font/watch_later_white_24dp.svg" title="Absences"></button></li>
 
         <li><button onclick="ui.showPage(3)"><img src="../images/font/settings_white_24dp.svg" title="Settings"></button></li>
 	<li><button onclick="ui.restart()"><img src="../images/font/restart_alt_white_24dp.svg" title="Refresh"></button></li>

@@ -3,7 +3,7 @@ import { utils } from "./utils.js";
 const homework = {};
 var homeworkDates = [];
 
-homework.show = function(homeWorkTable, homeWorkData) {
+homework.show = async function(homeWorkTable, homeWorkData) {
     // console.log(homeWorkTable)
     // console.log(homeWorkData);
 
@@ -11,6 +11,7 @@ homework.show = function(homeWorkTable, homeWorkData) {
 	var row = homeWorkTable.insertRow();
         var cellSubject = row.insertCell();
 	cellSubject.innerHTML = '🏖️ Have a nice day!';
+	return;
     }
 
     var today = new Date();

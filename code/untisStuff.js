@@ -7,6 +7,7 @@ import { timetable } from '../code/table.js';
 import { homework } from '../code/homework.js';
 import { settings } from '../code/settings.js';
 import { inbox } from '../code/inbox.js';
+import { absences} from '../code/absences.js';
 //import { profiles } from '../code/profiles.js';
 import { ui } from '../code/ui.js';
 
@@ -95,6 +96,11 @@ ipcRenderer.on('renderer:holidayScreen', function(e) {
     document.getElementsByClassName('loader')[0].style.display = 'none';
     document.getElementsByClassName('loader-holiday')[0].style.display = 'block';
     document.getElementById('loadingInfo').innerHTML = '<br><br><br><br><br><br>' + document.getElementById('loadingInfo').innerHTML;
+});
+
+ipcRenderer.on('renderer:absences', function(e, absencesData) {
+    console.log('Receiving and parsing absences');
+    absences.show(absencesData);
 });
 
 ipcRenderer.on('renderer:reload', function(e) {
