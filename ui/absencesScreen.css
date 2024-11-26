@@ -18,3 +18,7 @@
 .absencesTableData {
     background-color: #f0f0f020;
 }
+
+.absencesTableDataDone {
+    background-color: #a0f0a050;
+}

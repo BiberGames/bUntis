@@ -22,8 +22,6 @@ absences.show = async function(_absencesData) {
     absencesDates = utils.removeDuplicatesAndSort(absencesDates);
      
     for(let i = 0; i < absencesDates.length; i++) {
-	if(_absencesData.absences[i].isExcused) i++
-	
 	var row = absencesTable.insertRow();
 	var cellHeader = row.insertCell();
 	cellHeader.innerHTML += '<h3>' + utils.convertUntisDate(absencesDates[i]) + '</h3>';
@@ -33,13 +31,14 @@ absences.show = async function(_absencesData) {
 	    if(_absencesData.absences[as].startDate === absencesDates[i]) {
 		var row = absencesTable.insertRow();
 		var cellInfo = row.insertCell();
-		cellInfo.classList.add('absencesTableData');
+		if(_absencesData.absences[i].isExcused) cellInfo.classList.add('absencesTableDataDone');
+		else cellInfo.classList.add('absencesTableData');
 		
 		cellInfo.innerHTML += '<img src="../images/font/person_white_24dp.svg">';
 		cellInfo.innerHTML += _absencesData.absences[as].createdUser;
 		
 		if(_absencesData.absences[as].reason === '')
-		    _absencesData.absences[as].reason = 'No reason given.'
+		    _absencesData.absences[as].reason = 'No reason given.';
 		
 		cellInfo.innerHTML += '<br>';
 		cellInfo.innerHTML += '<img src="../images/font/home_work_white_24dp.svg">';
