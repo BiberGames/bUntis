@@ -84,7 +84,7 @@ ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetabl
 
 ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
     console.log('Receiving and parsing Home Work Data');
-    homework.show(homeWorkTable, homeWorkData);
+    homework.show(homeWorkData);
 });
 
 ipcRenderer.on('renderer:inbox', function(e, inboxData) {

@@ -1,54 +1,51 @@
 import { utils } from "./utils.js";
 
 const homework = {};
-var homeworkDates = [];
 
-homework.show = async function(homeWorkTable, homeWorkData) {
-    // console.log(homeWorkTable)
-    // console.log(homeWorkData);
-
-    if(homeWorkData.homeworks.length === 0) {
+homework.show = async function(_homeWorkData) {
+    // console.log(_homeWorkData)
+    const homeworkList = _homeWorkData.homeworks;
+    const homeworkDates = [];
+    
+    if(homeworkList.length === 0) {
 	var row = homeWorkTable.insertRow();
         var cellSubject = row.insertCell();
 	cellSubject.innerHTML = '🏖️ Have a nice day!';
 	return;
     }
 
-    var today = new Date();
+    homeworkList.forEach(homework => {
+	if(homework.completed !== true)
+	    homeworkDates.push(homework.dueDate);
+    });
 
-    for(let i = 0; i < homeWorkData.homeworks.length; i++) {
-	if(homeWorkData.homeworks[i].completed !== true) {
-	    homeworkDates.push(homeWorkData.homeworks[i].dueDate);
-        }		
-    }
-    
-    homeworkDates = utils.removeDuplicatesAndSort(homeworkDates);
-    
-    for(let i = 0; i < homeworkDates.length; i++) {
-	var row = homeWorkTable.insertRow();
-	var cellDate = row.insertCell();
-	cellDate.innerHTML = '<h3>' + utils.convertUntisDate(homeworkDates[i]) + '</h3>';
-	cellDate.classList.add('homeworkTableDate');
+    const uniqueSortedDates = utils.removeDuplicatesAndSort(homeworkDates);
+    // console.log(uniqueSortedDates);
 
-	for(let hw = 0; hw < homeWorkData.homeworks.length; hw++) {
-	    if(homeWorkData.homeworks[hw].dueDate === homeworkDates[i]) {
+    uniqueSortedDates.forEach(date => {
+	var headerRow = homeWorkTable.insertRow();
+	var headerCell = headerRow.insertCell();
+	headerCell.innerHTML = '<h3>' + utils.convertUntisDate(date) + '</h3>';
+	headerCell.classList.add('homeworkTableDate');
+
+	homeworkList.forEach(homework => {
+	    if(homework.dueDate === date) {
 		var row = homeWorkTable.insertRow();
-		var cellInfo = row.insertCell();
-		cellInfo.classList.add('homeworkTableData');
+		var cell = row.insertCell();
+		cell.classList.add('homeworkTableData');
 		
-		cellInfo.innerHTML += '<img src="../images/font/menu_book_white_24dp.svg">';
-		cellInfo.innerHTML += getSubjectFromHomeWork(homeWorkData.homeworks[hw].lessonId, homeWorkData.lessons);
-
-		/*row = homeWorkTable.insertRow();
-		var cellHwText = row.insertCell();*/
-		cellInfo.innerHTML += '<br>';
-		cellInfo.innerHTML += '<img src="../images/font/home_work_white_24dp.svg">';
-		cellInfo.innerHTML += homeWorkData.homeworks[hw].text;
+		const subject = getSubjectFromHomeWork(homework.lessonId, _homeWorkData.lessons);
+		cell.innerHTML = `
+                    <img src="../images/font/menu_book_white_24dp.svg">
+                    ${subject || 'Unknown Subject'}
+                    <br>
+                    <img src="../images/font/home_work_white_24dp.svg">
+                    ${homework.text || 'No Description given.'}
+                `;
 	    }
-	}
-    }
-    // console.log(homeworkDates);
-}
+	});
+    });
+};
 
 function getSubjectFromHomeWork(id, subjects) {
     for(let i = 0; i < subjects.length; i++) {
