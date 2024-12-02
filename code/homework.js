@@ -3,7 +3,6 @@ import { utils } from "./utils.js";
 const homework = {};
 
 homework.show = async function(_homeWorkData) {
-    // console.log(_homeWorkData)
     const homeworkList = _homeWorkData.homeworks;
     const homeworkDates = [];
     
@@ -20,7 +19,6 @@ homework.show = async function(_homeWorkData) {
     });
 
     const uniqueSortedDates = utils.removeDuplicatesAndSort(homeworkDates);
-    // console.log(uniqueSortedDates);
 
     uniqueSortedDates.forEach(date => {
 	var headerRow = homeWorkTable.insertRow();

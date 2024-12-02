@@ -3,7 +3,6 @@ import { utils } from "./utils.js";
 const absences = {};
 
 absences.show = async function (_absencesData) {
-    // console.log(_absencesData);
     const absencesList = _absencesData.absences;
     const absencesDates = [];
 
@@ -19,7 +18,6 @@ absences.show = async function (_absencesData) {
     });
 
     const uniqueSortedDates = utils.removeDuplicatesAndSort(absencesDates);
-    // console.log(uniqueSortedDates);
 
     uniqueSortedDates.forEach(date => {
         const headerRow = absencesTable.insertRow();

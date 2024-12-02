@@ -23,11 +23,10 @@ const debug = document.getElementById('debug');
 const inboxTable = document.getElementById('inboxTable');
 
 var firstTime = await ipcRenderer.invoke('server:readDataToFile', 'setup');
-
-settings.loadSettings();
-
-if(firstTime)
+if(firstTime) {
     ui.showPage(0);
+    settings.loadSettings();
+}
 else
     ui.showPage(7);
 /*
@@ -37,6 +36,9 @@ ipcRenderer.on('renderer:showProfiles', function(e, item) {
     console.log('More than one profile detected!: ', profiles.length - 1);
 });
 */
+ipcRenderer.on('renderer:printClient', function(e, item) {
+    console.log(item);
+});
 ipcRenderer.on('renderer:parseSettings', function(e, item) {
 });
 
@@ -52,7 +54,6 @@ ipcRenderer.on('renderer:sessionInfo', function(e, item) {
 });
 
 ipcRenderer.on('renderer:timegrid', function(e, item) {
-    // console.log(item);
 });
 
 ipcRenderer.on('renderer:status', function(e, item) {
@@ -69,17 +70,8 @@ ipcRenderer.on('renderer:dateInfo', function(e, item) {
 ipcRenderer.on('renderer:timeTableInfo', function(e, timetableLastWeek, timetableThisWeek, timetableNextWeek) {
     console.log('Receiving and parsing Time Table Data');
 
-    //timeTable.createTable(myClasses, timetableLastWeek, -1);
-    //console.log(timetableThisWeek);
-    //mainTimeTable = document.getElementById('timeTables');
     timetable.createTable(timetableThisWeek, 0);
-    //timeTable.createTable(myClasses, timetableNextWeek, 1);
-    //mainTimeTable = document.getElementById('TimeTable');
 
-    if(firstTime) {
-	ui.showPage(1);
-	document.getElementById('bottomNavBar').style.display = 'block';
-    }
 });
 
 ipcRenderer.on('renderer:homeWorkInfo', function(e, homeWorkData) {
@@ -105,4 +97,11 @@ ipcRenderer.on('renderer:absences', function(e, absencesData) {
 
 ipcRenderer.on('renderer:reload', function(e) {
     ui.restart();
+})
+
+ipcRenderer.on('renderer:done', function(e) {
+    if(firstTime) {
+	ui.showPage(1);
+	document.getElementById('bottomNavBar').style.display = 'block';
+    }
 })

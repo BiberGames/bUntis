@@ -50,8 +50,6 @@ function setCellStatusColor(x, y, code) {
 }
 
 function addSubjectToTable(x, y, timeTableData) {
-    // if(timeTableData.sg === "WN_12_Fo") console.log(timeTableData);
-    
     var room = timeTableData.ro[0].name.split('-');
     var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2) + '<br>' + room[0];
     if(timeTableData.ro[0].orgname)
@@ -62,22 +60,15 @@ function addSubjectToTable(x, y, timeTableData) {
         timeTableData.code = 'sup';
     }
 
-    //console.log(timeTableData.sg.slice(-2));
-
     utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, text);
-    
-    //console.log(timeTableData.date);
+
     setCellStatusColor(x + 2, y + 1, timeTableData.code);
 }
 
 function addSubjectWithoutRoom(x, y, timeTableData) {
-    //console.log(timeTableData);
     var text = timeTableData.su[0].name + '<br>' + timeTableData.sg.slice(-2);
     utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, text);
 
-    //console.log(timeTableData.sg.slice(-2));
-    
-    //console.log(timeTableData.id);
     setCellStatusColor(x + 2, y + 1, timeTableData.code);
 }
 
@@ -89,8 +80,6 @@ function addEventToTable(x, y, timeTableData) {
 
     
     var rawEventLength = utils.endTimeToElements(timeTableData.endTime) - utils.startTimeToElements(timeTableData.startTime);
-    //console.log(utils.timeToElements(timeTableData.endTime) + ' ' + utils.timeToElements(timeTableData.startTime));
-    //console.log(timeTableData);
 
     setCellStatusColor(x +2, y +1, timeTableData.code);
     utils.setContentInTable(global.mainTimeTable, x +2, y +1, text);
@@ -133,9 +122,6 @@ function dataToTable(timeTableData, x, y) {
         }
         catch(e) {
 	    console.log(timeTableData);
-            if(timeTableData.su) {
-                //utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, timeTableData.su[0].name);
-            }
             console.info(timeTableData);
             console.info(e);
             setCellStatusColor(x + 2, y + 1, 'err');

@@ -10,25 +10,18 @@ import { subDays, endOfMonth } from 'date-fns';
 import url from 'url';
 import { fileURLToPath } from 'url';
 import fs from "fs";
-//import { promisify } from "util";
 import Store from 'electron-store';
 import { utils } from '../code/utils.js';
 
 var mainWindow = '';
 var tempData = [];
 
-//process.env.NODE_ENV = 'development';
-// ELECTRON //
-
-// UNTIS //
 import { WebUntisSecretAuth } from 'webuntis';
 import { authenticator } from 'otplib';
-// UNTIS //
 
-// DATA //
 var classes = '';
 var sessionInfo = '';
-var classID = 901;
+var classID = '';
 var timetableLastWeak = '';
 var timetableThisWeak = '';
 var timetableNextWeak = '';
@@ -42,20 +35,14 @@ var canReload = true;
 
 var errorWait = 3000;
 
-//var subjects = ''
-// DATA //
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// CONSOLE //
 import nodeConsole from 'console';
 var vsCodeDebugConsole = new nodeConsole.Console(process.stdout, process.stderr);
-// CONSOLE //
 
 const isMac = process.platform === 'darwin'
 const template = [
-    // { role: 'appMenu' }
     ...(isMac
 	? [{
             label: app.name,
@@ -90,58 +77,50 @@ const template = [
     },
     // { role: 'viewMenu' }
     {
-	label: 'Dev',
+	label: 'View',
 	submenu: [
-	    { role: 'toggleDevTools' },
-	    { type: 'separator' },
 	    {
-		label: 'Page 0',
-		accelerator: 'CmdOrCtrl+0',
-		role: 'page0',
-		click: async () => {
-		    await mainWindow.send('renderer:chPage', 0);
-		}
-	    },
-	    {
-		label: 'Page 1',
+		label: 'Timetable',
 		accelerator: 'CmdOrCtrl+1',
-		role: 'page1',
+		role: 'page0',
 		click: async () => {
 		    await mainWindow.send('renderer:chPage', 1);
 		}
 	    },
 	    {
-		label: 'Page 2',
+		label: 'Homework',
 		accelerator: 'CmdOrCtrl+2',
-		role: 'page2',
+		role: 'page1',
 		click: async () => {
 		    await mainWindow.send('renderer:chPage', 2);
 		}
 	    },
 	    {
-		label: 'Page 3',
+		label: 'Inbox',
 		accelerator: 'CmdOrCtrl+3',
-		role: 'page3',
+		role: 'page2',
 		click: async () => {
-		    await mainWindow.send('renderer:chPage', 3);
+		    await mainWindow.send('renderer:chPage', 6);
 		}
 	    },
 	    {
-		label: 'Page 4',
+		label: 'Absences',
 		accelerator: 'CmdOrCtrl+4',
+		role: 'page3',
+		click: async () => {
+		    await mainWindow.send('renderer:chPage', 5);
+		}
+	    },
+	    { type: 'separator' },
+	    {
+		label: 'Settings',
+		accelerator: 'CmdOrCtrl+5',
 		role: 'page4',
 		click: async () => {
 		    await mainWindow.send('renderer:chPage', 4);
 		}
 	    },
-	    {
-		label: 'Page 5',
-		accelerator: 'CmdOrCtrl+5',
-		role: 'page5',
-		click: async () => {
-		    await mainWindow.send('renderer:chPage', 5);
-		}
-	    },
+	    { role: 'toggleDevTools' },
 	    {
 		label: 'Page 6',
 		accelerator: 'CmdOrCtrl+6',
@@ -165,8 +144,7 @@ const template = [
 		click: async () => {
 		    await mainWindow.send('renderer:chPage', 8);
 		}
-	    },
-	    { type: 'separator' }
+	    }
 	]
     },
     {
@@ -189,9 +167,7 @@ const template = [
 ]
 
 const createWindow = () => {
-    // Create the browser window.
     mainWindow = new BrowserWindow({
-	//885 x 827
 	width: 470,
 	height: 650,
 	webPreferences: {
@@ -260,7 +236,6 @@ function loadServer() {
     const password = loginData.get('login');
     
     mainWindow.send('renderer:parseSettings', password);
-    //vsCodeDebugConsole.log('Password retrieved successfully:', password);
     
     tempData = JSON.parse(password)
     getWebData(tempData);
@@ -269,7 +244,7 @@ function loadServer() {
 async function getWebData(loginData) {
     vsCodeDebugConsole.log("untisApi;");
 
-    const untis = new WebUntisSecretAuth(loginData[0], loginData[1], loginData[2], loginData[3], 'custom-identity', authenticator);
+    const untis = new WebUntisSecretAuth(loginData[0], loginData[1], loginData[2], loginData[3], 'bUntis Client', authenticator);
     vsCodeDebugConsole.log("Logging in.");
     
     mainWindow.send('renderer:status', 'Logging in.');
@@ -288,20 +263,18 @@ async function getWebData(loginData) {
     mainWindow.send('renderer:status', 'Setting date.');
     try {
 	var weekStart = new Date();
-	var weekEnd = new Date();
+	var weekEnd = new Date(weekStart);
+	    
+	weekStart = utils.getFirstDayOfWeek();
+	weekEnd.setDate(weekStart.getDate() + 4);
     }
     catch(e) {
 	mainWindow.send('renderer:status', 'Error Setting Date.');
 	vsCodeDebugConsole.error(e);
 	await new Promise(r => setTimeout(r, errorWait));
+	return;
     }
-    
-    weekStart = utils.getFirstDayOfWeek();
 
-    weekEnd.setDate(weekStart.getDate() + 4);
-
-    // Add next year check here.
-    
     vsCodeDebugConsole.log(weekStart);
     vsCodeDebugConsole.log(weekEnd);
 
@@ -313,14 +286,20 @@ async function getWebData(loginData) {
 	mainWindow.send('renderer:status', 'Error Recieving Timegrid.');
 	vsCodeDebugConsole.error(e);
 	await new Promise(r => setTimeout(r, errorWait));
+	return;
+    }
+
+    mainWindow.send('renderer:status', 'Recieving Timetable.');
+    try {
+	timetableThisWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
+    }
+    catch(e) {
+	mainWindow.send('renderer:status', 'Error Recieving Timetable.');
+	vsCodeDebugConsole.error(e);
+	await new Promise(r => setTimeout(r, errorWait));
+	return;
     }
     
-    //vsCodeDebugConsole.log(timegrid);
-    
-    mainWindow.send('renderer:status', 'Recieving Timetable.');
-    //timetableLastWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
-    timetableThisWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
-
     mainWindow.send('renderer:status', 'Recieving Inbox.');
     try {
 	inbox = await untis.getInbox();
@@ -329,15 +308,12 @@ async function getWebData(loginData) {
 	mainWindow.send('renderer:status', 'Error Recieving Inbox.');
 	vsCodeDebugConsole.error(e);
 	await new Promise(r => setTimeout(r, errorWait));
+	return;
     }
-    //vsCodeDebugConsole.log(inbox);
 
     //mainWindow.send('renderer:status', 'Recieving Holidays');
     //holidays = await untis.getHolidays();
     //vsCodeDebugConsole.log(holidays);
-    
-    //mainWindow.send('renderer:status', 'Recieving subjects.');
-    //subjects = await untis.Timegrid(weekStart, );
     
     mainWindow.send('renderer:status', 'Recieving Homework.');
     weekEnd.setDate(weekEnd.getDate() + 7);
@@ -348,6 +324,7 @@ async function getWebData(loginData) {
 	mainWindow.send('renderer:status', 'Error Recieving Homework.');
 	vsCodeDebugConsole.error(e);
 	await new Promise(r => setTimeout(r, errorWait));
+	return;
     }
 
     mainWindow.send('renderer:status', 'Recieving Absences');
@@ -358,6 +335,7 @@ async function getWebData(loginData) {
 	mainWindow.send('renderer:status', 'Error Recieving Absences.');
 	vsCodeDebugConsole.error(e);
 	await new Promise(r => setTimeout(r, errorWait));
+	return;
     }
 
     vsCodeDebugConsole.log(weekStart);
@@ -367,11 +345,11 @@ async function getWebData(loginData) {
     await mainWindow.send('renderer:sessionInfo', sessionInfo);
     await mainWindow.send('renderer:timegrid', timegrid);
     await mainWindow.send('renderer:timeTableInfo', 'timetableLastWeak', timetableThisWeak, timetableNextWeak);
-    //mainWindow.send('renderer:subjectsData', subjects);
     await mainWindow.send('renderer:homeWorkInfo', homework);
     await mainWindow.send('renderer:dateInfo', weekStart);
     await mainWindow.send('renderer:inbox', inbox);
     await mainWindow.send('renderer:absences', absences);
+    await mainWindow.send('renderer:done', 'done');
     
     mainWindow.send('renderer:status', 'Parsing data.');
     

@@ -98,8 +98,7 @@ utils.getFirstDayOfWeek = function() {
 	const daysUntilMonday = currentDay === 0 ? 1 : 2;
 	today.setDate(today.getDate() + daysUntilMonday);
     }
-    
-    // Calculate the Monday of the current week
+
     const monday = new Date(today);
     monday.setDate(today.getDate() - today.getDay() + (today.getDay() === 0 ? -6 : 1));
     
@@ -123,12 +122,12 @@ utils.toUntisDate = function(date) {
 
 utils.getWeekDates = function() {
     let dates = [];
-    let startDate = utils.getFirstDayOfWeek(); // Assuming this returns a Date object
+    let startDate = utils.getFirstDayOfWeek();
 
     for (let i = 0; i < 5; i++) {
         let currentDate = new Date(startDate);
         currentDate.setDate(startDate.getDate() + i);
-        let formattedDate = utils.toUntisDate(currentDate); // Assuming this formats Date as "YYYYMMDD"
+        let formattedDate = utils.toUntisDate(currentDate);
         dates.push(parseInt(formattedDate));
     }
 
