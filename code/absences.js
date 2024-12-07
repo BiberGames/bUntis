@@ -17,7 +17,7 @@ absences.show = async function (_absencesData) {
         absencesDates.push(absence.startDate);
     });
 
-    const uniqueSortedDates = utils.removeDuplicatesAndSort(absencesDates);
+    const uniqueSortedDates = utils.removeDuplicatesAndSort(absencesDates).reverse();
 
     uniqueSortedDates.forEach(date => {
         const headerRow = absencesTable.insertRow();
