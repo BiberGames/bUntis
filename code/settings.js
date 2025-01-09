@@ -1,5 +1,6 @@
-import { utils } from '../code/utils.js';
-const { ipcRenderer } = require('electron');
+import { utils } from './utils.js';
+import { platformClient } from './platformClient.js';
+// const { ipcRenderer } = require('electron');
 
 const settings = {};
 
@@ -14,18 +15,18 @@ settings.saveSettings = async function(_school, _username, _server, _code, _clas
     saveDataServer.push(_code);
     saveDataServer.push(_server);
 
-    const result = await ipcRenderer.invoke('server:saveDataToFile', 'login', JSON.stringify(saveDataServer));
-    await ipcRenderer.invoke('server:restart');
+    const result = await platformClient.invoke('server:saveDataToFile', 'login', JSON.stringify(saveDataServer));
+    await platformClient.invoke('server:restart');
 }
 
 async function saveClient(saveData, hook) {
-    const result = await ipcRenderer.invoke('server:saveDataToFile', 'classes', saveData);
-    await ipcRenderer.invoke('server:saveDataToFile', 'setup', 1);
+    const result = await platformClient.invoke('server:saveDataToFile', 'classes', saveData);
+    await platformClient.invoke('server:saveUserData', 'setup', 1);
     
 }
 
 settings.loadSettings = async function() {
-    let classes = await ipcRenderer.invoke('server:readDataToFile', 'classes');
+    let classes = await platformClient.invoke('server:readUserData', 'classes');
     global.classes = classes.split(" ");
 }
 

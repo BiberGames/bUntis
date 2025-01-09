@@ -11,7 +11,9 @@ import url from 'url';
 import { fileURLToPath } from 'url';
 import fs from "fs";
 import Store from 'electron-store';
-import { utils } from '../code/utils.js';
+
+import { utils } from './utils.js';
+//import { communicationBridge } from './communicationBridge.js'
 
 var mainWindow = '';
 var tempData = [];
@@ -19,27 +21,14 @@ var tempData = [];
 import { WebUntisSecretAuth } from 'webuntis';
 import { authenticator } from 'otplib';
 
-var classes = '';
-var sessionInfo = '';
-var classID = '';
-var timetableLastWeak = '';
-var timetableThisWeak = '';
-var timetableNextWeak = '';
-var homework = '';
-var inbox = '';
-var holidays = '';
-var timegrid = '';
-var absences = '';
+const UpdatedUserDataPath = app.getPath('userData') + "/config/default";
 
 var canReload = true;
 
-var errorWait = 3000;
+const errorWait = 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-import nodeConsole from 'console';
-var vsCodeDebugConsole = new nodeConsole.Console(process.stdout, process.stderr);
 
 const isMac = process.platform === 'darwin'
 const template = [
@@ -179,7 +168,7 @@ const createWindow = () => {
     mainWindow.loadURL(url.format({
 	pathname: path.join(__dirname, '../ui/index.html'),
 	protocol: 'file:',
-	slashes:true
+	slashes: true
     }));
 
     const menu = Menu.buildFromTemplate(template);
@@ -193,6 +182,7 @@ app.on('ready', () => {
 
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
+	app.setPath('userData', app.getPath('userData') + "/config/default");
 	createWindow();
 	loadServer();
     }
@@ -203,158 +193,124 @@ app.on("new-window", (event, url) => {
 });
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
+    if (process.platform !== 'darwin') app.quit();
 });
 
-ipcMain.handle('server:saveDataToFile', async (event, key, saveData) => {
+ipcMain.handle('server:saveUserData', async (event, key, saveData) => {
     const data = new Store();
     data.set(key, saveData);
 });
 
-ipcMain.handle('server:readDataToFile', async (event, key) => {
+ipcMain.handle('server:readUserData', async (event, key) => {
     const loginData = new Store();
     return loginData.get(key);
 });
 
-ipcMain.handle('server:removeDataToFile', async (event, key) => {
-    const loginData = new Store();
-    return loginData.delete(key);
-});
-
 ipcMain.handle('server:restart', async () => {
-    if(canReload === false)
-	return;
+    if(canReload === false) return;
 
     canReload = false;
-    mainWindow.webContents.reload();
-    getWebData(tempData);
+    await mainWindow.webContents.reload();
+    loadServer();
 });
 
-function loadServer() {
-    app.setPath ('userData', app.getPath ('userData') + "/config/default");
+async function sendStatus(message) {
+    mainWindow.send('renderer:status', message);
+    console.log(message);
+}
+
+async function getData(untisMethod, errorMessage) {
+    try {
+        return await untisMethod();
+    } catch (e) {
+        await sendStatus(errorMessage);
+        console.error(e);
+        await new Promise(r => setTimeout(r, errorWait));
+        return null; // Return null or an appropriate fallback value in case of error
+    }
+}
+
+async function loadServer() {
+    app.setPath('userData', UpdatedUserDataPath);
     const loginData = new Store();
     const password = loginData.get('login');
-    
     mainWindow.send('renderer:parseSettings', password);
     
-    tempData = JSON.parse(password)
-    getWebData(tempData);
+    const tempData = JSON.parse(password);
+    await getWebData(tempData);
 }
 
 async function getWebData(loginData) {
-    vsCodeDebugConsole.log("untisApi;");
-
+    console.log(loginData);
     const untis = new WebUntisSecretAuth(loginData[0], loginData[1], loginData[2], loginData[3], 'bUntis Client', authenticator);
-    vsCodeDebugConsole.log("Logging in.");
     
-    mainWindow.send('renderer:status', 'Logging in.');
-    await untis.login();
-
-    /*vsCodeDebugConsole.log(utils.getLatestSchoolyear);
-    if(!utils.getLatestSchoolyear) {
-	mainWindow.send('renderer:status', 'No school year defined...');
-	await mainWindow.send('renderer:holidayScreen');
-	return;
-    }*/
+    await sendStatus("Logging in.");
+    if (!await loginUntis(untis)) return;
     
-    sessionInfo = untis.sessionInformation;
-    classID = sessionInfo.klasseId;
+    const weekRange = getWeekRange();
+    if (!weekRange) return;
     
-    mainWindow.send('renderer:status', 'Setting date.');
-    try {
-	var weekStart = new Date();
-	var weekEnd = new Date(weekStart);
-	    
-	weekStart = utils.getFirstDayOfWeek();
-	weekEnd.setDate(weekStart.getDate() + 4);
-    }
-    catch(e) {
-	mainWindow.send('renderer:status', 'Error Setting Date.');
-	vsCodeDebugConsole.error(e);
-	await new Promise(r => setTimeout(r, errorWait));
-	return;
-    }
-
-    vsCodeDebugConsole.log(weekStart);
-    vsCodeDebugConsole.log(weekEnd);
-
-    mainWindow.send('renderer:status', 'Recieving Timegrid');
-    try {
-	timegrid = await untis.getTimegrid();
-    }
-    catch(e) {
-	mainWindow.send('renderer:status', 'Error Recieving Timegrid.');
-	vsCodeDebugConsole.error(e);
-	await new Promise(r => setTimeout(r, errorWait));
-	return;
-    }
-
-    mainWindow.send('renderer:status', 'Recieving Timetable.');
-    try {
-	timetableThisWeak = await untis.getOwnClassTimetableForRange(weekStart, weekEnd);
-    }
-    catch(e) {
-	mainWindow.send('renderer:status', 'Error Recieving Timetable.');
-	vsCodeDebugConsole.error(e);
-	await new Promise(r => setTimeout(r, errorWait));
-	return;
-    }
+    const [weekStart, weekEnd] = weekRange;
     
-    mainWindow.send('renderer:status', 'Recieving Inbox.');
-    try {
-	inbox = await untis.getInbox();
-    }
-    catch(e) {
-	mainWindow.send('renderer:status', 'Error Recieving Inbox.');
-	vsCodeDebugConsole.error(e);
-	await new Promise(r => setTimeout(r, errorWait));
-	return;
-    }
-
-    //mainWindow.send('renderer:status', 'Recieving Holidays');
-    //holidays = await untis.getHolidays();
-    //vsCodeDebugConsole.log(holidays);
+    await sendStatus("Receiving Timegrid");
+    const timegrid = await getData(() => untis.getTimegrid(), "Error Receiving Timegrid");
+    if (!timegrid) return;
     
-    mainWindow.send('renderer:status', 'Recieving Homework.');
+    await sendStatus("Receiving Timetable");
+    const timetableThisWeek = await getData(() => untis.getOwnClassTimetableForRange(weekStart, weekEnd), "Error Receiving Timetable");
+    if (!timetableThisWeek) return;
+    
+    await sendStatus("Receiving Inbox");
+    const inbox = await getData(() => untis.getInbox(), "Error Receiving Inbox");
+    if (!inbox) return;
+
+    await sendStatus("Receiving Homework");
     weekEnd.setDate(weekEnd.getDate() + 7);
-    try {
-	homework = await untis.getHomeWorksFor(new Date(), weekEnd);
-    }
-    catch(e) {
-	mainWindow.send('renderer:status', 'Error Recieving Homework.');
-	vsCodeDebugConsole.error(e);
-	await new Promise(r => setTimeout(r, errorWait));
-	return;
-    }
-
-    mainWindow.send('renderer:status', 'Recieving Absences');
-    try {
-	absences = await untis.getAbsentLesson(new Date(new Date().getFullYear(), 0, 1), new Date());
-    }
-    catch(e) {
-	mainWindow.send('renderer:status', 'Error Recieving Absences.');
-	vsCodeDebugConsole.error(e);
-	await new Promise(r => setTimeout(r, errorWait));
-	return;
-    }
-
-    vsCodeDebugConsole.log(weekStart);
-    vsCodeDebugConsole.log(weekEnd);
+    const homework = await getData(() => untis.getHomeWorksFor(new Date(), weekEnd), "Error Receiving Homework");
+    if (!homework) return;
     
-    vsCodeDebugConsole.log('Sending data!');
-    await mainWindow.send('renderer:sessionInfo', sessionInfo);
+    await sendStatus("Receiving Absences");
+    const absences = await getData(() => untis.getAbsentLesson(new Date(new Date().getFullYear() - 0.5, 0, 1), new Date()), "Error Receiving Absences");
+    if (!absences) return;
+
+    console.log('Sending data!');
+    await mainWindow.send('renderer:sessionInfo', untis.sessionInformation);
     await mainWindow.send('renderer:timegrid', timegrid);
-    await mainWindow.send('renderer:timeTableInfo', 'timetableLastWeak', timetableThisWeak, timetableNextWeak);
+    await mainWindow.send('renderer:timeTableInfo', timetableThisWeek);
     await mainWindow.send('renderer:homeWorkInfo', homework);
     await mainWindow.send('renderer:dateInfo', weekStart);
     await mainWindow.send('renderer:inbox', inbox);
     await mainWindow.send('renderer:absences', absences);
     await mainWindow.send('renderer:done', 'done');
     
-    mainWindow.send('renderer:status', 'Parsing data.');
-    
-    vsCodeDebugConsole.log("Logging out.");
+    await sendStatus("Parsing data");
+    console.log("Logging out.");
     await untis.logout();
-    mainWindow.send('renderer:status', 'Done.');
+    await sendStatus("Done");
     canReload = true;
+}
+
+function getWeekRange() {
+    try {
+        const weekStart = utils.getFirstDayOfWeek();
+        const weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekStart.getDate() + 4);
+        return [weekStart, weekEnd];
+    } catch (e) {
+        sendStatus("Error Setting Date");
+        console.error(e);
+        return null;
+    }
+}
+
+async function loginUntis(untis) {
+    try {
+        await untis.login();
+        return true;
+    } catch (e) {
+        sendStatus("Error During Login");
+        console.error(e);
+        await new Promise(r => setTimeout(r, errorWait));
+        return false;
+    }
 }

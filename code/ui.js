@@ -1,6 +1,7 @@
 import { utils } from './utils.js';
 import { settings } from './settings.js';
-const { ipcRenderer, shell } = require('electron');
+import { platformClient } from './platformClient.js';
+//const { ipcRenderer, shell } = require('electron');
 
 const ui = {};
 
@@ -21,20 +22,20 @@ global.openPage = 0;
 ui.showPage = function(id) {
     ui.openPage = id;
     
-    for(let i = 0; i < global.pages.length; i++) {
-	if(global.pages[i])
-	    global.pages[i].style.display = 'none';
-    }
-    if(global.pages[id])
-	global.pages[id].style.display = 'block';
+    for(let i = 0; i < global.pages.length; i++) 
+	if(global.pages[i]) global.pages[i].style.display = 'none';
+    
+    if(global.pages[id]) global.pages[id].style.display = 'block';
 }
 
 ui.restart = function() {
-    ipcRenderer.invoke('server:restart');
+    platformClient.invoke('server:restart');
+    //ipcRenderer.invoke('server:restart');
 }
 
 ui.openURL = async function(URL) {
-    await shell.openExternal(URL);
+    platformClient.openURL(URL);
+    //await shell.openExternal(URL);
 }
 
 ui.saveSettings = async function() {
