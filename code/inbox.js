@@ -9,21 +9,18 @@ inbox.show = async function(_inboxData) {
     }
 
     for(let i = 0; i < _inboxData.incomingMessages.length; i++) {
-	var row = inboxTable.insertRow();
-	var cellHeader = row.insertCell();
-
-	cellHeader.innerHTML += '<h3>' + _inboxData.incomingMessages[i].sender.displayName + ' • ' + _inboxData.incomingMessages[i].subject + '</h3>';
-	cellHeader.classList.add('inboxTableHeader');
+	const cellContent = `<h3> ${_inboxData.incomingMessages[i].sender.displayName} • ${_inboxData.incomingMessages[i].subject} </h3>`;
 	
 	var row = inboxTable.insertRow();
-	var cellContent = row.insertCell();
+	var cellHeader = utils.addCellToRow(row, cellContent, 'inboxTableHeader');
+	
+	var row = inboxTable.insertRow();
 	if(_inboxData.incomingMessages[i].contentPreview) {
-	    cellContent.innerHTML = _inboxData.incomingMessages[i].contentPreview;
+	    utils.addCellToRow(row, _inboxData.incomingMessages[i].contentPreview, 'inboxTableContent');
 	}
 	else {
-	    cellContent.innerHTML = 'This message doesn’t seem to contain any information.';
+	    utils.addCellToRow(row, 'This message doesn’t seem to contain any information.', 'inboxTableContent');
 	}
-	cellContent.classList.add('inboxTableContent');
     }
 }
 

@@ -7,10 +7,9 @@ homework.show = async function(_homeWorkData) {
     const homeworkDates = [];
     
     if(homeworkList.length === 0) {
-	var row = homeWorkTable.insertRow();
-        var cellSubject = row.insertCell();
-	cellSubject.innerHTML = '🏖️ Have a nice day!';
-	return;
+        const row = absencesTable.insertRow();
+	utils.addCellToRow(row, '🏖️ Have a nice day!', '');
+        return;
     }
 
     homeworkList.forEach(homework => {
@@ -22,24 +21,22 @@ homework.show = async function(_homeWorkData) {
 
     uniqueSortedDates.forEach(date => {
 	var headerRow = homeWorkTable.insertRow();
-	var headerCell = headerRow.insertCell();
-	headerCell.innerHTML = '<h3>' + utils.convertUntisDate(date) + '</h3>';
-	headerCell.classList.add('homeworkTableDate');
+	var headerCellContent = `<h3>${utils.convertUntisDate(date)}</h3>`
+	utils.addCellToRow(headerRow, headerCellContent, 'homeworkTableDate');
 
 	homeworkList.forEach(homework => {
 	    if(homework.dueDate === date) {
-		var row = homeWorkTable.insertRow();
-		var cell = row.insertCell();
-		cell.classList.add('homeworkTableData');
-		
 		const subject = getSubjectFromHomeWork(homework.lessonId, _homeWorkData.lessons);
-		cell.innerHTML = `
+		const cellContent = `
                     <img src="../images/font/menu_book_white_24dp.svg">
                     ${subject || 'Unknown Subject'}
                     <br>
                     <img src="../images/font/home_work_white_24dp.svg">
                     ${homework.text || 'No Description given.'}
                 `;
+		
+		const row = homeWorkTable.insertRow();
+		utils.addCellToRow(row, cellContent, 'homeworkTableData');
 	    }
 	});
     });

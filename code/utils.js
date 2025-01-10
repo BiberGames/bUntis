@@ -132,4 +132,24 @@ utils.getWeekDates = function() {
     return dates;
 }
 
+utils.addCellToRow = function(row, content, classes) {
+    const cell = row.insertCell();
+    cell.innerHTML = content;
+    cell.classList.add(classes);
+    return cell;
+}
+
+utils.convertUnitsTime = function (_time) {
+    var time = _time.toString();
+
+    if (time.length < 4) {
+        time = `0${time}`;
+    }
+
+    const hour = time.substr(0, 2);
+    const minutes = time.substr(2, 3);
+    return `${hour}:${minutes}`;
+};
+
+
 export { utils };

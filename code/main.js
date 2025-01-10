@@ -5,8 +5,6 @@
 import { app, BrowserWindow, ipcMain, Menu, shell } from 'electron';
 import electron from 'electron';
 import path from 'path';
-import { dirname } from 'path';
-import { subDays, endOfMonth } from 'date-fns';
 import url from 'url';
 import { fileURLToPath } from 'url';
 import fs from "fs";
@@ -170,7 +168,7 @@ const createWindow = () => {
 	protocol: 'file:',
 	slashes: true
     }));
-
+    
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
 }
@@ -241,10 +239,9 @@ async function loadServer() {
 }
 
 async function getWebData(loginData) {
-    console.log(loginData);
     const untis = new WebUntisSecretAuth(loginData[0], loginData[1], loginData[2], loginData[3], 'bUntis Client', authenticator);
     
-    await sendStatus("Logging in.");
+    await sendStatus("Logging in");
     if (!await loginUntis(untis)) return;
     
     const weekRange = getWeekRange();
@@ -270,10 +267,9 @@ async function getWebData(loginData) {
     if (!homework) return;
     
     await sendStatus("Receiving Absences");
-    const absences = await getData(() => untis.getAbsentLesson(new Date(new Date().getFullYear() - 0.5, 0, 1), new Date()), "Error Receiving Absences");
+    const absences = await getData(() => untis.getAbsentLesson(new Date(new Date().getFullYear() -1, 0, 1), new Date()), "Error Receiving Absences");
     if (!absences) return;
 
-    console.log('Sending data!');
     await mainWindow.send('renderer:sessionInfo', untis.sessionInformation);
     await mainWindow.send('renderer:timegrid', timegrid);
     await mainWindow.send('renderer:timeTableInfo', timetableThisWeek);
@@ -284,7 +280,7 @@ async function getWebData(loginData) {
     await mainWindow.send('renderer:done', 'done');
     
     await sendStatus("Parsing data");
-    console.log("Logging out.");
+    await sendStatus("Logging out");
     await untis.logout();
     await sendStatus("Done");
     canReload = true;

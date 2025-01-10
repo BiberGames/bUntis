@@ -3,13 +3,21 @@ import { utils } from "./utils.js";
 const absences = {};
 
 absences.show = async function (_absencesData) {
+    console.log(_absencesData);
+
+    const headerRow = absencesTable.insertRow();
+    utils.addCellToRow(headerRow, 'Teacher', 'absencesTableDate');
+    utils.addCellToRow(headerRow, 'From', 'absencesTableDate');
+    utils.addCellToRow(headerRow, 'To', 'absencesTableDate');
+    utils.addCellToRow(headerRow, 'Reason', 'absencesTableDate');
+    utils.addCellToRow(headerRow, 'Extra', 'absencesTableDate');
+    
     const absencesList = _absencesData.absences;
     const absencesDates = [];
 
     if (absencesList.length === 0) {
         const row = absencesTable.insertRow();
-        const cell = row.insertCell();
-        cell.innerHTML = '🏖️ Have a nice day!';
+	utils.addCellToRow(row, '🏖️ Have a nice day!', '');
         return;
     }
 
@@ -19,27 +27,23 @@ absences.show = async function (_absencesData) {
 
     const uniqueSortedDates = utils.removeDuplicatesAndSort(absencesDates).reverse();
 
+    // To do: Rework layout to be more simple (one line instead of two, add table colum for teacher date state)
     uniqueSortedDates.forEach(date => {
-        const headerRow = absencesTable.insertRow();
-        const headerCell = headerRow.insertCell();
-        headerCell.innerHTML = `<h3>${utils.convertUntisDate(date)}</h3>`;
-        headerCell.classList.add('absencesTableDate');
-
         absencesList.forEach(absence => {
             if (absence.startDate === date) {
+		const cellTeacher = `${absence.createdUser || 'Unknown User'}`;
+		const CellFrom = `${utils.convertUntisDate(absence.startDate)} ${utils.convertUnitsTime(absence.startTime)}`;
+		const CellTo = `${utils.convertUntisDate(absence.endDate)} ${utils.convertUnitsTime(absence.endTime)}`;
+		const CellReason = `${absence.reason || 'No reason given.'}`;
+		const CellExtra = `${absence.text || '---'}`;
+
                 const row = absencesTable.insertRow();
-                const cell = row.insertCell();
-
-                cell.classList.add(absence.isExcused ? 'absencesTableDataDone' : 'absencesTableData');
-
-                cell.innerHTML = `
-                    <img src="../images/font/person_white_24dp.svg">
-                    ${absence.createdUser || 'Unknown User'}
-                    <br>
-                    <img src="../images/font/home_work_white_24dp.svg">
-                    ${absence.reason || 'No reason given.'}
-                    From ${absence.startTime} - ${absence.endTime}
-                `;
+		const CellIsExcused = absence.isExcused ? 'absencesTableDataDone' : 'absencesTableData';
+                utils.addCellToRow(row, cellTeacher, CellIsExcused);
+		utils.addCellToRow(row, CellFrom, CellIsExcused);
+		utils.addCellToRow(row, CellTo, CellIsExcused);
+		utils.addCellToRow(row, CellReason, CellIsExcused);
+		utils.addCellToRow(row, CellExtra, CellIsExcused);
             }
         });
     });
