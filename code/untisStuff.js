@@ -15,6 +15,8 @@ const loadingScreenInfoText = document.getElementById('loadingInfo');
 const debug = document.getElementById('debug');
 const inboxTable = document.getElementById('inboxTable');
 
+var timeGridData = [];
+
 var firstTime = await platformClient.invoke('server:readUserData', 'setup');
 if(firstTime) {
     ui.showPage(0);
@@ -45,10 +47,12 @@ ipcRenderer.on('renderer:sessionInfo', function(e, item) {
     const sessionID = document.getElementById('SessionString');
     sessionID.innerHTML = JSON.stringify(item.sessionId);
 });
-/*
+
 ipcRenderer.on('renderer:timegrid', function(e, item) {
+    timeGridData = item;
+    // console.log(item);
 });
-*/
+
 ipcRenderer.on('renderer:status', function(e, item) {
     loadingScreenInfoText.innerHTML = item;
 });
@@ -64,7 +68,7 @@ ipcRenderer.on('renderer:dateInfo', function(e, item) {
 ipcRenderer.on('renderer:timeTableInfo', function(e, timetableThisWeek) {
     console.log('Receiving and parsing Time Table Data');
 
-    timetable.createTable(timetableThisWeek, 0);
+    timetable.createTable(timetableThisWeek, timeGridData, 0);
 
 });
 

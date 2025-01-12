@@ -205,7 +205,7 @@ ipcMain.handle('server:readUserData', async (event, key) => {
 });
 
 ipcMain.handle('server:restart', async () => {
-    if(canReload === false) return;
+    // if(canReload === false) return;
 
     canReload = false;
     await mainWindow.webContents.reload();
@@ -248,7 +248,7 @@ async function getWebData(loginData) {
     if (!weekRange) return;
     
     const [weekStart, weekEnd] = weekRange;
-    
+
     await sendStatus("Receiving Timegrid");
     const timegrid = await getData(() => untis.getTimegrid(), "Error Receiving Timegrid");
     if (!timegrid) return;

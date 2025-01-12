@@ -3,7 +3,7 @@ import { utils } from "./utils.js";
 const absences = {};
 
 absences.show = async function (_absencesData) {
-    console.log(_absencesData);
+    // console.log(_absencesData);
 
     const headerRow = absencesTable.insertRow();
     utils.addCellToRow(headerRow, 'Teacher', 'absencesTableDate');
@@ -26,15 +26,13 @@ absences.show = async function (_absencesData) {
     });
 
     const uniqueSortedDates = utils.removeDuplicatesAndSort(absencesDates).reverse();
-
-    // To do: Rework layout to be more simple (one line instead of two, add table colum for teacher date state)
     uniqueSortedDates.forEach(date => {
         absencesList.forEach(absence => {
             if (absence.startDate === date) {
 		const cellTeacher = `${absence.createdUser || 'Unknown User'}`;
 		const CellFrom = `${utils.convertUntisDate(absence.startDate)} ${utils.convertUnitsTime(absence.startTime)}`;
 		const CellTo = `${utils.convertUntisDate(absence.endDate)} ${utils.convertUnitsTime(absence.endTime)}`;
-		const CellReason = `${absence.reason || 'No reason given.'}`;
+		const CellReason = `${absence.reason || '---'}`;
 		const CellExtra = `${absence.text || '---'}`;
 
                 const row = absencesTable.insertRow();

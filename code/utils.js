@@ -89,6 +89,20 @@ utils.startTimeToElements = function(time) {
     return timeMap[time];
 }
 
+utils.getWeekDayByID = function(time) {
+    const timeMap = {
+	1: "Sunday",
+        2: "Monday",
+        3: "Tuesday",
+        4: "Wednesday",
+        5: "Thursday",
+        6: "Friday",
+	7: "Saturday"
+    };
+
+    return timeMap[time] || "Unknown";
+};
+
 utils.getFirstDayOfWeek = function() {
     const today = new Date();
     const currentDay = today.getDay(); // 0 is Sunday, 1 is Monday, ..., 6 is Saturday
@@ -131,6 +145,21 @@ utils.getWeekDates = function() {
 
     return dates;
 }
+
+utils.getWeekDatesByRange = function(_startDate, _endDate) {
+    let dates = [];
+    const dateRange = _endDate - _startDate;
+    const startDate = utils.getFirstDayOfWeek();
+    
+    for (let i = 0; i <= dateRange; i++) {
+        let currentDate = new Date(startDate);
+        currentDate.setDate(startDate.getDate() + i);
+        let formattedDate = utils.toUntisDate(currentDate);
+        dates.push(parseInt(formattedDate));
+    }
+    
+    return dates;
+};
 
 utils.addCellToRow = function(row, content, classes) {
     const cell = row.insertCell();

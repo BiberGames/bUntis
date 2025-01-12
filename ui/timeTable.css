@@ -1,45 +1,47 @@
-.TimeTable {
+.timeTable {
     height: 100vh;
 
     margin-left: 3em;
     width: calc(100vw - 3em);
 
     font-size: 13px;
+
+    display: flex;
 }
 
-.TimeTable tr :nth-child(1) {
-    width: 2%;
-    max-width: 2%;
+.timeTableTimeColum {
+    flex: 0.2;
+    overflow: hidden;
 }
 
-.TimeTable tr :nth-child(2) {
-    width: 2%;
-    max-width: 2%;
+.timeColumContainer {
+    width: 100%;
+    height: 100%;
+
+    /*position: relative;*/
 }
 
-.TimeTable tr :nth-child(3) {
-    width: 19.2%;
-    max-width: 19.2%;
+.columContainer {
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+    
+    /*position: relative;*/
 }
 
-.TimeTable tr :nth-child(4) {
-    width: 19.2%;
-    max-width: 19.2%;
+.timeTableColum {
+    flex: 1;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-.TimeTable tr :nth-child(5) {
-    width: 19.2%;
-    max-width: 19.2%;
-}
+.timeTableHeader {
+    width: 100%;
+    height: 2em;
+    overflow: hidden;
 
-.TimeTable tr :nth-child(6) {
-    width: 19.2%;
-    max-width: 19.2%;
-}
-
-.TimeTable tr :nth-child(7) {
-    width: 19.2%;
-    max-width: 19.2%;
+    /*text-align: center;*/
 }
 
 @media screen and (min-width: 500px) {
@@ -48,7 +50,7 @@
 	text-overflow: ellipsis;
 	
 	color: black;
-	border-left: 10px solid rgba(100, 100, 100, .2);
+	border-left: 1em solid rgba(100, 100, 100, .2);
 	
 	padding: 2px;
 
