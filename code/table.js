@@ -47,7 +47,6 @@ function createTimegrid(_timeGridData, _dates) {
     });
 }
 
-
 function timeToMinutes(time) {
     const hours = Math.floor(time / 100);
     const minutes = time % 100;
@@ -55,9 +54,6 @@ function timeToMinutes(time) {
 }
 
 function timeToPercent(_startBase, _endBase, _time) {
-    // const startBase = 745; // 7:45
-    // const endBase = 1515; // 15:15
-
     const startMinutes = timeToMinutes(_startBase);
     const endMinutes = timeToMinutes(_endBase);
     const totalRange = endMinutes - startMinutes;
@@ -85,43 +81,78 @@ function populateTimeColum(_timeGridData) {
         div.style.top = `${elementStart}%`;
         div.style.height = `${elementLength}%`;
         // div.style.backgroundColor = 'lightblue';
-        
-        div.innerHTML = `${utils.convertUnitsTime(entry.startTime)} <br> <br> ${utils.convertUnitsTime(entry.endTime)}`;
+	
+	var timeTop = document.createElement('div');
+        timeTop.innerHTML = `${utils.convertUnitsTime(entry.startTime)}`;
+	timeTop.style.top = '0';
+	div.appendChild(timeTop);
+	
+	var timeBottom = document.createElement('div');
+        timeBottom.innerHTML = `${utils.convertUnitsTime(entry.endTime)}`;
+	timeBottom.style.marginTop = '190%'; 
+	div.appendChild(timeBottom);
         
         timeTableTimeColum.appendChild(div);
     });
 }
 
+function addSubjectToTable(_div, _timeTableData) {
+    var room = _timeTableData.ro[0].name.split('-');
+    var text = _timeTableData.su[0].name + '<br>' + _timeTableData.sg.slice(-2) + '<br>' + room[0];
+    if(_timeTableData.ro[0].orgname)
+	text = _timeTableData.su[0].name + '<br>' + _timeTableData.sg.slice(-2) + '<br>' + '<p class="roomChange">' + room[0] + '</p>';
+    
+    if(_timeTableData.substText) {
+        text += '<br> <p class="roomChange">' + _timeTableData.substText + '</p>';
+        _timeTableData.code = 'sup';
+    }
+    
+    //utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, text);
+    _div.innerHTML = text;
+}
+
+function addSubjectWithoutRoom(_div, _timeTableData) {
+    var text = _timeTableData.su[0].name + '<br>' + _timeTableData.sg.slice(-2);
+    _div.innerHTML = text;
+}
+
+
+
 function populateTimeTableCollum(_timeTableData, _date) {
-    console.log(_timeTableData);
     const timeTableColum = document.getElementById(_date);
 
     const entry = _timeTableData;
 
-    const startBase = 745;
-    const endBase = 1515;
+    const startBase = 745; // remove hardcoded value!
+    const endBase = 1515;  // remove hardcoded value!
     
     const elementStart = timeToPercent(startBase, endBase, entry.startTime);
     const elementLength = timeToPercent(startBase, endBase, entry.endTime) - timeToPercent(startBase, endBase, entry.startTime);
     
     var div = document.createElement('div');
+
+    if(!_timeTableData.free && _timeTableData.su.length > 0 && _timeTableData.ro.length > 0) { // normal subject with room number and name
+        addSubjectToTable(div, _timeTableData);
+    }
+    else if(!_timeTableData.free && _timeTableData.su.length > 0 && _timeTableData.ro.length == 0) { // normal subject with name and without room number
+        addSubjectWithoutRoom(div, _timeTableData);
+    }
+    
     div.classList.add('timeTableElement');
     div.classList.add(entry.code || 'default');
     
     div.style.position = 'absolute';
     div.style.top = `${elementStart}%`;
     div.style.height = `${elementLength}%`;
-    div.style.width = `calc(17.5% - 0.5em)`;
-    
-    div.innerHTML = `${entry.sg}`;
-    
+    div.style.width = `17vw`;
+
     timeTableColum.appendChild(div);
 }
 
 
 function filterTimeTableData(_timeTableData) {
     return _timeTableData.filter(entry =>
-        utils.isMyClass(global.classes, entry.sg) || entry.lstext || entry.free
+	utils.isMyClass(global.classes, entry.sg) || entry.lstext || entry.free
     );
 }
 
@@ -144,30 +175,30 @@ function getWeekRange(_timeTableData) {
     return utils.removeDuplicatesAndSort(tableDates);
 }
 
+function mergeEntries(_data) {
+    const mergedData = _data;
+
+    _data.forEach(entry => {
+	// console.log(entry);
+    });
+    
+    return mergedData;
+}
+
 timetable.createTable = function(_timeTableData, _timeGridData, _id) {
-    const filterdTimeTableData = filterTimeTableData(_timeTableData);
+    var filterdTimeTableData = filterTimeTableData(_timeTableData);
+    filterdTimeTableData = mergeEntries(filterdTimeTableData);
+    // console.log(filterdTimeTableData);
 
     console.log('Creating Table...');
 
     const tableWeekDates = getWeekRange(filterdTimeTableData);
     const weekDates = utils.getWeekDatesByRange(Math.min(...tableWeekDates), Math.max(...tableWeekDates));
-    // console.log(weekDates);
-    // console.log(tableWeekDates);
-    
+
     createTimegrid(_timeGridData, weekDates);
     populateTimeColum(_timeGridData[0]);
     populateTimeTable(filterdTimeTableData, weekDates);
-    
-    const dates = utils.getWeekDates();
-    // console.log(dates);
-    /*    
-	  _timeTableData.forEach(entry => {
-          const dayIndex = dates.indexOf(entry.date);
-          if (dayIndex !== -1) {
-          // populateTableSpecificDay(entry, dayIndex);
-          }
-	  });
-    */    
+
     console.log('Table Created...');
 }
 

@@ -1,10 +1,10 @@
 .timeTable {
     height: 100vh;
+    
+    font-size: 13px;
 
     margin-left: 3em;
     width: calc(100vw - 3em);
-
-    font-size: 13px;
 
     display: flex;
 }
@@ -18,7 +18,7 @@
     width: 100%;
     height: 100%;
 
-    /*position: relative;*/
+    position: relative;
 }
 
 .columContainer {
@@ -27,7 +27,7 @@
 
     overflow: hidden;
     
-    /*position: relative;*/
+    position: relative;
 }
 
 .timeTableColum {
@@ -41,7 +41,7 @@
     height: 2em;
     overflow: hidden;
 
-    /*text-align: center;*/
+    text-align: center;
 }
 
 @media screen and (min-width: 500px) {
@@ -51,6 +51,7 @@
 	
 	color: black;
 	border-left: 1em solid rgba(100, 100, 100, .2);
+	border-right: 1em solid #1b1a1a;
 	
 	padding: 2px;
 
@@ -70,7 +71,6 @@
 	
 	height: 64px;
 	width: 64px;
-	
     }
 }
 

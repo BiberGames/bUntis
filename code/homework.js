@@ -5,13 +5,13 @@ const homework = {};
 homework.show = async function(_homeWorkData) {
     const homeworkList = _homeWorkData.homeworks;
     const homeworkDates = [];
-    
+/*    
     if(homeworkList.length === 0) {
         const row = absencesTable.insertRow();
 	utils.addCellToRow(row, '🏖️ Have a nice day!', '');
         return;
     }
-
+*/
     homeworkList.forEach(homework => {
 	if(homework.completed !== true)
 	    homeworkDates.push(homework.dueDate);

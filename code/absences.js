@@ -14,13 +14,13 @@ absences.show = async function (_absencesData) {
     
     const absencesList = _absencesData.absences;
     const absencesDates = [];
-
+/*
     if (absencesList.length === 0) {
         const row = absencesTable.insertRow();
 	utils.addCellToRow(row, '🏖️ Have a nice day!', '');
         return;
     }
-
+*/
     absencesList.forEach(absence => {
         absencesDates.push(absence.startDate);
     });
