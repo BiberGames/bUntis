@@ -116,9 +116,13 @@ function addSubjectWithoutRoom(_div, _timeTableData) {
     _div.innerHTML = text;
 }
 
-
+function addEvent(_div, _timeTableData) {
+    var text = _timeTableData.lstext;
+    _div.innerHTML = text;
+}
 
 function populateTimeTableCollum(_timeTableData, _date) {
+    // console.log(_timeTableData);
     const timeTableColum = document.getElementById(_date);
 
     const entry = _timeTableData;
@@ -131,11 +135,14 @@ function populateTimeTableCollum(_timeTableData, _date) {
     
     var div = document.createElement('div');
 
-    if(!_timeTableData.free && _timeTableData.su.length > 0 && _timeTableData.ro.length > 0) { // normal subject with room number and name
+    if(_timeTableData.su.length > 0 && _timeTableData.ro.length > 0) { // normal subject with room number and name
         addSubjectToTable(div, _timeTableData);
     }
-    else if(!_timeTableData.free && _timeTableData.su.length > 0 && _timeTableData.ro.length == 0) { // normal subject with name and without room number
+    else if(_timeTableData.su.length > 0 && _timeTableData.ro.length == 0) { // normal subject with name and without room number
         addSubjectWithoutRoom(div, _timeTableData);
+    }
+    else if(_timeTableData.su.length === 0 && _timeTableData.ro.length == 0 && _timeTableData.kl.length > 1) {
+	addEvent(div, _timeTableData);
     }
     
     div.classList.add('timeTableElement');
@@ -175,14 +182,27 @@ function getWeekRange(_timeTableData) {
     return utils.removeDuplicatesAndSort(tableDates);
 }
 
-function mergeEntries(_data) {
-    const mergedData = _data;
+function mergeEntries(schedule) {
+    let filteredSchedule = [...schedule];
 
-    _data.forEach(entry => {
-	// console.log(entry);
+    schedule.forEach(entry1 => {
+        schedule.forEach(entry2 => {
+            if (entry1 !== entry2 && entry1.date === entry2.date) { 
+                if (
+                    entry1.startTime < entry2.endTime &&
+			entry1.endTime > entry2.startTime
+                ) {
+                    if (entry1.code === "irregular" && entry1.su.length === 0 && entry1.ro.length == 0 && entry1.kl.length > 1) {
+                        filteredSchedule = filteredSchedule.filter(e => e !== entry2);
+                    } else if (entry2.code === "irregular" && entry2.su.length === 0 && entry2.ro.length == 0 && entry2.kl.length > 1) {
+                        filteredSchedule = filteredSchedule.filter(e => e !== entry1);
+                    }
+                }
+            }
+        });
     });
     
-    return mergedData;
+    return filteredSchedule;
 }
 
 timetable.createTable = function(_timeTableData, _timeGridData, _id) {
