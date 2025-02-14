@@ -10,14 +10,14 @@ function createTimegrid(_timeGridData, _dates) {
     
     timeColum.classList.add('timeTableTimeColum');
     timeColum.id = 'timeTableTimeColum';
-    
+/*    
     let timeColumHeader = document.createElement('div');
     timeColumHeader.innerHTML = 'Times';
     
     timeColumHeader.classList.add('timeTableHeader');
     timeColumHeader.id = 'timeTableHeader';
     timeColum.appendChild(timeColumHeader);
-
+*/
     let timeColumContainer = document.createElement('div');
     timeColumContainer.classList.add('timeColumContainer');
     timeColumContainer.id = 'timeColumContainer';
@@ -30,12 +30,12 @@ function createTimegrid(_timeGridData, _dates) {
 	let colum = document.createElement('div');
 	colum.classList.add('timeTableColum');
 	colum.id = 'timeTableColum';
-	
+/*	
 	let columHeader = document.createElement('div');
 	columHeader.innerHTML = utils.getWeekDayByID(element.day);
 	columHeader.classList.add('timeTableHeader');
 	colum.appendChild(columHeader);
-
+*/
 	let columContainer = document.createElement('div');
 	columContainer.classList.add('columContainer');
 	columContainer.id = `${_dates[element.day -2]}`;
@@ -178,29 +178,37 @@ function getWeekRange(_timeTableData) {
     _timeTableData.forEach(entry => {
 	tableDates.push(entry.date);
     });
-
+    
     return utils.removeDuplicatesAndSort(tableDates);
 }
 
 function mergeEntries(schedule) {
     let filteredSchedule = [...schedule];
-
+    
     schedule.forEach(entry1 => {
         schedule.forEach(entry2 => {
             if (entry1 !== entry2 && entry1.date === entry2.date) { 
-                if (
-                    entry1.startTime < entry2.endTime &&
-			entry1.endTime > entry2.startTime
-                ) {
-                    if (entry1.code === "irregular" && entry1.su.length === 0 && entry1.ro.length == 0 && entry1.kl.length > 1) {
+                if (entry1.startTime < entry2.endTime && entry1.endTime > entry2.startTime) {
+                    if (entry1.code === 'irregular' && entry1.su.length === 0 && entry1.ro.length == 0 && entry1.kl.length > 1) {
                         filteredSchedule = filteredSchedule.filter(e => e !== entry2);
-                    } else if (entry2.code === "irregular" && entry2.su.length === 0 && entry2.ro.length == 0 && entry2.kl.length > 1) {
+                    } else if (entry2.code === 'irregular' && entry2.su.length === 0 && entry2.ro.length == 0 && entry2.kl.length > 1) {
                         filteredSchedule = filteredSchedule.filter(e => e !== entry1);
                     }
                 }
             }
         });
     });
+    
+    const tableWeekDates = getWeekRange(filteredSchedule);
+    const weekDates = utils.getWeekDatesByRange(Math.min(...tableWeekDates), Math.max(...tableWeekDates));
+    
+    filteredSchedule.forEach(entry => {
+	if(entry.date == '20250127') {
+	    console.log(entry);
+	}
+    });
+    
+    // weekDates.forEach(day => {});
     
     return filteredSchedule;
 }
@@ -209,16 +217,16 @@ timetable.createTable = function(_timeTableData, _timeGridData, _id) {
     var filterdTimeTableData = filterTimeTableData(_timeTableData);
     filterdTimeTableData = mergeEntries(filterdTimeTableData);
     // console.log(filterdTimeTableData);
-
+    
     console.log('Creating Table...');
-
+    
     const tableWeekDates = getWeekRange(filterdTimeTableData);
     const weekDates = utils.getWeekDatesByRange(Math.min(...tableWeekDates), Math.max(...tableWeekDates));
-
+    
     createTimegrid(_timeGridData, weekDates);
     populateTimeColum(_timeGridData[0]);
     populateTimeTable(filterdTimeTableData, weekDates);
-
+    
     console.log('Table Created...');
 }
 
