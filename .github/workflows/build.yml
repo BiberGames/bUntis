@@ -51,6 +51,18 @@ jobs:
         name: bUntis-linux-x64
         path: dist/*0.AppImage
 
+    - name: Upload Linux x64 deb Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: bUntis-linux-deb-x64
+        path: dist/*0.deb
+
+    - name: Upload Linux x64 rpm Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: bUntis-linux-rpm-x64
+        path: dist/*0.rpm
+
     - name: Upload Windows x64 Artifacts
       uses: actions/upload-artifact@v4
       with:
