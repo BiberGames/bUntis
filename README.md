@@ -17,7 +17,9 @@ A free webuntis desktop client.
 - ```chmod +x <path to appimage```
 
 ## Downloads
-[Linux x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-x64.zip)  
+[Linux AppImage x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-x64.zip)  
+[Linux Deb x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-deb-x64.zip)  
+[Linux Rpm x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-rpm-x64.zip)  
 [Windows x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-windows-x64.zip)  
 [Source code](https://codeberg.org/BiberGames/bUntis/archive/main.zip)  
 Extract and launch executable.  
