@@ -19,7 +19,7 @@ utils.getDateDistance = function(dateOne, dateTwo) {
     distance += (dateOneSub[2] - dateTwoSub[2]) * 365 + (dateOneSub[1] - dateTwoSub[1]) * 31 + (dateOneSub[0] - dateTwoSub[0]);
     return distance;
 }
-/*
+
 utils.mergeCells = function(table, x, y) {
     if(utils.getCellInTable(table, x, y).innerHTML === utils.getCellInTable(table, x, y-1).innerHTML) {
 	utils.getCellInTable(table, x, y).style.display = 'none';
@@ -33,7 +33,7 @@ utils.setContentInTable = function(table, x, y, input) {
     
     table.rows[y].cells[x].innerHTML = input;
 }
-*/
+
 utils.isMyClass = function(myClasses, className) {
     for(let i = 0; i < myClasses.length; i++) {
         if(className == myClasses[i]) {
@@ -42,7 +42,7 @@ utils.isMyClass = function(myClasses, className) {
     }
     return false;
 }
-/*
+
 utils.getCellInTable = function(table, x, y) {
     if(x < 0) {
 	return table.rows[y].cells[0];
@@ -54,7 +54,7 @@ utils.getCellInTable = function(table, x, y) {
     
     return table.rows[y].cells[x];
 }
-*/
+
 utils.sanitizeInput = function(input) {
     return input;//.replace(/^[a-zA-Z0-9_.]+$/g, '');
 }

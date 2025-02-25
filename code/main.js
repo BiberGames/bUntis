@@ -171,6 +171,20 @@ const createWindow = () => {
     
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
+
+    const args = process.argv;
+    if (args.includes('--newtimetable')) {
+        console.log("Using new timetable");
+        mainWindow.webContents.once('did-finish-load', () => {
+            mainWindow.webContents.send('renderer:useNewTable', true);
+        });
+    }
+    else if(!args.includes('--newtimetable')) {
+	console.log("Using old timetable");
+        mainWindow.webContents.once('did-finish-load', () => {
+            mainWindow.webContents.send('renderer:useNewTable', false);
+        });
+    }
 }
 
 app.on('ready', () => {

@@ -1,12 +1,13 @@
 {
     "name": "bUntis",
     "productName": "bUntis",
-    "version": "0.216.0",
+    "version": "0.219.0",
     "description": "A free and full featured webuntis desktop client.",
     "type": "module",
     "main": "./code/main.js",
     "scripts": {
         "start": "electron .",
+	"startNewTimeTable": "electron . --newtimetable",
         "postinstall": "electron-builder install-app-deps",
         "pack": "electron-builder --dir",
         "upgrade": "ncu -u",
@@ -27,7 +28,7 @@
         "electron-squirrel-startup": "^1.0.1",
         "electron-store": "^10.0.1",
         "module": "^1.2.5",
-        "npm-check-updates": "^17.1.14",
+        "npm-check-updates": "^17.1.15",
         "secure-electron-store": "^4.0.3",
         "webuntis": "^2.2.1"
     },

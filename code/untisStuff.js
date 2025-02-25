@@ -2,12 +2,43 @@ const { ipcRenderer } = require('electron');
 
 import { platformClient } from './platformClient.js';
 import { utils } from './utils.js';
-import { timetable } from './table.js';
 import { homework } from './homework.js';
 import { settings } from './settings.js';
 import { inbox } from './inbox.js';
 import { absences} from './absences.js';
 import { ui } from './ui.js';
+
+ipcRenderer.on('renderer:useNewTable', async function(e, item) {
+    try {
+        if (item === true) {
+            const { timetable } = await import('./tableNew.js');
+            window.timetable = timetable;
+	    
+            loadCSS('../ui/timeTableNew.css');
+        } else {
+            const { timetable } = await import('./table.js');
+            window.timetable = timetable;
+	    
+            loadCSS('../ui/timeTable.css');
+        }
+    } catch (error) {
+        console.error('Error loading the table and / or stylesheet:', error);
+    }
+});
+
+function loadCSS(cssFile) {
+    // Remove the previous stylesheet if any
+    const existingLink = document.querySelector('link[rel="stylesheet"][href]');
+    if (existingLink) {
+        existingLink.remove();
+    }
+    
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = cssFile;
+    document.head.appendChild(link);
+}
+
 
 var mainTimeTable = document.getElementById('timeTables');
 const homeWorkTable = document.getElementById('homeWorkTable');
@@ -37,6 +68,7 @@ ipcRenderer.on('renderer:printClient', function(e, item) {
 ipcRenderer.on('renderer:parseSettings', function(e, item) {
 });
 */
+
 ipcRenderer.on('renderer:chPage', function(e, item) {
     ui.showPage(item);
 });
