@@ -1,38 +1,42 @@
 # bUntis
-A free webuntis desktop client.  
+A free WebUntis desktop client.  
 
-## How to use
-### Building from source
-- Debian-based:  ```sudo apt-get install npm ```
-- Red Hat-based:  ```sudo yum install npm ```
-- Arch Linux: ```sudo pacman -S npm ```
-- ```git clone https://codeberg.org/BiberGames/bUntis.git ```
-- ```npm install ```
-- ```npm run dist ``` or ```npm run ```
+## How to Use
 
-### How to use the prebuilt AppImage
-- Debian-based:  ```sudo apt-get install fuse libfuse2 ```
-- Red Hat-based:  ```sudo yum install fuse ```
-- Arch Linux:  ```sudo pacman -S fuse ```
-- ```chmod +x <path to appimage```
+### Building from Source
+Install `npm` via your package manager:  
+```sh
+git clone https://codeberg.org/BiberGames/bUntis.git
+cd bUntis
+npm install
+npm start  # Run the app
+npm run dist  # Build the app
+```
+
+### Using the Prebuilt AppImage
+Install `fuse` via your package manager:  
+```sh
+chmod +x <path-to-AppImage>
+./<path-to-AppImage>
+```
 
 ## Downloads
-[Linux AppImage x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-x64.zip)  
-[Linux Deb x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-deb-x64.zip)  
-[Linux Rpm x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-rpm-x64.zip)  
-[Windows x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-windows-x64.zip)  
-[Source code](https://codeberg.org/BiberGames/bUntis/archive/main.zip)  
-Extract and launch executable.  
+- [Linux AppImage x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-x64.zip)  
+- [Linux DEB x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-deb-x64.zip)  
+- [Linux RPM x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-linux-rpm-x64.zip)  
+- [Windows x64](https://nightly.link/BiberGames/bUntis/workflows/build/main/bUntis-windows-x64.zip)  
+- [Source Code](https://codeberg.org/BiberGames/bUntis/archive/main.zip)  
+
+Extract and launch the executable or install via local package manager.  
 
 ## Notice
-This software is experimantal and subject to change with future updates.
-<br>
-This project is not affiliated with Untis GmbH. Use this at your own risk.
+This software is **experimental** and subject to change in future updates.  
+This project is **not affiliated with Untis GmbH**. Use at your own risk.  
 
 ## Credits
-[Electron](https://github.com/electron/electron)  
-[Electron Builder](https://github.com/electron-userland/electron-builder)  
-[Untis API](https://github.com/SchoolUtils/WebUntis)  
-[Google Fonts](https://fonts.google.com/icons?preview.text=Welcome!&query=script&icon.set=Material+Icons)  
-[nightly](https://nightly.link/)  
-And many Stack Overflow posts  
+- [Electron](https://github.com/electron/electron)  
+- [Electron Builder](https://github.com/electron-userland/electron-builder)  
+- [Untis API](https://github.com/SchoolUtils/WebUntis)  
+- [Google Fonts](https://fonts.google.com/icons?preview.text=Welcome!&query=script&icon.set=Material+Icons)  
+- [nightly](https://nightly.link/)  
+- Many Stack Overflow posts
