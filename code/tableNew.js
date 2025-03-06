@@ -39,7 +39,6 @@ function createTimegrid(_timeGridData, _dates) {
 	let columContainer = document.createElement('div');
 	columContainer.classList.add('columContainer');
 	columContainer.id = `${_dates[element.day -2]}`;
-	// columContainer.innerHTML = _dates[element.day -2];
 	colum.appendChild(columContainer);
 	
 	timeTableContainer.appendChild(colum);
@@ -80,8 +79,7 @@ function populateTimeColum(_timeGridData) {
         div.style.position = 'absolute';
         div.style.top = `${elementStart}%`;
         div.style.height = `${elementLength}%`;
-        // div.style.backgroundColor = 'lightblue';
-	
+
 	var timeTop = document.createElement('div');
         timeTop.innerHTML = `${utils.convertUnitsTime(entry.startTime)}`;
 	timeTop.style.top = '0';
@@ -106,8 +104,7 @@ function addSubjectToTable(_div, _timeTableData) {
         text += '<br> <p class="roomChange">' + _timeTableData.substText + '</p>';
         _timeTableData.code = 'sup';
     }
-    
-    //utils.setContentInTable(global.mainTimeTable, x + 2, y + 1, text);
+
     _div.innerHTML = text;
 }
 
@@ -122,7 +119,6 @@ function addEvent(_div, _timeTableData) {
 }
 
 function populateTimeTableCollum(_timeTableData, _date) {
-    // console.log(_timeTableData);
     const timeTableColum = document.getElementById(_date);
 
     const entry = _timeTableData;
@@ -151,7 +147,7 @@ function populateTimeTableCollum(_timeTableData, _date) {
     div.style.position = 'absolute';
     div.style.top = `${elementStart}%`;
     div.style.height = `${elementLength}%`;
-    div.style.width = `17vw`;
+    div.style.width = `100vw`;
 
     timeTableColum.appendChild(div);
 }
@@ -184,34 +180,54 @@ function getWeekRange(_timeTableData) {
 
 function mergeEntries(schedule) {
     let filteredSchedule = [...schedule];
-
-    schedule.forEach(entry1 => {
-        schedule.forEach(entry2 => {
-            if (entry1 !== entry2 && entry1.date === entry2.date) { 
-                if (
-                    entry1.startTime < entry2.endTime &&
-			entry1.endTime > entry2.startTime
-                ) {
-                    if (entry1.code === "irregular" && entry1.su.length === 0 && entry1.ro.length == 0 && entry1.kl.length > 1) {
-                        filteredSchedule = filteredSchedule.filter(e => e !== entry2);
-                    } else if (entry2.code === "irregular" && entry2.su.length === 0 && entry2.ro.length == 0 && entry2.kl.length > 1) {
-                        filteredSchedule = filteredSchedule.filter(e => e !== entry1);
-                    }
-                }
-            }
-        });
-    });
+    let i = 0;
     
+    while (i < filteredSchedule.length - 1) {
+	let entry1 = filteredSchedule[i];
+	let entry2 = filteredSchedule[i + 1];
+	
+	if (entry1.date === entry2.date && entry1.startTime < entry2.endTime && entry1.endTime > entry2.startTime) {
+            if (entry1.code === "irregular" && entry1.su.length === 0 && entry1.ro.length === 0 && entry1.kl.length > 1) {
+		filteredSchedule.splice(i + 1, 1);
+		continue;
+            } else if (entry2.code === "irregular" && entry2.su.length === 0 && entry2.ro.length === 0 && entry2.kl.length > 1) {
+		filteredSchedule.splice(i, 1);
+		continue;
+            }
+	}
+	i++;
+    }
+    
+    const tableWeekDates = getWeekRange(filteredSchedule);
+    const weekDates = utils.getWeekDatesByRange(Math.min(...tableWeekDates), Math.max(...tableWeekDates));
+/*    
+    weekDates.forEach(weekDate => {
+	filteredSchedule.forEach(lesson => {
+	    console.log(weekDate + ' ' + lesson.sg);
+	});
+	console.log('---------------');
+    });
+*/  
     return filteredSchedule;
 }
 
+function updateTimeIndicator() {
+    const timeIndicator = document.getElementById('timeIndicator');
+    const startBase = 745; // remove hardcoded value!
+    const endBase = 1515;  // remove hardcoded value!
+    
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const timeIndicatorTop = timeToPercent(startBase, endBase, hours + minutes);
+    timeIndicator.style.top = `${timeIndicatorTop + 3}%`;
+}
+
 timetable.createTable = function(_timeTableData, _timeGridData, _id) {
+    console.log('Creating Table...');
+    
     var filterdTimeTableData = filterTimeTableData(_timeTableData);
     filterdTimeTableData = mergeEntries(filterdTimeTableData);
-    // console.log(filterdTimeTableData);
-
-    console.log('Creating Table...');
-
     const tableWeekDates = getWeekRange(filterdTimeTableData);
     const weekDates = utils.getWeekDatesByRange(Math.min(...tableWeekDates), Math.max(...tableWeekDates));
 
@@ -219,6 +235,13 @@ timetable.createTable = function(_timeTableData, _timeGridData, _id) {
     populateTimeColum(_timeGridData[0]);
     populateTimeTable(filterdTimeTableData, weekDates);
 
+    updateTimeIndicator();
+
+    setInterval(function() {
+	updateTimeIndicator();
+    }, 60 * 1000); // 60 * 1000 milsec
+    
+    
     console.log('Table Created...');
 }
 

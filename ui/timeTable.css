@@ -7,6 +7,10 @@
     font-size: 13px;
 }
 
+.timeIndicator {
+    display: none;
+}
+
 .TimeTable tr :nth-child(1) {
     width: 2%;
     max-width: 2%;
