@@ -1,7 +1,7 @@
 {
     "name": "bUntis",
     "productName": "bUntis",
-    "version": "0.221.0",
+    "version": "0.222.0",
     "description": "A free and full featured webuntis desktop client.",
     "type": "module",
     "main": "./code/main.js",
@@ -13,7 +13,7 @@
         "upgrade": "ncu -u",
         "dist": "electron-builder -lw"
     },
-    "author": "Benjamin (c) BenjaGames 2024 <ZrBwbXqo0I@proton.me>",
+    "author": "Benjamin | 2024 - 2025 <ZrBwbXqo0I@proton.me>",
     "homepage": "https://codeberg.org/BiberGames/bUntis",
     "license": "Ask Benjamin",
     "devDependencies": {
