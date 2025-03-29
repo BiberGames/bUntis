@@ -114,7 +114,7 @@ function addSubjectWithoutRoom(_div, _timeTableData) {
 }
 
 function addEvent(_div, _timeTableData) {
-    var text = _timeTableData.lstext;
+    var text = _timeTableData.substText;
     _div.innerHTML = text;
 }
 
@@ -220,6 +220,7 @@ function updateTimeIndicator() {
     const hours = now.getHours().toString().padStart(2, '0');
     const minutes = now.getMinutes().toString().padStart(2, '0');
     const timeIndicatorTop = timeToPercent(startBase, endBase, hours + minutes);
+
     timeIndicator.style.top = `${timeIndicatorTop + 3}%`;
 }
 
@@ -240,7 +241,6 @@ timetable.createTable = function(_timeTableData, _timeGridData, _id) {
     setInterval(function() {
 	updateTimeIndicator();
     }, 60 * 1000); // 60 * 1000 milsec
-    
     
     console.log('Table Created...');
 }

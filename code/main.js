@@ -1,7 +1,3 @@
-// main.js
-
-// Modules to control application life and create native browser window
-// Electron //
 import { app, BrowserWindow, ipcMain, Menu, shell } from 'electron';
 import electron from 'electron';
 import path from 'path';
@@ -21,14 +17,13 @@ import { authenticator } from 'otplib';
 
 const UpdatedUserDataPath = app.getPath('userData') + "/config/default";
 
-var canReload = true;
-
+var canReload = false;
 const errorWait = 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const isMac = process.platform === 'darwin'
+const isMac = process.platform === 'darwin';
 const template = [
     ...(isMac
 	? [{
@@ -151,7 +146,7 @@ const template = [
 	    }
 	]
     }
-]
+];
 
 const createWindow = () => {
     mainWindow = new BrowserWindow({
@@ -171,7 +166,9 @@ const createWindow = () => {
     
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
+}
 
+function windowArgs() {
     const args = process.argv;
     if (args.includes('--newtimetable')) {
         console.log("Using new timetable");
@@ -219,7 +216,7 @@ ipcMain.handle('server:readUserData', async (event, key) => {
 });
 
 ipcMain.handle('server:restart', async () => {
-    // if(canReload === false) return;
+    if(canReload === false) return;
 
     canReload = false;
     await mainWindow.webContents.reload();
@@ -235,14 +232,16 @@ async function getData(untisMethod, errorMessage) {
     try {
         return await untisMethod();
     } catch (e) {
-        await sendStatus(errorMessage);
+        await sendStatus(errorMessage + '<br><br>You may reload now');
         console.error(e);
         await new Promise(r => setTimeout(r, errorWait));
-        return null; // Return null or an appropriate fallback value in case of error
+	canReload = true;
+        return 'You may reload now'; // Return null or an appropriate fallback value in case of error
     }
 }
 
 async function loadServer() {
+    windowArgs();
     app.setPath('userData', UpdatedUserDataPath);
     const loginData = new Store();
     const password = loginData.get('login');
@@ -284,6 +283,7 @@ async function getWebData(loginData) {
     const absences = await getData(() => untis.getAbsentLesson(new Date(new Date().getFullYear() -1, 0, 1), new Date()), "Error Receiving Absences");
     if (!absences) return;
 
+    await sendStatus("Parsing data");
     await mainWindow.send('renderer:sessionInfo', untis.sessionInformation);
     await mainWindow.send('renderer:timegrid', timegrid);
     await mainWindow.send('renderer:timeTableInfo', timetableThisWeek);
@@ -293,7 +293,6 @@ async function getWebData(loginData) {
     await mainWindow.send('renderer:absences', absences);
     await mainWindow.send('renderer:done', 'done');
     
-    await sendStatus("Parsing data");
     await sendStatus("Logging out");
     await untis.logout();
     await sendStatus("Done");
